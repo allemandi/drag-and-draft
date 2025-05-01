@@ -30,7 +30,7 @@ export function formatOutline(sections: Section[], format: "md" | "txt" | "pdf" 
 }
 
 function formatMarkdown(sections: Section[]): string {
-  let markdown = "# Sermon Outline\n\n";
+  let markdown = "# Essay Outline\n\n";
   const now = new Date();
   markdown += `*Created: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}*\n\n`;
   markdown += "---\n\n";
@@ -63,7 +63,7 @@ function formatPdf(sections: Section[]): string {
 
   // Title
   doc.setFontSize(18);
-  doc.text("Sermon Outline", 105, yPos, { align: "center" });
+  doc.text("Essay Outline", 105, yPos, { align: "center" });
   yPos += 15;
 
   // Date
@@ -121,7 +121,7 @@ async function formatDocx(sections: Section[]): Promise<string> {
   // Title
   children.push(
     new Paragraph({
-      text: "Sermon Outline",
+      text: "Essay Outline",
       heading: HeadingLevel.HEADING_1,
       alignment: AlignmentType.CENTER,
       spacing: { after: 200 },
@@ -181,7 +181,7 @@ export async function downloadFile(content: string | Promise<string>, format: st
     url = content as string; // PDF returns base64 string
     const a = document.createElement("a");
     a.href = url;
-    a.download = filename || `sermon-outline-${new Date().toISOString().split("T")[0]}.pdf`;
+    a.download = filename || `essay-outline-${new Date().toISOString().split("T")[0]}.pdf`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -190,7 +190,7 @@ export async function downloadFile(content: string | Promise<string>, format: st
     url = await (content as Promise<string>); // DOCX resolves to blob URL
     const a = document.createElement("a");
     a.href = url;
-    a.download = filename || `sermon-outline-${new Date().toISOString().split("T")[0]}.docx`;
+    a.download = filename || `essay-outline-${new Date().toISOString().split("T")[0]}.docx`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -201,7 +201,7 @@ export async function downloadFile(content: string | Promise<string>, format: st
     url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = filename || `sermon-outline-${new Date().toISOString().split("T")[0]}.${format}`;
+    a.download = filename || `essay-outline-${new Date().toISOString().split("T")[0]}.${format}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

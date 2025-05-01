@@ -17,7 +17,7 @@ export default function Footer() {
 
         <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
           <Link
-            href="https://github.com/allemandi/drag-and-preach"
+            href="https://github.com/allemandi/drag-and-draft"
             target="_blank"
             rel="noopener"
             aria-label="GitHub"
@@ -48,7 +48,7 @@ export default function Footer() {
           >
             <h2 className="text-xl font-bold mb-4">Help & Instructions</h2>
             <div className="space-y-4">
-              <p>Welcome to Drag and Preach! Here's a quick guide:</p>
+              <p>Welcome to Drag and Draft! Here's a quick guide:</p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Drag by the grip icons (⋮⋮) to reorder sections and blocks.</li>
                 <li>Click any title or textbox to edit text.</li>

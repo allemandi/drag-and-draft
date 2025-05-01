@@ -35,7 +35,7 @@ import {
 } from "@/components/ui/dialog";
 
 
-export default function SermonOutlinePlanner() {
+export default function EssayOutlinePlanner() {
   const [sections, setSections] = useState<Section[]>([])
   const [loading, setLoading] = useState(true)
   const { toast } = useToast()
@@ -88,7 +88,7 @@ export default function SermonOutlinePlanner() {
           id: "hook",
           label: "Hook / Opening Question",
           defaultLabel: "Hook / Opening Question",
-          placeholder: "Begin with bold question, statement, or story:\n'Today, we will be looking at how we are called to...'",
+          placeholder: "Begin with bold question, statement, or story:\n'When a character is strikingly alienated, society's norms...'",
           content: "",
           type: "intro",
         },
@@ -96,7 +96,7 @@ export default function SermonOutlinePlanner() {
           id: "context",
           label: "Context or Background",
           defaultLabel: "Context or Background",
-          placeholder: "Briefly introduce scriptural passage or real-world context:\n'Let me tell you a story from my life.'",
+          placeholder: "Briefly introduce context or general ideas on the topic:\n'The conditions to a qualified society for the creation of norms can be outlined in the works...'",
           content: "",
           type: "intro",
         },
@@ -105,7 +105,7 @@ export default function SermonOutlinePlanner() {
           label: "Thesis Statement (Theme)",
           defaultLabel: "Thesis Statement (Theme)",
           placeholder:
-            "Summarize the main message in one sentence:\n'The Book of Job reveals man's struggle to reconcile suffering with faith in unseen sovereignty.'",
+            "Summarize the main message in one sentence:\n'This work clearly outlines that although groups claim be legitimate society as a matter of course, the majority fail to qualify according...'",
           content: "",
           type: "intro",
         },
@@ -121,31 +121,23 @@ export default function SermonOutlinePlanner() {
           id: "body-1-topic",
           label: "Main Point / Topic Sentence",
           defaultLabel: "Main Point / Topic Sentence",
-          placeholder: "Introduce point, relate to thesis:\n'Faith is constantly challenged, and we know...'",
+          placeholder: "Introduce point, relate to thesis:\n'Legitimacy is established through indifferent qualification, not social negotiation...'",
           content: "",
           type: "body",
         },
         {
-          id: "body-1-scripture",
-          label: "Scripture",
-          defaultLabel: "Scripture",
-          placeholder: "Job 42:1–6.",
+          id: "body-1-evidence",
+          label: "Evidence",
+          defaultLabel: "Evidence",
+          placeholder: "Provide specific support (quote, paraphrase, data):\n'In the first work, the author details alienation as...'",
           content: "",
           type: "body",
         },
         {
-          id: "body-1-explanation",
-          label: "Explanation",
-          defaultLabel: "Explanation",
-          placeholder: "Unpack the meaning or lesson from the Scripture:\n'Job accepts it's okay to be...'",
-          content: "",
-          type: "body",
-        },
-        {
-          id: "body-1-application",
-          label: "Application",
-          defaultLabel: "Application",
-          placeholder: "How does this apply to today?\n'We all know that...",
+          id: "body-1-analysis",
+          label: "Analysis",
+          defaultLabel: "Analysis",
+          placeholder: "Explain how the evidence supports the argument:\n'This highlights how external perception plays a lesser role in structural...'",
           content: "",
           type: "body",
         },
@@ -153,7 +145,7 @@ export default function SermonOutlinePlanner() {
           id: "body-1-transition",
           label: "Summary Sentence",
           defaultLabel: "Summary Sentence",
-          placeholder: "Tie and transition:\n'The passage teaches us that we can only..",
+          placeholder: "Tie and transition:\n'Therefore, the backbone of legitimate society gravitates towards imponderabilia of everyday life rather than...'",
           content: "",
           type: "body",
         },
@@ -169,7 +161,7 @@ export default function SermonOutlinePlanner() {
           id: "restate-thesis",
           label: "Theme Recap",
           defaultLabel: "Theme Recap",
-          placeholder: "Reword central message clearly:\n'Through Job, we know our struggles are accompanied by choices to trust...",
+          placeholder: "Reword central message clearly:\n'While many gatherings announce themselves as society incarnate, only those that accommodate the abnormal...'",
           content: "",
           type: "conclusion",
         },
@@ -177,23 +169,23 @@ export default function SermonOutlinePlanner() {
           id: "summary",
           label: "Summary",
           defaultLabel: "Summary",
-          placeholder: "Briefly recap body sections:\n'We are challenged to live in faith, so...",
+          placeholder: "Briefly recap body sections:\n'A legitimate society resists public enthusiasm, exposes self-negotiation, and insists...'",
           content: "",
           type: "conclusion",
         },
         {
-          id: "call-to-action",
-          label: "Final Word or Challenge",
-          defaultLabel: "Final Word or Challenge",
-          placeholder: "Give something to consider and practice:\n'Today, I ask you to examine...",
+          id: "implication",
+          label: "Implication",
+          defaultLabel: "Implication",
+          placeholder: "Deepen the point without new ideas:\n'Ultimately, recognizing that most so-called societies are exercises in collective...'",
           content: "",
           type: "conclusion",
         },
         {
           id: "closing",
-          label: "Closing Prayer or Scripture",
-          defaultLabel: "Closing Prayer or Scripture",
-          placeholder: "End with prayer or passage\n'Let's end with a short passage in Colossians Chapter...",
+          label: "Closing",
+          defaultLabel: "Closing",
+          placeholder: "Leave reader with a strong final thought\n'In the end, society is less what the masses say it is, and more what endures...'",
           content: "",
           type: "conclusion",
         },
@@ -219,7 +211,7 @@ export default function SermonOutlinePlanner() {
 
     try {
       // Load data from localStorage or initialize with default sections
-      const savedOutline = localStorage.getItem("sermonOutline")
+      const savedOutline = localStorage.getItem("essayOutline")
 
       if (savedOutline) {
         setSections(JSON.parse(savedOutline))
@@ -400,31 +392,23 @@ export default function SermonOutlinePlanner() {
           id: `body-${newBodyIndex}-topic`,
           label: "Main Point / Topic Sentence",
           defaultLabel: "Main Point / Topic Sentence",
-          placeholder: "Introduce point, relate to thesis:\n'Faith is constantly challenged, and we know...'",
+          placeholder: "Introduce point, relate to thesis:\n'Legitimacy is established through indifferent qualification, not social negotiation...'",
           content: "",
           type: "body",
         },
         {
-          id: `body-${newBodyIndex}-scripture`,
-          label: "Scripture",
-          defaultLabel: "Scripture",
-          placeholder: "Job 42:1–6.",
+          id: `body-${newBodyIndex}-evidence`,
+          label: "Evidence",
+          defaultLabel: "Evidence",
+          placeholder: "Provide specific support (quote, paraphrase, data):\n'In the first work, the author details alienation as...'",
           content: "",
           type: "body",
         },
         {
-          id: `body-${newBodyIndex}-explanation`,
-          label: "Explanation",
-          defaultLabel: "Explanation",
-          placeholder: "Unpack the meaning or lesson from the Scripture:\n'Job accepts it's okay to be...'",
-          content: "",
-          type: "body",
-        },
-        {
-          id: `body-${newBodyIndex}-application`,
-          label: "Application",
-          defaultLabel: "Application",
-          placeholder: "How does this apply to today?\n'We all know that...",
+          id: `body-${newBodyIndex}-analysis`,
+          label: "Analysis",
+          defaultLabel: "Analysis",
+          placeholder: "Explain how the evidence supports the argument:\n'This highlights how external perception plays a lesser role in structural...'",
           content: "",
           type: "body",
         },
@@ -432,7 +416,7 @@ export default function SermonOutlinePlanner() {
           id: `body-${newBodyIndex}-transition`,
           label: "Summary Sentence",
           defaultLabel: "Summary Sentence",
-          placeholder: "Tie and transition:\n'The passage teaches us that we can only.",
+          placeholder: "Tie and transition:\n'Therefore, the backbone of legitimate society gravitates towards imponderabilia of everyday life rather than...'",
           content: "",
           type: "body",
         },
@@ -531,10 +515,10 @@ export default function SermonOutlinePlanner() {
   };
 
   const saveOutlineToLocalStorage = () => {
-    localStorage.setItem("sermonOutline", JSON.stringify(sections));
+    localStorage.setItem("essayOutline", JSON.stringify(sections));
     toast({
       title: "Outline Saved",
-      description: "Your sermon outline has been saved to local storage.",
+      description: "Your essay outline has been saved to local storage.",
       duration: 3000,
     })
   };
@@ -546,7 +530,7 @@ export default function SermonOutlinePlanner() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     a.href = url
-    a.download = `sermon-outline-${now.toISOString().split("T")[0]}.json`
+    a.download = `essay-outline-${now.toISOString().split("T")[0]}.json`
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)
@@ -554,7 +538,7 @@ export default function SermonOutlinePlanner() {
 
     toast({
       title: "Outline Saved",
-      description: "Your sermon outline has been downloaded as JSON.",
+      description: "Your essay outline has been downloaded as JSON.",
       duration: 3000,
     })
   }
@@ -565,7 +549,7 @@ export default function SermonOutlinePlanner() {
   const confirmResetAll = () => {
     const defaultSections = getDefaultSections();
     setSections(defaultSections);
-    localStorage.setItem("sermonOutline", JSON.stringify(defaultSections));
+    localStorage.setItem("essayOutline", JSON.stringify(defaultSections));
     setShowResetModal(false);
     toast({
       title: "Outline Reset",
@@ -599,7 +583,7 @@ export default function SermonOutlinePlanner() {
 
           toast({
             title: "Outline Loaded",
-            description: "Your sermon outline has been loaded successfully.",
+            description: "Your essay outline has been loaded successfully.",
             duration: 3000,
           })
         } else {
@@ -650,10 +634,10 @@ export default function SermonOutlinePlanner() {
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <ArrowUpDown className="h-8 w-8" />
-              <h1 className="text-3xl font-bold">Drag and Preach</h1>
+              <h1 className="text-3xl font-bold">Drag and Draft</h1>
             </div>
             <p className="text-muted-foreground">
-            Organize, structure, and export your sermons with ease.
+            Organize, structure, and export your essays with ease.
             </p>
           </div>
           <Button
