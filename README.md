@@ -1,9 +1,7 @@
-# 🎤 Drag and Preach
+# 🎤 Drag and Draft
 
-**A modern drag-and-drop sermon planner**  
-Organize, structure, and export your sermons with ease.
-
-🚀 [Netlify Live Demo](https://drag-and-preach.netlify.app/)
+**A modern drag-and-drop essay planner**  
+Organize, structure, and export your essays with ease.
 
 ## ✨ Features
 
@@ -20,8 +18,8 @@ This project was developed with the help of AI tools (e.g., GitHub Copilot, Curs
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/allemandi/drag-and-preach.git
-cd sermon-outline-planner
+git clone https://github.com/allemandi/drag-and-draft.git
+cd drag-and-draft
 yarn install
 yarn dev
 ```
