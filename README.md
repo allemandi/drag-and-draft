@@ -3,6 +3,8 @@
 **A modern drag-and-drop essay planner**  
 Organize, structure, and export your essays with ease.
 
+🚀 [Netlify Live Demo](https://drag-and-draft.netlify.app/)
+
 ## ✨ Features
 
 - **Drag-and-Drop** – Reorder sections and blocks effortlessly
