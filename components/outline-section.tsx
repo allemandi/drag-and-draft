@@ -1,12 +1,13 @@
 "use client"
+
 import { OutlineBlock } from "./outline-block"
-import type React from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { X, Plus, RefreshCw } from "lucide-react"
-import { useState, useEffect } from "react"
-import { Input } from "@/components/ui/input"
+import { EditableText } from "@/components/ui/editable-text"
 import type { Section } from "@/lib/types"
+import { cn } from "@/lib/utils"
+
 interface OutlineSectionProps {
   section: Section
   sectionIndex: number
@@ -33,113 +34,85 @@ export function OutlineSection({
   onAddBlock,
   onRemoveBlock,
 }: OutlineSectionProps) {
-  const [isEditingTitle, setIsEditingTitle] = useState(false)
-  const [titleValue, setTitleValue] = useState(section.title)
 
-  const getSectionColor = (type: string) => {
+  const getSectionStyles = (type: string) => {
     switch (type) {
       case "intro":
-        return "border-blue-500/20"
+        return "pastel-intro"
       case "body":
-        return "border-green-500/20"
+        return "pastel-body"
       case "conclusion":
-        return "border-amber-500/20"
+        return "pastel-conclusion"
       default:
-        return "border-slate-500/20"
-    }
-  }
-
-  useEffect(() => {
-    setTitleValue(section.title)
-  }, [section.title])
-
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitleValue(e.target.value)
-  }
-  const handleTitleBlur = () => {
-    onTitleChange(sectionIndex, titleValue)
-    setIsEditingTitle(false)
-  }
-
-  const handleTitleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleTitleBlur()
+        return "border-border bg-card"
     }
   }
 
   return (
-    <Card className={`shadow-lg border-2 ${getSectionColor(section.type)} backdrop-blur-sm bg-card/80`}>
-      <CardHeader className="flex flex-row items-center justify-between pb-2 pl-12">
-        <div className="flex items-center gap-2">
-          {isEditingTitle ? (
-            <div className="flex items-center gap-2">
-              <Input
-                value={titleValue}
-                onChange={handleTitleChange}
-                onBlur={handleTitleBlur}
-                onKeyDown={handleTitleKeyDown}
-                className="max-w-[200px] h-8 text-xl font-bold"
-                autoFocus
-              />
-            </div>
-          ) : (
-            <CardTitle
-              className="text-xl font-bold cursor-pointer"
-              onClick={() => setIsEditingTitle(true)}
-            >
-              {section.title}
-            </CardTitle>
-          )}
+    <Card className={cn(
+      "overflow-hidden border-2 shadow-soft transition-all duration-300",
+      getSectionStyles(section.type)
+    )}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 px-6 py-4 sm:pl-14">
+        <div className="flex items-center gap-3">
+          <EditableText
+            value={section.title}
+            onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
+            as="h2"
+            className="text-xl font-bold tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5"
+            inputClassName="text-xl font-bold h-9 w-[200px] sm:w-[300px]"
+          />
         </div>
 
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex items-center gap-1.5">
           <Button
             variant="ghost"
-            size="sm"
-            onClick={(e) => {
-              e.stopPropagation();
-              onResetTitle(sectionIndex);
-            }}
-            className="h-8 px-2 sm:px-3 text-xs hover:bg-muted"
+            size="icon"
+            onClick={() => onResetTitle(sectionIndex)}
+            className="h-8 w-8 text-muted-foreground hover:bg-black/5 dark:hover:bg-white/5"
+            title="Reset Title"
           >
-            <span className="hidden sm:inline">Reset Title</span>
-            <RefreshCw className="h-3.5 w-3.5 sm:ml-1" />
+            <RefreshCw className="h-4 w-4" />
           </Button>
+
           <Button
-            variant="outline"
+            variant="secondary"
             size="sm"
             onClick={onAddBlock}
-            className="h-8 px-2 sm:px-3 text-xs hover:bg-muted/50"
+            className="h-8 gap-1.5 px-3 text-xs font-semibold shadow-sm"
           >
+            <Plus className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Add Block</span>
-            <Plus className="h-3.5 w-3.5 sm:ml-1" />
           </Button>
+
           {section.type === "body" && (
             <Button
               variant="ghost"
               size="icon"
               onClick={onRemoveSection}
-              className="h-8 w-8 rounded-full hover:bg-destructive/10 hover:text-destructive"
+              className="h-8 w-8 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+              title="Remove Section"
             >
               <X className="h-4 w-4" />
-              <span className="sr-only">Remove section</span>
             </Button>
           )}
         </div>
       </CardHeader>
-      <CardContent className="space-y-3 pt-0">
-        {section.blocks.map((block, blockIndex) => (
-          <OutlineBlock
-            key={block.id}
-            block={block}
-            onChange={(newContent) => onContentChange(sectionIndex, blockIndex, newContent)}
-            onLabelChange={(newLabel) => onLabelChange(sectionIndex, blockIndex, newLabel)}
-            onResetLabel={() => onResetLabel(sectionIndex, blockIndex)}
-            onRemoveBlock={() => onRemoveBlock(blockIndex)}
-            showRemoveButton={section.blocks.length > 1}
-          />
-        ))}
+
+      <CardContent className="space-y-4 px-6 pb-6 pt-0">
+        <div className="grid gap-4">
+          {section.blocks.map((block, blockIndex) => (
+            <OutlineBlock
+              key={block.id}
+              block={block}
+              onChange={(newContent) => onContentChange(sectionIndex, blockIndex, newContent)}
+              onLabelChange={(newLabel) => onLabelChange(sectionIndex, blockIndex, newLabel)}
+              onResetLabel={() => onResetLabel(sectionIndex, blockIndex)}
+              onRemoveBlock={() => onRemoveBlock(blockIndex)}
+              showRemoveButton={section.blocks.length > 1}
+            />
+          ))}
+        </div>
       </CardContent>
     </Card>
   )
