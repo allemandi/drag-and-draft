@@ -4,8 +4,15 @@ import { Inter } from "next/font/google"
 import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/theme-provider"
 import Favicon from "@/components/ui/favicon"
+import type { Metadata } from "next"
 
 const inter = Inter({ subsets: ["latin"] })
+
+export const metadata: Metadata = {
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
+}
 
 export default function RootLayout({
   children,
