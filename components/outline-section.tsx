@@ -50,38 +50,38 @@ export function OutlineSection({
 
   return (
     <Card className={cn(
-      "overflow-hidden border-2 shadow-soft transition-all duration-300",
+      "overflow-hidden border shadow-soft transition-all duration-300",
       getSectionStyles(section.type)
     )}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 px-6 py-4 sm:pl-14">
-        <div className="flex items-center gap-3">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 py-3 sm:pl-12">
+        <div className="flex items-center gap-2">
           <EditableText
             value={section.title}
             onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
             as="h2"
-            className="text-xl font-bold tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5"
-            inputClassName="text-xl font-bold h-9 w-[200px] sm:w-[300px]"
+            className="text-lg font-bold tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5"
+            inputClassName="text-lg font-bold h-8 w-[180px] sm:w-[250px]"
           />
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => onResetTitle(sectionIndex)}
-            className="h-8 w-8 text-muted-foreground hover:bg-black/5 dark:hover:bg-white/5"
+            className="h-7 w-7 text-muted-foreground/60 hover:bg-black/5 dark:hover:bg-white/5"
             title="Reset Title"
           >
-            <RefreshCw className="h-4 w-4" />
+            <RefreshCw className="h-3.5 w-3.5" />
           </Button>
 
           <Button
             variant="secondary"
             size="sm"
             onClick={onAddBlock}
-            className="h-8 gap-1.5 px-3 text-xs font-semibold shadow-sm"
+            className="h-7 gap-1 px-2.5 text-[11px] font-bold shadow-sm rounded-lg"
           >
-            <Plus className="h-3.5 w-3.5" />
+            <Plus className="h-3 w-3" />
             <span className="hidden sm:inline">Add Block</span>
           </Button>
 
@@ -90,17 +90,17 @@ export function OutlineSection({
               variant="ghost"
               size="icon"
               onClick={onRemoveSection}
-              className="h-8 w-8 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+              className="h-7 w-7 text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive"
               title="Remove Section"
             >
-              <X className="h-4 w-4" />
+              <X className="h-3.5 w-3.5" />
             </Button>
           )}
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4 px-6 pb-6 pt-0">
-        <div className="grid gap-4">
+      <CardContent className="space-y-3 px-4 pb-4 pt-0">
+        <div className="grid gap-3">
           {section.blocks.map((block, blockIndex) => (
             <OutlineBlock
               key={block.id}

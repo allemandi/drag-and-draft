@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useMemo } from "react"
+import { useState, useCallback } from "react"
 import type { Section, OutlineBlock } from "@/lib/types"
 import { generateId } from "@/lib/utils"
 import { arrayMove } from "@dnd-kit/sortable"
@@ -144,6 +144,15 @@ export function useOutline() {
     localStorage.setItem("essayOutline", JSON.stringify(newSections))
   }, [])
 
+  const saveToLocalStorage = useCallback((data: Section[]) => {
+    localStorage.setItem("essayOutline", JSON.stringify(data));
+    toast({
+      title: "Outline Saved",
+      description: "Your essay outline has been saved to local storage.",
+      duration: 3000,
+    })
+  }, [toast]);
+
   const handleContentChange = useCallback((sectionIndex: number, blockIndex: number, content: string) => {
     setSections(prev => {
       const newSections = prev.map((section, i) =>
@@ -179,15 +188,6 @@ export function useOutline() {
       return newSections
     })
   }, [toast])
-
-  const saveToLocalStorage = useCallback((data: Section[]) => {
-    localStorage.setItem("essayOutline", JSON.stringify(data));
-    toast({
-      title: "Outline Saved",
-      description: "Your essay outline has been saved to local storage.",
-      duration: 3000,
-    })
-  }, [toast]);
 
   const handleTitleChange = useCallback((sectionIndex: number, newTitle: string) => {
     setSections(prev => {

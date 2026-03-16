@@ -27,7 +27,7 @@ export function SortableSection({ id, children }: SortableSectionProps) {
   return (
     <div ref={setNodeRef} style={style} className="relative">
       <div
-        className="absolute top-6 left-4 cursor-grab p-1.5 rounded-lg text-muted-foreground/50 transition-colors hover:bg-accent hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring z-10"
+        className="absolute top-4.5 left-3.5 cursor-grab p-1 rounded text-muted-foreground/30 transition-colors hover:bg-accent hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring z-10"
         {...attributes}
         {...listeners}
         data-drag-handle
@@ -36,7 +36,7 @@ export function SortableSection({ id, children }: SortableSectionProps) {
         role="button"
         style={{ touchAction: "none" }}
       >
-        <GripVertical className="h-5 w-5" />
+        <GripVertical className="h-4 w-4" />
       </div>
       {children}
     </div>

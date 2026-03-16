@@ -19,54 +19,50 @@ export function ExportModal({ onExport }: ExportModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="rounded-xl">
-          <Download className="h-4 w-4 sm:mr-2" />
+        <Button variant="outline" size="sm" className="rounded-lg font-bold text-xs">
+          <Download className="h-3.5 w-3.5 sm:mr-1.5" />
           <span>Export</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="rounded-3xl">
+      <DialogContent className="rounded-2xl sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Export Outline</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-xl font-black">Export Outline</DialogTitle>
+          <DialogDescription className="text-sm font-medium">
             Choose your preferred format to download your essay outline.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+        <div className="grid grid-cols-2 gap-2 mt-4">
           <Button
             onClick={() => onExport("pdf")}
             variant="outline"
-            className="h-20 flex-col items-start rounded-2xl p-4 transition-all hover:bg-primary/5 hover:border-primary/30"
+            className="h-16 flex-col items-center justify-center rounded-xl p-2 transition-all hover:bg-primary/[0.03] hover:border-primary/20"
           >
-            <FileText className="h-5 w-5 mb-2 text-red-500" />
-            <span className="font-bold">PDF</span>
-            <span className="text-[10px] text-muted-foreground">Standard Document</span>
+            <FileText className="h-4 w-4 mb-1 text-red-500/80" />
+            <span className="text-[11px] font-black">PDF</span>
           </Button>
           <Button
             onClick={() => onExport("docx")}
             variant="outline"
-            className="h-20 flex-col items-start rounded-2xl p-4 transition-all hover:bg-primary/5 hover:border-primary/30"
+            className="h-16 flex-col items-center justify-center rounded-xl p-2 transition-all hover:bg-primary/[0.03] hover:border-primary/20"
           >
-            <FileCode2 className="h-5 w-5 mb-2 text-blue-500" />
-            <span className="font-bold">Word</span>
-            <span className="text-[10px] text-muted-foreground">DOCX Format</span>
+            <FileCode2 className="h-4 w-4 mb-1 text-blue-500/80" />
+            <span className="text-[11px] font-black">Word</span>
           </Button>
           <Button
             onClick={() => onExport("txt")}
             variant="outline"
-            className="h-20 flex-col items-start rounded-2xl p-4 transition-all hover:bg-primary/5 hover:border-primary/30"
+            className="h-16 flex-col items-center justify-center rounded-xl p-2 transition-all hover:bg-primary/[0.03] hover:border-primary/20"
           >
-            <FileArchive className="h-5 w-5 mb-2 text-slate-500" />
-            <span className="font-bold">Text</span>
-            <span className="text-[10px] text-muted-foreground">Plain Text TXT</span>
+            <FileArchive className="h-4 w-4 mb-1 text-slate-500/80" />
+            <span className="text-[11px] font-black">Text</span>
           </Button>
           <Button
             onClick={() => onExport("md")}
             variant="outline"
-            className="h-20 flex-col items-start rounded-2xl p-4 transition-all hover:bg-primary/5 hover:border-primary/30"
+            className="h-16 flex-col items-center justify-center rounded-xl p-2 transition-all hover:bg-primary/[0.03] hover:border-primary/20"
           >
-            <FileCode2 className="h-5 w-5 mb-2 text-emerald-500" />
-            <span className="font-bold">Markdown</span>
-            <span className="text-[10px] text-muted-foreground">Rich Formatting</span>
+            <FileCode2 className="h-4 w-4 mb-1 text-emerald-500/80" />
+            <span className="text-[11px] font-black">Markdown</span>
           </Button>
         </div>
       </DialogContent>

@@ -9,7 +9,7 @@ test('loading and saving work via localStorage', async ({ page }) => {
   const firstBlock = page.getByText(/Begin with bold question/i).first();
   await firstBlock.click();
 
-  const textarea = page.getByPlaceholder(/Begin with bold question/i).first();
+  const textarea = page.locator('textarea').first();
   await textarea.fill('Updated content for testing');
   await textarea.blur();
 
@@ -37,7 +37,7 @@ test('exporting works', async ({ page }) => {
 
   // Trigger a download (e.g., TXT)
   const downloadPromise = page.waitForEvent('download');
-  await page.getByRole('button', { name: /plain text/i }).click();
+  await page.getByRole('button', { name: /text/i }).click();
   const download = await downloadPromise;
 
   expect(download.suggestedFilename()).toContain('.txt');

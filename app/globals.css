@@ -25,7 +25,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 10px -2px rgba(0, 0, 0, 0.05);
+  --shadow-soft: 0 2px 12px -2px rgba(0, 0, 0, 0.04), 0 1px 6px -2px rgba(0, 0, 0, 0.03);
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
@@ -42,83 +42,83 @@
 
 @layer base {
   :root {
-    /* Refined Pastel Light Theme */
-    --background: 240 20% 98%; /* Very light lavender-grey */
-    --foreground: 240 10% 10%;
+    /* Sleek Pastel Light Theme */
+    --background: 240 20% 99%;
+    --foreground: 240 10% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 10%;
+    --card-foreground: 240 10% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 10%;
+    --popover-foreground: 240 10% 12%;
 
-    --primary: 240 5% 25%; /* Soft Charcoal */
+    --primary: 240 5% 30%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 240 10% 94%;
-    --secondary-foreground: 240 10% 10%;
+    --secondary: 240 10% 96%;
+    --secondary-foreground: 240 10% 12%;
 
-    --muted: 240 10% 96%;
-    --muted-foreground: 240 5% 45%;
+    --muted: 240 10% 97%;
+    --muted-foreground: 240 5% 50%;
 
-    --accent: 210 40% 96.1%;
+    --accent: 210 40% 98%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 70% 60%; /* Soft Rose/Red */
+    --destructive: 0 75% 65%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 10% 90%;
-    --input: 240 10% 90%;
-    --ring: 240 5% 25%;
+    --border: 240 10% 93%;
+    --input: 240 10% 93%;
+    --ring: 240 5% 30%;
 
-    --radius: 0.75rem;
+    --radius: 0.6rem;
 
     /* Section Specific Pastels - Light */
-    --intro-bg: 210 100% 97%;
-    --intro-border: 210 100% 90%;
-    --body-bg: 145 100% 97%;
-    --body-border: 145 100% 90%;
-    --conclusion-bg: 35 100% 97%;
-    --conclusion-border: 35 100% 90%;
+    --intro-bg: 210 100% 98.5%;
+    --intro-border: 210 100% 94%;
+    --body-bg: 145 100% 98.5%;
+    --body-border: 145 100% 94%;
+    --conclusion-bg: 35 100% 98.5%;
+    --conclusion-border: 35 100% 94%;
   }
 
   .dark {
-    /* Refined Dark Theme */
-    --background: 240 10% 4%; /* Near black */
-    --foreground: 0 0% 98%;
+    /* Sleek Dark Theme - Lighter background */
+    --background: 240 10% 10%; /* Dark grey instead of black */
+    --foreground: 0 0% 95%;
 
-    --card: 240 10% 6%;
-    --card-foreground: 0 0% 98%;
+    --card: 240 10% 12%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 240 10% 6%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 240 10% 12%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 10% 4%;
+    --primary: 0 0% 90%;
+    --primary-foreground: 240 10% 10%;
 
-    --secondary: 240 5% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 240 5% 18%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 240 5% 12%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 240 5% 15%;
+    --muted-foreground: 240 5% 60%;
 
-    --accent: 240 5% 15%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 240 5% 18%;
+    --accent-foreground: 0 0% 95%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 65% 45%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5% 15%;
-    --input: 240 5% 15%;
-    --ring: 240 5% 85%;
+    --border: 240 5% 20%;
+    --input: 240 5% 20%;
+    --ring: 240 5% 80%;
 
     /* Section Specific Pastels - Dark */
-    --intro-bg: 210 40% 10%;
-    --intro-border: 210 40% 20%;
-    --body-bg: 145 40% 10%;
-    --body-border: 145 40% 20%;
-    --conclusion-bg: 35 40% 10%;
-    --conclusion-border: 35 40% 20%;
+    --intro-bg: 210 30% 14%;
+    --intro-border: 210 30% 22%;
+    --body-bg: 145 30% 14%;
+    --body-border: 145 30% 22%;
+    --conclusion-bg: 35 30% 14%;
+    --conclusion-border: 35 30% 22%;
   }
 }
 
@@ -127,7 +127,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground selection:bg-primary/10 transition-colors duration-300;
+    @apply bg-background text-foreground selection:bg-primary/10 transition-colors duration-200 antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }

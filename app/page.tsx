@@ -15,7 +15,7 @@ import { restrictToVerticalAxis, restrictToParentElement } from "@dnd-kit/modifi
 import { OutlineSection } from "@/components/outline-section"
 import { SortableSection } from "@/components/sortable-section"
 import { Button } from "@/components/ui/button"
-import { Layout, Save, Plus, Moon, Sun, RefreshCw } from "lucide-react"
+import { Layout, Save, Plus, Moon, Sun, RefreshCw, Database, Download } from "lucide-react"
 import { useTheme } from "next-themes"
 import Footer from "@/components/footer"
 import { formatOutline, downloadFile } from "@/lib/utils"
@@ -120,41 +120,41 @@ export default function EssayOutlinePlanner() {
 
   return (
     <div className="min-h-screen bg-background selection:bg-primary/10">
-      <div className="container mx-auto max-w-5xl px-4 py-12 pb-32">
-        <header className="mb-16">
-          <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-end">
-            <div className="space-y-3 text-center sm:text-left">
-              <div className="flex items-center justify-center gap-3 sm:justify-start">
-                <div className="rounded-2xl bg-primary p-2 text-primary-foreground shadow-lg">
-                  <Layout className="h-8 w-8" />
+      <div className="container mx-auto max-w-4xl px-4 py-10 pb-24">
+        <header className="mb-12">
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end">
+            <div className="space-y-2 text-center sm:text-left">
+              <div className="flex items-center justify-center gap-2.5 sm:justify-start">
+                <div className="rounded-xl bg-primary p-2 text-primary-foreground shadow-sm">
+                  <Layout className="h-6 w-6" />
                 </div>
-                <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+                <h1 className="text-3xl font-black tracking-tight sm:text-4xl">
                   Drag & Draft
                 </h1>
               </div>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-sm font-medium text-muted-foreground/80">
                 Craft your narrative with precision and ease.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 rounded-2xl bg-card p-1.5 shadow-soft border border-border/50">
+            <div className="flex items-center gap-1.5 rounded-xl bg-card p-1 shadow-soft border border-border/40">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="h-10 w-10 rounded-xl"
+                className="h-9 w-9 rounded-lg"
               >
-                {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+                {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
               </Button>
-              <div className="h-6 w-px bg-border/50 mx-1" />
-              <Button onClick={handleSave} className="h-10 px-5 rounded-xl shadow-sm">
-                <Save className="mr-2 h-4 w-4" />
+              <div className="h-5 w-px bg-border/40 mx-0.5" />
+              <Button onClick={handleSave} className="h-9 px-4 rounded-lg shadow-sm font-bold text-xs">
+                <Save className="mr-2 h-3.5 w-3.5" />
                 Save
               </Button>
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
             <BackupModal
               onDownload={handleBackupDownload}
               onUpload={() => fileInputRef.current?.click()}
@@ -162,10 +162,11 @@ export default function EssayOutlinePlanner() {
             <ExportModal onExport={handleExport} />
             <Button
               variant="outline"
+              size="sm"
               onClick={() => setShowResetModal(true)}
-              className="rounded-xl border-destructive/20 text-destructive hover:bg-destructive/10 hover:border-destructive/30"
+              className="rounded-lg border-destructive/10 text-destructive/80 hover:bg-destructive/5 hover:border-destructive/20 text-xs font-bold"
             >
-              <RefreshCw className="mr-2 h-4 w-4" />
+              <RefreshCw className="mr-1.5 h-3.5 w-3.5" />
               Reset All
             </Button>
             <input
@@ -178,7 +179,7 @@ export default function EssayOutlinePlanner() {
           </div>
         </header>
 
-        <main className="space-y-12">
+        <main className="space-y-8">
           {/* Introduction */}
           {sections[0]?.type === "intro" && (
             <DndContext
@@ -208,7 +209,7 @@ export default function EssayOutlinePlanner() {
           {/* Body Sections */}
           <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleSectionDragEnd}>
             <SortableContext items={bodySectionIds} strategy={verticalListSortingStrategy}>
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {sections.map((section, idx) => {
                   if (section.type !== "body") return null
                   return (
@@ -242,13 +243,13 @@ export default function EssayOutlinePlanner() {
             </SortableContext>
           </DndContext>
 
-          <div className="flex justify-center pt-4">
+          <div className="flex justify-center pt-2">
             <Button
               onClick={addBodySection}
-              size="lg"
-              className="h-16 rounded-2xl border-2 border-dashed border-primary/20 bg-primary/5 px-10 text-lg font-semibold text-primary hover:bg-primary/10 hover:border-primary/40 transition-all shadow-none"
+              variant="outline"
+              className="h-12 w-full max-w-md rounded-xl border-dashed border-primary/20 bg-primary/[0.02] text-sm font-bold text-primary/70 hover:bg-primary/[0.05] hover:border-primary/40 transition-all"
             >
-              <Plus className="mr-3 h-6 w-6" />
+              <Plus className="mr-2 h-4 w-4" />
               Add Body Section
             </Button>
           </div>
@@ -284,15 +285,15 @@ export default function EssayOutlinePlanner() {
       </div>
 
       <Dialog open={showResetModal} onOpenChange={setShowResetModal}>
-        <DialogContent className="rounded-3xl sm:max-w-md">
+        <DialogContent className="rounded-2xl sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Reset everything?</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-xl font-black">Reset everything?</DialogTitle>
+            <DialogDescription className="text-sm font-medium">
               This will clear your current outline and restore the default template. This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="mt-6 flex gap-2 sm:justify-end">
-            <Button variant="ghost" onClick={() => setShowResetModal(false)} className="rounded-xl">
+            <Button variant="ghost" onClick={() => setShowResetModal(false)} className="rounded-lg text-xs font-bold">
               Cancel
             </Button>
             <Button
@@ -301,7 +302,7 @@ export default function EssayOutlinePlanner() {
                 resetAll()
                 setShowResetModal(false)
               }}
-              className="rounded-xl px-8"
+              className="rounded-lg px-6 text-xs font-bold"
             >
               Reset
             </Button>
