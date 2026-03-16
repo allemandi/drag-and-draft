@@ -8,11 +8,7 @@ import type { Metadata } from "next"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
-  },
-}
+export const metadata: Metadata = {}
 
 export default function RootLayout({
   children,

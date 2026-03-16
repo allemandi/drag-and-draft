@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
+  trailingSlash: true,
   reactStrictMode: true,
   compress: true, // Enables gzip/brotli compression
   devIndicators: false,

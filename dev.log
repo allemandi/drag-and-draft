@@ -1,0 +1,13 @@
+yarn run v1.22.22
+$ next dev
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Experiments (use with caution):
+  ✓ optimizeCss
+  ✓ scrollRestoration
+
+✓ Starting...
+✓ Ready in 756ms
+○ Compiling / ...
+ GET / 200 in 13.0s (compile: 11.1s, render: 1860ms)
