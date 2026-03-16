@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { useState } from "react";
 
@@ -32,23 +33,32 @@ export function BackupModal({ onDownload, onUpload }: BackupModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="flex-1 sm:flex-none bg-green-500 hover:bg-green-600 text-white">
+        <Button variant="outline" className="rounded-xl">
           <Database className="h-4 w-4 sm:mr-2" />
           <span>Backup</span>
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="rounded-3xl">
         <DialogHeader>
-          <DialogTitle>Backup Options</DialogTitle>
+          <DialogTitle>Backup & Restore</DialogTitle>
+          <DialogDescription>
+            Download your current outline to a file or upload a previously saved backup.
+          </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-4 mt-4">
-          <Button onClick={handleDownload} variant="outline" className="w-full">
-            <Download className="h-4 w-4 mr-2" />
-            Download Backup
+        <div className="flex flex-col gap-3 mt-4">
+          <Button onClick={handleDownload} variant="default" className="w-full justify-start rounded-xl h-14 px-6">
+            <Download className="h-5 w-5 mr-3" />
+            <div className="flex flex-col items-start">
+              <span className="font-bold">Download Backup</span>
+              <span className="text-xs font-normal opacity-80 text-left">Save your work as a JSON file</span>
+            </div>
           </Button>
-          <Button onClick={handleUpload} variant="outline" className="w-full">
-            <Upload className="h-4 w-4 mr-2" />
-            Load Backup
+          <Button onClick={handleUpload} variant="outline" className="w-full justify-start rounded-xl h-14 px-6">
+            <Upload className="h-5 w-5 mr-3" />
+            <div className="flex flex-col items-start">
+              <span className="font-bold">Load Backup</span>
+              <span className="text-xs font-normal text-muted-foreground text-left">Restore from a JSON file</span>
+            </div>
           </Button>
         </div>
       </DialogContent>

@@ -20,14 +20,14 @@ export function SortableSection({ id, children }: SortableSectionProps) {
     transition: 'opacity 100ms ease',
     opacity: isDragging ? 0.5 : 1,
     position: "relative" as const,
-    zIndex: isDragging ? 1 : 0,
+    zIndex: isDragging ? 50 : 0,
     whiteSpace: 'pre-line',
   }
 
   return (
     <div ref={setNodeRef} style={style} className="relative">
       <div
-        className="absolute top-4 left-4 cursor-grab p-1 rounded hover:bg-muted z-10"
+        className="absolute top-6 left-4 cursor-grab p-1.5 rounded-lg text-muted-foreground/50 transition-colors hover:bg-accent hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring z-10"
         {...attributes}
         {...listeners}
         data-drag-handle
@@ -36,7 +36,7 @@ export function SortableSection({ id, children }: SortableSectionProps) {
         role="button"
         style={{ touchAction: "none" }}
       >
-        <GripVertical className="h-5 w-5 text-muted-foreground" />
+        <GripVertical className="h-5 w-5" />
       </div>
       {children}
     </div>
