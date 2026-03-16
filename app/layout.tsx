@@ -10,9 +10,9 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Drag and Draft | Modern Drag-and-Drop Essay Planner",
-  description: "Organize, structure, and export your essays with ease. A powerful drag-and-drop tool for students and writers to build better essay outlines.",
+  description: "Organize, structure, and export your essays with ease. A simple drag-and-drop tool for students and writers to build better essay outlines.",
   keywords: ["essay planner", "drag and drop", "writing tool", "essay structure", "academic writing", "outline builder", "productivity"],
-  authors: [{ name: "Drag and Draft Team" }],
+  authors: [{ name: "allemandi" }],
   openGraph: {
     title: "Drag and Draft | Modern Drag-and-Drop Essay Planner",
     description: "Organize, structure, and export your essays with ease.",
