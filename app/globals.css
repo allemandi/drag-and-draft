@@ -93,32 +93,32 @@
     --popover: 240 20% 13%;
     --popover-foreground: 240 20% 92%;
 
-    --primary: 230 40% 70%; /* Soft Indigo for dark mode */
+    --primary: 230 40% 75%; /* Lighter Indigo for dark mode */
     --primary-foreground: 230 40% 10%;
 
-    --secondary: 160 20% 20%;
+    --secondary: 160 20% 25%;
     --secondary-foreground: 160 40% 90%;
 
-    --muted: 240 15% 18%;
-    --muted-foreground: 240 10% 70%;
+    --muted: 240 15% 22%;
+    --muted-foreground: 240 10% 80%; /* Much lighter placeholder/muted text */
 
-    --accent: 40 30% 20%;
+    --accent: 40 30% 25%;
     --accent-foreground: 40 50% 90%;
 
-    --destructive: 0 50% 45%;
+    --destructive: 0 50% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 15% 20%;
-    --input: 240 15% 20%;
-    --ring: 230 40% 70%;
+    --border: 240 15% 30%; /* Lighter border for contrast */
+    --input: 240 15% 30%;
+    --ring: 230 40% 75%;
 
-    /* Section Specific Pastels - Warm Muted Dark */
-    --intro-bg: 210 25% 18%;
-    --intro-border: 210 20% 25%;
-    --body-bg: 120 20% 16%;
-    --body-border: 120 15% 23%;
-    --conclusion-bg: 20 25% 18%;
-    --conclusion-border: 20 20% 25%;
+    /* Section Specific Pastels - Warmer Lighter Muted Dark */
+    --intro-bg: 210 30% 22%;
+    --intro-border: 210 25% 35%;
+    --body-bg: 120 20% 20%;
+    --body-border: 120 20% 32%;
+    --conclusion-bg: 20 30% 22%;
+    --conclusion-border: 20 25% 35%;
   }
 }
 

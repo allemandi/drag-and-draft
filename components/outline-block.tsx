@@ -99,7 +99,7 @@ export function OutlineBlock({
               onChange={onLabelChange}
               as="label"
               className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80"
-              inputClassName="text-[10px] font-black uppercase tracking-[0.2em] h-5 w-auto"
+              inputClassName="text-[10px] font-black uppercase tracking-[0.2em] h-5 w-full"
             />
 
             <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">

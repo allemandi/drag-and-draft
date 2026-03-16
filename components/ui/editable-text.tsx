@@ -31,7 +31,6 @@ export function EditableText({
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus()
-      inputRef.current.select()
     }
   }, [isEditing])
 

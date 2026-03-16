@@ -60,7 +60,7 @@ export function OutlineSection({
             onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
             as="h2"
             className="text-xl font-black tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5 px-2 py-1 rounded-md transition-colors"
-            inputClassName="text-xl font-black h-9 w-[200px] sm:w-[300px]"
+            inputClassName="text-xl font-black h-9 w-full"
           />
         </div>
 
