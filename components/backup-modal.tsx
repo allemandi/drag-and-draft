@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { useState } from "react";
 
@@ -32,23 +33,32 @@ export function BackupModal({ onDownload, onUpload }: BackupModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="flex-1 sm:flex-none bg-green-500 hover:bg-green-600 text-white">
-          <Database className="h-4 w-4 sm:mr-2" />
+        <Button variant="outline" size="sm" className="rounded-lg font-bold text-xs">
+          <Database className="h-3.5 w-3.5 sm:mr-1.5" />
           <span>Backup</span>
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="rounded-2xl sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Backup Options</DialogTitle>
+          <DialogTitle className="text-xl font-black">Backup & Restore</DialogTitle>
+          <DialogDescription className="text-sm font-medium">
+            Download your current outline to a file or upload a previously saved backup.
+          </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-4 mt-4">
-          <Button onClick={handleDownload} variant="outline" className="w-full">
-            <Download className="h-4 w-4 mr-2" />
-            Download Backup
+        <div className="flex flex-col gap-2 mt-4">
+          <Button onClick={handleDownload} variant="default" className="w-full justify-start rounded-xl h-12 px-5">
+            <Download className="h-4 w-4 mr-3" />
+            <div className="flex flex-col items-start">
+              <span className="text-xs font-black">Download Backup</span>
+              <span className="text-[10px] font-medium opacity-70">Save as JSON file</span>
+            </div>
           </Button>
-          <Button onClick={handleUpload} variant="outline" className="w-full">
-            <Upload className="h-4 w-4 mr-2" />
-            Load Backup
+          <Button onClick={handleUpload} variant="outline" className="w-full justify-start rounded-xl h-12 px-5">
+            <Upload className="h-4 w-4 mr-3" />
+            <div className="flex flex-col items-start">
+              <span className="text-xs font-black">Load Backup</span>
+              <span className="text-[10px] font-medium text-muted-foreground">Restore from JSON</span>
+            </div>
           </Button>
         </div>
       </DialogContent>
