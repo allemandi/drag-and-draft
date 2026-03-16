@@ -24,45 +24,45 @@ export function ExportModal({ onExport }: ExportModalProps) {
           <span>Export</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="rounded-2xl sm:max-w-md">
+      <DialogContent className="rounded-xl sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl font-black">Export Outline</DialogTitle>
+          <DialogTitle className="text-xl font-bold">Export Outline</DialogTitle>
           <DialogDescription className="text-sm font-medium">
             Choose your preferred format to download your essay outline.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-2 gap-2 mt-4">
+        <div className="grid grid-cols-2 gap-3 mt-6">
           <Button
             onClick={() => onExport("pdf")}
             variant="outline"
-            className="h-16 flex-col items-center justify-center rounded-xl p-2 transition-all hover:bg-primary/[0.03] hover:border-primary/20"
+            className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-red-500/[0.03] hover:border-red-500/20"
           >
-            <FileText className="h-4 w-4 mb-1 text-red-500/80" />
-            <span className="text-[11px] font-black">PDF</span>
+            <FileText className="h-5 w-5 mb-1.5 text-red-500/80" />
+            <span className="text-[11px] font-bold tracking-widest">PDF</span>
           </Button>
           <Button
             onClick={() => onExport("docx")}
             variant="outline"
-            className="h-16 flex-col items-center justify-center rounded-xl p-2 transition-all hover:bg-primary/[0.03] hover:border-primary/20"
+            className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-blue-500/[0.03] hover:border-blue-500/20"
           >
-            <FileCode2 className="h-4 w-4 mb-1 text-blue-500/80" />
-            <span className="text-[11px] font-black">Word</span>
+            <FileCode2 className="h-5 w-5 mb-1.5 text-blue-500/80" />
+            <span className="text-[11px] font-bold tracking-widest">WORD</span>
           </Button>
           <Button
             onClick={() => onExport("txt")}
             variant="outline"
-            className="h-16 flex-col items-center justify-center rounded-xl p-2 transition-all hover:bg-primary/[0.03] hover:border-primary/20"
+            className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-slate-500/[0.03] hover:border-slate-500/20"
           >
-            <FileArchive className="h-4 w-4 mb-1 text-slate-500/80" />
-            <span className="text-[11px] font-black">Text</span>
+            <FileArchive className="h-5 w-5 mb-1.5 text-slate-500/80" />
+            <span className="text-[11px] font-bold tracking-widest">TEXT</span>
           </Button>
           <Button
             onClick={() => onExport("md")}
             variant="outline"
-            className="h-16 flex-col items-center justify-center rounded-xl p-2 transition-all hover:bg-primary/[0.03] hover:border-primary/20"
+            className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-emerald-500/[0.03] hover:border-emerald-500/20"
           >
-            <FileCode2 className="h-4 w-4 mb-1 text-emerald-500/80" />
-            <span className="text-[11px] font-black">Markdown</span>
+            <FileCode2 className="h-5 w-5 mb-1.5 text-emerald-500/80" />
+            <span className="text-[11px] font-bold tracking-widest">MARKDOWN</span>
           </Button>
         </div>
       </DialogContent>

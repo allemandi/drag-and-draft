@@ -22,7 +22,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'yarn dev',
+    command: process.env.CI ? 'npx -y serve out' : 'yarn dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
   },

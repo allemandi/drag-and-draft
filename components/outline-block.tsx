@@ -54,16 +54,18 @@ export function OutlineBlock({
   }
 
   const getBlockStyles = (type: string, hasContent: boolean) => {
-    const base = "w-full min-h-[40px] p-2.5 rounded-lg transition-all duration-200 border border-transparent"
+    const base = "w-full min-h-[50px] p-4 rounded-xl transition-all duration-300 border-2"
+    if (!hasContent) return cn(base, "bg-muted/10 border-transparent hover:bg-muted/20 hover:border-muted/30")
+
     switch (type) {
       case "intro":
-        return cn(base, hasContent ? "bg-blue-50/40 dark:bg-blue-900/10 border-blue-100/50 dark:border-blue-900/20" : "bg-muted/20 hover:bg-muted/40")
+        return cn(base, "bg-[hsl(var(--intro-bg)/0.5)] border-[hsl(var(--intro-border)/0.8)] hover:bg-[hsl(var(--intro-bg)/0.7)]")
       case "body":
-        return cn(base, hasContent ? "bg-emerald-50/40 dark:bg-emerald-900/10 border-emerald-100/50 dark:border-emerald-900/20" : "bg-muted/20 hover:bg-muted/40")
+        return cn(base, "bg-[hsl(var(--body-bg)/0.5)] border-[hsl(var(--body-border)/0.8)] hover:bg-[hsl(var(--body-bg)/0.7)]")
       case "conclusion":
-        return cn(base, hasContent ? "bg-amber-50/40 dark:bg-amber-900/10 border-amber-100/50 dark:border-amber-900/20" : "bg-muted/20 hover:bg-muted/40")
+        return cn(base, "bg-[hsl(var(--conclusion-bg)/0.5)] border-[hsl(var(--conclusion-border)/0.8)] hover:bg-[hsl(var(--conclusion-bg)/0.7)]")
       default:
-        return cn(base, "bg-muted/20 hover:bg-muted/40")
+        return cn(base, "bg-muted/10 border-border hover:bg-muted/20")
     }
   }
 
@@ -72,15 +74,15 @@ export function OutlineBlock({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group relative rounded-lg border border-border bg-card p-3 transition-all duration-200",
-        isDragging ? "z-50 shadow-lg scale-[1.01]" : "shadow-sm hover:shadow-md"
+        "group relative rounded-2xl border-2 border-border/60 bg-card p-4 transition-all duration-300",
+        isDragging ? "z-50 shadow-xl scale-[1.02] border-primary/20" : "shadow-soft hover:shadow-md hover:border-border"
       )}
     >
-      <div className="flex items-start gap-2.5">
+      <div className="flex items-start gap-4">
         <div
           {...attributes}
           {...listeners}
-          className="mt-0.5 flex-shrink-0 cursor-grab rounded p-1 text-muted-foreground/40 transition-colors hover:bg-accent hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          className="mt-0.5 flex-shrink-0 cursor-grab rounded p-1 text-muted-foreground/30 transition-colors hover:bg-accent/50 hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           style={{ touchAction: 'none' }}
           tabIndex={0}
           role="button"
@@ -90,14 +92,14 @@ export function OutlineBlock({
           <GripVertical className="h-4 w-4" />
         </div>
 
-        <div className="flex-grow space-y-2">
+        <div className="flex-grow space-y-3">
           <div className="flex items-center justify-between">
             <EditableText
               value={block.label}
               onChange={onLabelChange}
               as="label"
-              className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 transition-colors hover:text-foreground"
-              inputClassName="text-[11px] font-bold uppercase tracking-widest h-5 w-auto"
+              className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80"
+              inputClassName="text-[10px] font-black uppercase tracking-[0.2em] h-5 w-full"
             />
 
             <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
@@ -105,7 +107,7 @@ export function OutlineBlock({
                 variant="ghost"
                 size="icon"
                 onClick={onResetLabel}
-                className="h-6 w-6 text-muted-foreground/60 hover:text-primary"
+                className="h-6 w-6 text-muted-foreground/40 hover:text-primary hover:bg-primary/5"
                 title="Reset Label"
               >
                 <RefreshCw className="h-3 w-3" />
@@ -115,7 +117,7 @@ export function OutlineBlock({
                   variant="ghost"
                   size="icon"
                   onClick={onRemoveBlock}
-                  className="h-6 w-6 text-muted-foreground/60 hover:text-destructive"
+                  className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5"
                   title="Remove Block"
                 >
                   <X className="h-3.5 w-3.5" />
@@ -133,13 +135,13 @@ export function OutlineBlock({
                 onBlur={() => setIsEditing(false)}
                 className={cn(
                   getBlockStyles(block.type, true),
-                  "focus:outline-none focus:ring-1 focus:ring-ring resize-none overflow-hidden text-sm"
+                  "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft"
                 )}
                 placeholder={block.placeholder}
               />
             ) : (
               <div
-                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-1 focus-visible:ring-ring outline-none")}
+                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 outline-none")}
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -151,11 +153,11 @@ export function OutlineBlock({
                 aria-label="Edit content"
               >
                 {block.content ? (
-                  <p className="whitespace-pre-line text-sm leading-relaxed text-foreground">
+                  <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
                     {block.content}
                   </p>
                 ) : (
-                  <p className="text-sm text-muted-foreground/60 whitespace-pre-line">
+                  <p className="text-sm text-muted-foreground/50 italic whitespace-pre-line">
                     {block.placeholder}
                   </p>
                 )}

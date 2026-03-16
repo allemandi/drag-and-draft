@@ -241,6 +241,30 @@ export function useOutline() {
             content: "",
             type: "body",
           },
+          {
+            id: `body-${newBodyIndex}-evidence`,
+            label: "Evidence",
+            defaultLabel: "Evidence",
+            placeholder: "Provide specific support (quote, paraphrase, data)...",
+            content: "",
+            type: "body",
+          },
+          {
+            id: `body-${newBodyIndex}-analysis`,
+            label: "Analysis",
+            defaultLabel: "Analysis",
+            placeholder: "Explain how the evidence supports the argument...",
+            content: "",
+            type: "body",
+          },
+          {
+            id: `body-${newBodyIndex}-transition`,
+            label: "Summary Sentence",
+            defaultLabel: "Summary Sentence",
+            placeholder: "Tie and transition...",
+            content: "",
+            type: "body",
+          },
         ],
       }
 
