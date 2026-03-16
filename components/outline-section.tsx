@@ -50,21 +50,21 @@ export function OutlineSection({
 
   return (
     <Card className={cn(
-      "overflow-hidden border shadow-soft transition-all duration-300",
+      "overflow-hidden border-2 shadow-soft transition-all duration-300",
       getSectionStyles(section.type)
     )}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 py-3 sm:pl-12">
-        <div className="flex items-center gap-2">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 px-6 py-4 sm:pl-14">
+        <div className="flex items-center gap-3">
           <EditableText
             value={section.title}
             onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
             as="h2"
-            className="text-lg font-bold tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5"
-            inputClassName="text-lg font-bold h-8 w-[180px] sm:w-[250px]"
+            className="text-xl font-black tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5 px-2 py-1 rounded-md transition-colors"
+            inputClassName="text-xl font-black h-9 w-[200px] sm:w-[300px]"
           />
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <Button
             variant="ghost"
             size="icon"
@@ -99,8 +99,8 @@ export function OutlineSection({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3 px-4 pb-4 pt-0">
-        <div className="grid gap-3">
+      <CardContent className="space-y-4 px-6 pb-6 pt-0">
+        <div className="grid gap-4">
           {section.blocks.map((block, blockIndex) => (
             <OutlineBlock
               key={block.id}

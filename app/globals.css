@@ -42,83 +42,83 @@
 
 @layer base {
   :root {
-    /* Sleek Pastel Light Theme */
-    --background: 240 20% 99%;
-    --foreground: 240 10% 12%;
+    /* Warmer Modern Pastel Light Theme */
+    --background: 30 20% 98%;
+    --foreground: 20 10% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 12%;
+    --card-foreground: 20 10% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 12%;
+    --popover-foreground: 20 10% 10%;
 
-    --primary: 240 5% 30%;
+    --primary: 25 10% 30%;
     --primary-foreground: 0 0% 98%;
 
-    --secondary: 240 10% 96%;
-    --secondary-foreground: 240 10% 12%;
+    --secondary: 30 15% 94%;
+    --secondary-foreground: 20 10% 15%;
 
-    --muted: 240 10% 97%;
-    --muted-foreground: 240 5% 50%;
+    --muted: 30 10% 96%;
+    --muted-foreground: 25 5% 45%;
 
-    --accent: 210 40% 98%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 35 40% 96%;
+    --accent-foreground: 25 15% 15%;
 
-    --destructive: 0 75% 65%;
+    --destructive: 0 70% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 10% 93%;
-    --input: 240 10% 93%;
-    --ring: 240 5% 30%;
+    --border: 30 10% 90%;
+    --input: 30 10% 90%;
+    --ring: 25 20% 40%;
 
-    --radius: 0.6rem;
+    --radius: 1rem;
 
-    /* Section Specific Pastels - Light */
-    --intro-bg: 210 100% 98.5%;
-    --intro-border: 210 100% 94%;
-    --body-bg: 145 100% 98.5%;
-    --body-border: 145 100% 94%;
-    --conclusion-bg: 35 100% 98.5%;
-    --conclusion-border: 35 100% 94%;
+    /* Section Specific Pastels - Light (Warmer) */
+    --intro-bg: 200 60% 97%;
+    --intro-border: 200 60% 92%;
+    --body-bg: 150 50% 97%;
+    --body-border: 150 50% 92%;
+    --conclusion-bg: 35 70% 97%;
+    --conclusion-border: 35 70% 92%;
   }
 
   .dark {
-    /* Sleek Dark Theme - Lighter background */
-    --background: 240 10% 10%; /* Dark grey instead of black */
-    --foreground: 0 0% 95%;
+    /* Warmer Modern Dark Theme */
+    --background: 24 10% 8%;
+    --foreground: 30 10% 94%;
 
-    --card: 240 10% 12%;
-    --card-foreground: 0 0% 95%;
+    --card: 24 10% 10%;
+    --card-foreground: 30 10% 94%;
 
-    --popover: 240 10% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 24 10% 10%;
+    --popover-foreground: 30 10% 94%;
 
-    --primary: 0 0% 90%;
-    --primary-foreground: 240 10% 10%;
+    --primary: 30 5% 90%;
+    --primary-foreground: 24 10% 10%;
 
-    --secondary: 240 5% 18%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 24 8% 16%;
+    --secondary-foreground: 30 10% 94%;
 
-    --muted: 240 5% 15%;
-    --muted-foreground: 240 5% 60%;
+    --muted: 24 8% 14%;
+    --muted-foreground: 30 5% 65%;
 
-    --accent: 240 5% 18%;
-    --accent-foreground: 0 0% 95%;
+    --accent: 24 10% 18%;
+    --accent-foreground: 30 10% 94%;
 
-    --destructive: 0 65% 45%;
+    --destructive: 0 60% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 5% 20%;
-    --input: 240 5% 20%;
-    --ring: 240 5% 80%;
+    --border: 24 8% 18%;
+    --input: 24 8% 18%;
+    --ring: 30 10% 80%;
 
-    /* Section Specific Pastels - Dark */
-    --intro-bg: 210 30% 14%;
-    --intro-border: 210 30% 22%;
-    --body-bg: 145 30% 14%;
-    --body-border: 145 30% 22%;
-    --conclusion-bg: 35 30% 14%;
-    --conclusion-border: 35 30% 22%;
+    /* Section Specific Pastels - Dark (Warmer) */
+    --intro-bg: 200 30% 12%;
+    --intro-border: 200 30% 20%;
+    --body-bg: 150 30% 12%;
+    --body-border: 150 30% 20%;
+    --conclusion-bg: 35 30% 12%;
+    --conclusion-border: 35 30% 20%;
   }
 }
 

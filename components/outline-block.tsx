@@ -54,16 +54,18 @@ export function OutlineBlock({
   }
 
   const getBlockStyles = (type: string, hasContent: boolean) => {
-    const base = "w-full min-h-[40px] p-2.5 rounded-lg transition-all duration-200 border border-transparent"
+    const base = "w-full min-h-[50px] p-4 rounded-xl transition-all duration-300 border-2"
+    if (!hasContent) return cn(base, "bg-muted/20 border-transparent hover:bg-muted/30")
+
     switch (type) {
       case "intro":
-        return cn(base, hasContent ? "bg-blue-50/40 dark:bg-blue-900/10 border-blue-100/50 dark:border-blue-900/20" : "bg-muted/20 hover:bg-muted/40")
+        return cn(base, "bg-[hsl(var(--intro-bg)/0.4)] border-[hsl(var(--intro-border)/0.5)]")
       case "body":
-        return cn(base, hasContent ? "bg-emerald-50/40 dark:bg-emerald-900/10 border-emerald-100/50 dark:border-emerald-900/20" : "bg-muted/20 hover:bg-muted/40")
+        return cn(base, "bg-[hsl(var(--body-bg)/0.4)] border-[hsl(var(--body-border)/0.5)]")
       case "conclusion":
-        return cn(base, hasContent ? "bg-amber-50/40 dark:bg-amber-900/10 border-amber-100/50 dark:border-amber-900/20" : "bg-muted/20 hover:bg-muted/40")
+        return cn(base, "bg-[hsl(var(--conclusion-bg)/0.4)] border-[hsl(var(--conclusion-border)/0.5)]")
       default:
-        return cn(base, "bg-muted/20 hover:bg-muted/40")
+        return cn(base, "bg-muted/20 border-transparent hover:bg-muted/30")
     }
   }
 
@@ -72,11 +74,11 @@ export function OutlineBlock({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group relative rounded-lg border border-border bg-card p-3 transition-all duration-200",
-        isDragging ? "z-50 shadow-lg scale-[1.01]" : "shadow-sm hover:shadow-md"
+        "group relative rounded-2xl border-2 border-border bg-card p-4 transition-all duration-300",
+        isDragging ? "z-50 shadow-xl scale-[1.02] border-primary/20" : "shadow-sm hover:shadow-lg hover:border-border/80"
       )}
     >
-      <div className="flex items-start gap-2.5">
+      <div className="flex items-start gap-4">
         <div
           {...attributes}
           {...listeners}
@@ -90,14 +92,14 @@ export function OutlineBlock({
           <GripVertical className="h-4 w-4" />
         </div>
 
-        <div className="flex-grow space-y-2">
+        <div className="flex-grow space-y-3">
           <div className="flex items-center justify-between">
             <EditableText
               value={block.label}
               onChange={onLabelChange}
               as="label"
-              className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70 transition-colors hover:text-foreground"
-              inputClassName="text-[11px] font-bold uppercase tracking-widest h-5 w-auto"
+              className="text-[11px] font-black uppercase tracking-[0.15em] text-muted-foreground/50 transition-colors hover:text-foreground/70"
+              inputClassName="text-[11px] font-black uppercase tracking-[0.15em] h-5 w-auto"
             />
 
             <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
