@@ -165,7 +165,7 @@ export default function EssayOutlinePlanner() {
               variant="outline"
               size="sm"
               onClick={() => setShowResetModal(true)}
-              className="rounded-lg border-destructive/10 text-destructive/80 hover:bg-destructive/5 hover:border-destructive/20 text-xs font-bold"
+              className="rounded-lg border-destructive/40 text-destructive hover:bg-destructive hover:text-destructive-foreground text-xs font-bold"
             >
               <RefreshCw className="mr-1.5 h-3.5 w-3.5" />
               Reset All

@@ -59,13 +59,13 @@ export function OutlineBlock({
 
     switch (type) {
       case "intro":
-        return cn(base, "bg-[hsl(var(--intro-bg)/0.3)] border-[hsl(var(--intro-border)/0.4)] hover:bg-[hsl(var(--intro-bg)/0.5)]")
+        return cn(base, "bg-[hsl(var(--intro-bg)/0.5)] border-[hsl(var(--intro-border)/0.8)] hover:bg-[hsl(var(--intro-bg)/0.7)]")
       case "body":
-        return cn(base, "bg-[hsl(var(--body-bg)/0.3)] border-[hsl(var(--body-border)/0.4)] hover:bg-[hsl(var(--body-bg)/0.5)]")
+        return cn(base, "bg-[hsl(var(--body-bg)/0.5)] border-[hsl(var(--body-border)/0.8)] hover:bg-[hsl(var(--body-bg)/0.7)]")
       case "conclusion":
-        return cn(base, "bg-[hsl(var(--conclusion-bg)/0.3)] border-[hsl(var(--conclusion-border)/0.4)] hover:bg-[hsl(var(--conclusion-bg)/0.5)]")
+        return cn(base, "bg-[hsl(var(--conclusion-bg)/0.5)] border-[hsl(var(--conclusion-border)/0.8)] hover:bg-[hsl(var(--conclusion-bg)/0.7)]")
       default:
-        return cn(base, "bg-muted/10 border-transparent hover:bg-muted/20")
+        return cn(base, "bg-muted/10 border-border hover:bg-muted/20")
     }
   }
 
@@ -98,7 +98,7 @@ export function OutlineBlock({
               value={block.label}
               onChange={onLabelChange}
               as="label"
-              className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/40 transition-colors hover:text-foreground/60"
+              className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80"
               inputClassName="text-[10px] font-black uppercase tracking-[0.2em] h-5 w-auto"
             />
 
