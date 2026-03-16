@@ -59,7 +59,7 @@ export function OutlineSection({
             value={section.title}
             onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
             as="h2"
-            className="text-xl font-black tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5 px-2 py-1 rounded-md transition-colors"
+            className="text-xl font-black tracking-tight text-foreground/80 hover:bg-black/5 dark:hover:bg-white/5 px-2 py-1 rounded-md transition-colors"
             inputClassName="text-xl font-black h-9 w-[200px] sm:w-[300px]"
           />
         </div>
@@ -69,7 +69,7 @@ export function OutlineSection({
             variant="ghost"
             size="icon"
             onClick={() => onResetTitle(sectionIndex)}
-            className="h-7 w-7 text-muted-foreground/60 hover:bg-black/5 dark:hover:bg-white/5"
+            className="h-7 w-7 text-muted-foreground/40 hover:bg-black/5 dark:hover:bg-white/5"
             title="Reset Title"
           >
             <RefreshCw className="h-3.5 w-3.5" />
@@ -79,7 +79,7 @@ export function OutlineSection({
             variant="secondary"
             size="sm"
             onClick={onAddBlock}
-            className="h-7 gap-1 px-2.5 text-[11px] font-bold shadow-sm rounded-lg"
+            className="h-8 gap-1.5 px-3 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg border-secondary-foreground/5"
           >
             <Plus className="h-3 w-3" />
             <span className="hidden sm:inline">Add Block</span>
@@ -90,7 +90,7 @@ export function OutlineSection({
               variant="ghost"
               size="icon"
               onClick={onRemoveSection}
-              className="h-7 w-7 text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive"
+              className="h-7 w-7 text-muted-foreground/30 hover:bg-destructive/10 hover:text-destructive"
               title="Remove Section"
             >
               <X className="h-3.5 w-3.5" />

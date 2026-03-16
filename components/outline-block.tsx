@@ -55,17 +55,17 @@ export function OutlineBlock({
 
   const getBlockStyles = (type: string, hasContent: boolean) => {
     const base = "w-full min-h-[50px] p-4 rounded-xl transition-all duration-300 border-2"
-    if (!hasContent) return cn(base, "bg-muted/20 border-transparent hover:bg-muted/30")
+    if (!hasContent) return cn(base, "bg-muted/10 border-transparent hover:bg-muted/20 hover:border-muted/30")
 
     switch (type) {
       case "intro":
-        return cn(base, "bg-[hsl(var(--intro-bg)/0.4)] border-[hsl(var(--intro-border)/0.5)]")
+        return cn(base, "bg-[hsl(var(--intro-bg)/0.3)] border-[hsl(var(--intro-border)/0.4)] hover:bg-[hsl(var(--intro-bg)/0.5)]")
       case "body":
-        return cn(base, "bg-[hsl(var(--body-bg)/0.4)] border-[hsl(var(--body-border)/0.5)]")
+        return cn(base, "bg-[hsl(var(--body-bg)/0.3)] border-[hsl(var(--body-border)/0.4)] hover:bg-[hsl(var(--body-bg)/0.5)]")
       case "conclusion":
-        return cn(base, "bg-[hsl(var(--conclusion-bg)/0.4)] border-[hsl(var(--conclusion-border)/0.5)]")
+        return cn(base, "bg-[hsl(var(--conclusion-bg)/0.3)] border-[hsl(var(--conclusion-border)/0.4)] hover:bg-[hsl(var(--conclusion-bg)/0.5)]")
       default:
-        return cn(base, "bg-muted/20 border-transparent hover:bg-muted/30")
+        return cn(base, "bg-muted/10 border-transparent hover:bg-muted/20")
     }
   }
 
@@ -74,15 +74,15 @@ export function OutlineBlock({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group relative rounded-2xl border-2 border-border bg-card p-4 transition-all duration-300",
-        isDragging ? "z-50 shadow-xl scale-[1.02] border-primary/20" : "shadow-sm hover:shadow-lg hover:border-border/80"
+        "group relative rounded-2xl border-2 border-border/60 bg-card p-4 transition-all duration-300",
+        isDragging ? "z-50 shadow-xl scale-[1.02] border-primary/20" : "shadow-soft hover:shadow-md hover:border-border"
       )}
     >
       <div className="flex items-start gap-4">
         <div
           {...attributes}
           {...listeners}
-          className="mt-0.5 flex-shrink-0 cursor-grab rounded p-1 text-muted-foreground/40 transition-colors hover:bg-accent hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          className="mt-0.5 flex-shrink-0 cursor-grab rounded p-1 text-muted-foreground/30 transition-colors hover:bg-accent/50 hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           style={{ touchAction: 'none' }}
           tabIndex={0}
           role="button"
@@ -98,8 +98,8 @@ export function OutlineBlock({
               value={block.label}
               onChange={onLabelChange}
               as="label"
-              className="text-[11px] font-black uppercase tracking-[0.15em] text-muted-foreground/50 transition-colors hover:text-foreground/70"
-              inputClassName="text-[11px] font-black uppercase tracking-[0.15em] h-5 w-auto"
+              className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/40 transition-colors hover:text-foreground/60"
+              inputClassName="text-[10px] font-black uppercase tracking-[0.2em] h-5 w-auto"
             />
 
             <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
@@ -107,7 +107,7 @@ export function OutlineBlock({
                 variant="ghost"
                 size="icon"
                 onClick={onResetLabel}
-                className="h-6 w-6 text-muted-foreground/60 hover:text-primary"
+                className="h-6 w-6 text-muted-foreground/40 hover:text-primary hover:bg-primary/5"
                 title="Reset Label"
               >
                 <RefreshCw className="h-3 w-3" />
@@ -117,7 +117,7 @@ export function OutlineBlock({
                   variant="ghost"
                   size="icon"
                   onClick={onRemoveBlock}
-                  className="h-6 w-6 text-muted-foreground/60 hover:text-destructive"
+                  className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5"
                   title="Remove Block"
                 >
                   <X className="h-3.5 w-3.5" />
@@ -135,13 +135,13 @@ export function OutlineBlock({
                 onBlur={() => setIsEditing(false)}
                 className={cn(
                   getBlockStyles(block.type, true),
-                  "focus:outline-none focus:ring-1 focus:ring-ring resize-none overflow-hidden text-sm"
+                  "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft"
                 )}
                 placeholder={block.placeholder}
               />
             ) : (
               <div
-                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-1 focus-visible:ring-ring outline-none")}
+                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 outline-none")}
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -153,11 +153,11 @@ export function OutlineBlock({
                 aria-label="Edit content"
               >
                 {block.content ? (
-                  <p className="whitespace-pre-line text-sm leading-relaxed text-foreground">
+                  <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
                     {block.content}
                   </p>
                 ) : (
-                  <p className="text-sm text-muted-foreground/60 whitespace-pre-line">
+                  <p className="text-sm text-muted-foreground/50 italic whitespace-pre-line">
                     {block.placeholder}
                   </p>
                 )}

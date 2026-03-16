@@ -143,6 +143,7 @@ export default function EssayOutlinePlanner() {
                 size="icon"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="h-9 w-9 rounded-lg"
+                aria-label="Toggle theme"
               >
                 {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
               </Button>
