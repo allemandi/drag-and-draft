@@ -83,12 +83,13 @@ export function OutlineSection({
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
-            size="icon"
+            size="sm"
             onClick={() => onResetTitle(sectionIndex)}
-            className="h-7 w-7 text-muted-foreground/40 hover:bg-black/5 dark:hover:bg-white/5"
+            className="h-8 gap-1.5 px-2 text-[10px] font-bold uppercase text-muted-foreground/50 hover:text-primary hover:bg-primary/5"
             title="Reset Title"
           >
             <RefreshCw className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Reset</span>
           </Button>
 
           <Button

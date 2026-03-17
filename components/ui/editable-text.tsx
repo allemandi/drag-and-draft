@@ -4,6 +4,7 @@ import * as React from "react"
 import { useState, useEffect, useRef } from "react"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import { Pencil } from "lucide-react"
 
 interface EditableTextProps {
   value: string
@@ -69,7 +70,7 @@ export function EditableText({
         onKeyDown={handleKeyDown}
         aria-label={ariaLabel || (value ? `Editing ${value}` : "Edit text")}
         className={cn(
-          "h-auto py-0 px-1 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-transparent bg-transparent focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-none",
+          "h-auto py-0 px-2 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-primary/40 bg-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm",
           inputClassName
         )}
       />
@@ -84,11 +85,12 @@ export function EditableText({
       role="button"
       aria-label={ariaLabel || (value ? `Edit ${value}` : "Edit empty text")}
       className={cn(
-        "cursor-pointer hover:bg-accent/20 rounded px-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-transparent",
+        "group relative cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-2 border-dashed border-primary/20 hover:border-primary/40 flex items-center gap-2 min-w-[40px]",
         className
       )}
     >
-      {value || <span className="text-muted-foreground italic">Empty</span>}
+      <span className="flex-grow">{value || <span className="text-muted-foreground italic">Empty</span>}</span>
+      <Pencil className="h-3 w-3 text-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
     </Component>
   )
 }
