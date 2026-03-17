@@ -27,12 +27,13 @@ export function SortableSection({ id, children }: SortableSectionProps) {
   return (
     <div ref={setNodeRef} style={style} className="relative">
       <div
-        className="absolute top-4.5 left-3.5 cursor-grab p-1 rounded text-muted-foreground/30 transition-colors hover:bg-accent hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring z-10"
+        className="absolute top-4.5 left-3.5 cursor-grab p-1 rounded text-muted-foreground/30 transition-colors hover:bg-accent hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring z-10"
         {...attributes}
         {...listeners}
         data-drag-handle
         tabIndex={0}
         aria-label="Drag to reorder section"
+        aria-roledescription="sortable"
         role="button"
         style={{ touchAction: "none" }}
       >

@@ -82,11 +82,12 @@ export function OutlineBlock({
         <div
           {...attributes}
           {...listeners}
-          className="mt-0.5 flex-shrink-0 cursor-grab rounded p-1 text-muted-foreground/30 transition-colors hover:bg-accent/50 hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          className="mt-0.5 flex-shrink-0 cursor-grab rounded p-1 text-muted-foreground/30 transition-colors hover:bg-accent/50 hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           style={{ touchAction: 'none' }}
           tabIndex={0}
           role="button"
           aria-label="Drag to reorder block"
+          aria-roledescription="sortable"
           data-drag-handle
         >
           <GripVertical className="h-4 w-4" />
