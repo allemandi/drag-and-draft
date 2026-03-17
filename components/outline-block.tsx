@@ -59,11 +59,11 @@ export function OutlineBlock({
 
     switch (type) {
       case "intro":
-        return cn(base, "bg-[hsl(var(--intro-bg)/0.5)] border-[hsl(var(--intro-border)/0.8)] hover:bg-[hsl(var(--intro-bg)/0.7)]")
+        return cn(base, "bg-background/50 border-border/80 hover:bg-background/70")
       case "body":
-        return cn(base, "bg-[hsl(var(--body-bg)/0.5)] border-[hsl(var(--body-border)/0.8)] hover:bg-[hsl(var(--body-bg)/0.7)]")
+        return cn(base, "bg-background/50 border-border/80 hover:bg-background/70")
       case "conclusion":
-        return cn(base, "bg-[hsl(var(--conclusion-bg)/0.5)] border-[hsl(var(--conclusion-border)/0.8)] hover:bg-[hsl(var(--conclusion-bg)/0.7)]")
+        return cn(base, "bg-background/50 border-border/80 hover:bg-background/70")
       default:
         return cn(base, "bg-muted/10 border-border hover:bg-muted/20")
     }

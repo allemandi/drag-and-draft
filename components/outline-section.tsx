@@ -39,13 +39,13 @@ export function OutlineSection({
   const getSectionStyles = (type: string) => {
     switch (type) {
       case "intro":
-        return "pastel-intro"
+        return "bg-background"
       case "body":
-        return "pastel-body"
+        return "bg-background"
       case "conclusion":
-        return "pastel-conclusion"
+        return "bg-background"
       default:
-        return "border-border bg-card"
+        return "bg-card"
     }
   }
 
@@ -84,7 +84,7 @@ export function OutlineSection({
             variant="secondary"
             size="sm"
             onClick={onAddBlock}
-            className="h-8 gap-1.5 px-3 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg border-secondary-foreground/5"
+            className="h-8 gap-1.5 px-3 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg"
           >
             <Plus className="h-3 w-3" />
             <span className="hidden sm:inline">Add Block</span>

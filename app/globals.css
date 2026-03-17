@@ -1,37 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand Colors - Refined Pastel Palette */
-  --color-primary-50: #f0f9ff;
-  --color-primary-100: #e0f2fe;
-  --color-primary-200: #bae6fd;
-  --color-primary-300: #7dd3fc;
-  --color-primary-400: #38bdf8;
-  --color-primary-500: #0ea5e9;
-  --color-primary-600: #0284c7;
-  --color-primary-700: #0369a1;
-  --color-primary-800: #075985;
-  --color-primary-900: #0c4a6e;
-
-  --color-secondary-50: #fff1f2;
-  --color-secondary-100: #ffe4e6;
-  --color-secondary-200: #fecdd3;
-  --color-secondary-300: #fda4af;
-  --color-secondary-400: #fb7185;
-  --color-secondary-500: #f43f5e;
-  --color-secondary-600: #e11d48;
-  --color-secondary-700: #be123c;
-  --color-secondary-800: #9f1239;
-  --color-secondary-900: #881337;
-
-  /* Application Colors */
-  --color-app-bg: var(--bg-app);
-  --color-app-surface: var(--bg-surface);
-  --color-app-border: var(--border-app);
-  --color-app-text: var(--text-app);
-  --color-app-text-muted: var(--text-app-muted);
-
-  /* Mapping to standard shadcn variables for compatibility */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -73,82 +42,48 @@
 
 @layer base {
   :root {
-    /* Light Mode */
-    --bg-app: #f0f9ff;
-    --bg-surface: #ffffff;
-    --border-app: #bae6fd;
-    --text-app: #0f172a;
-    --text-app-muted: #475569;
-    --select-text-color: #1e293b;
-
-    /* Standard Variables Mapped */
-    --background: var(--bg-app);
-    --foreground: var(--text-app);
-    --card: var(--bg-surface);
-    --card-foreground: var(--text-app);
-    --popover: var(--bg-surface);
-    --popover-foreground: var(--text-app);
+    --background: #f0f9ff;
+    --foreground: #0f172a;
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+    --popover: #ffffff;
+    --popover-foreground: #0f172a;
     --primary: #0ea5e9;
     --primary-foreground: #ffffff;
     --secondary: #f0f9ff;
     --secondary-foreground: #0c4a6e;
     --muted: #f1f5f9;
-    --muted-foreground: var(--text-app-muted);
+    --muted-foreground: #475569;
     --accent: #f1f5f9;
-    --accent-foreground: var(--text-app);
+    --accent-foreground: #0f172a;
     --destructive: #ef4444;
     --destructive-foreground: #ffffff;
-    --border: var(--border-app);
-    --input: var(--border-app);
+    --border: #bae6fd;
+    --input: #bae6fd;
     --ring: #0ea5e9;
     --radius: 0.75rem;
-
-    /* Section Specifics */
-    --intro-bg: var(--bg-app);
-    --intro-border: var(--border-app);
-    --body-bg: var(--bg-app);
-    --body-border: var(--border-app);
-    --conclusion-bg: var(--bg-app);
-    --conclusion-border: var(--border-app);
   }
 
   .dark {
-    /* Dark Mode */
-    --bg-app: #1e293b;
-    --bg-surface: #2d3748;
-    --border-app: #4a5568;
-    --text-app: #f1f5f9;
-    --text-app-muted: #cbd5e1;
-    --select-text-color: #f8fafc;
-
-    /* Standard Variables Mapped */
-    --background: var(--bg-app);
-    --foreground: var(--text-app);
-    --card: var(--bg-surface);
-    --card-foreground: var(--text-app);
-    --popover: var(--bg-surface);
-    --popover-foreground: var(--text-app);
+    --background: #1e293b;
+    --foreground: #f1f5f9;
+    --card: #2d3748;
+    --card-foreground: #f1f5f9;
+    --popover: #2d3748;
+    --popover-foreground: #f1f5f9;
     --primary: #38bdf8;
     --primary-foreground: #0c4a6e;
     --secondary: #1e293b;
     --secondary-foreground: #f1f5f9;
     --muted: #334155;
-    --muted-foreground: var(--text-app-muted);
+    --muted-foreground: #cbd5e1;
     --accent: #334155;
-    --accent-foreground: var(--text-app);
+    --accent-foreground: #f1f5f9;
     --destructive: #7f1d1d;
     --destructive-foreground: #f1f5f9;
-    --border: var(--border-app);
-    --input: var(--border-app);
+    --border: #4a5568;
+    --input: #4a5568;
     --ring: #38bdf8;
-
-    /* Section Specifics */
-    --intro-bg: var(--bg-surface);
-    --intro-border: var(--border-app);
-    --body-bg: var(--bg-surface);
-    --body-border: var(--border-app);
-    --conclusion-bg: var(--bg-surface);
-    --conclusion-border: var(--border-app);
   }
 }
 
@@ -157,89 +92,9 @@
     @apply border-border;
   }
   body {
-    @apply bg-app-bg text-app-text transition-colors duration-500 antialiased;
+    @apply bg-background text-foreground transition-colors duration-500 antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-}
-
-@layer utilities {
-  .pastel-intro {
-    background-color: var(--intro-bg);
-    border-color: var(--intro-border);
-  }
-  .pastel-body {
-    background-color: var(--body-bg);
-    border-color: var(--body-border);
-  }
-  .pastel-conclusion {
-    background-color: var(--conclusion-bg);
-    border-color: var(--conclusion-border);
-  }
-}
-
-/* Autofill styling for dark mode */
-.dark input:-webkit-autofill,
-.dark input:-webkit-autofill:hover,
-.dark input:-webkit-autofill:focus,
-.dark textarea:-webkit-autofill,
-.dark textarea:-webkit-autofill:hover,
-.dark textarea:-webkit-autofill:focus,
-.dark select:-webkit-autofill,
-.dark select:-webkit-autofill:hover,
-.dark select:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--text-app) !important;
-  -webkit-box-shadow: 0 0 0px 1000px var(--bg-surface) inset !important;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-/* React Select Customizations */
-.react-select__control {
-  @apply transition-all duration-300 rounded-lg;
-  background-color: var(--bg-surface) !important;
-  border: 2px solid var(--border-app) !important;
-}
-
-.react-select__control--is-focused {
-  border-color: var(--color-primary-400) !important;
-  transition: all 0.3s;
-  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.2) !important;
-}
-
-.react-select__placeholder {
-  @apply text-app-text-muted;
-}
-
-.react-select__single-value {
-  @apply text-app-text;
-}
-
-.react-select__menu {
-  @apply shadow-2xl rounded-xl mt-2 overflow-hidden;
-  background-color: var(--bg-surface) !important;
-  border: 2px solid var(--border-app) !important;
-}
-
-.react-select__option {
-  @apply text-app-text bg-app-surface px-4 py-3 transition-colors duration-200;
-}
-
-.react-select__option--is-focused {
-  @apply bg-primary-50 text-primary-600;
-}
-
-.dark .react-select__option--is-focused {
-  @apply bg-primary-900/40 text-primary-200;
-}
-
-.react-select__option--is-selected {
-  @apply bg-primary-500 text-white font-bold;
-}
-
-.react-select__indicator svg {
-  @apply fill-app-text-muted;
-}
-.react-select__indicator:hover svg {
-  @apply fill-app-text;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
