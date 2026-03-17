@@ -1,5 +1,6 @@
 "use client"
 
+import { memo } from "react"
 import { OutlineBlock } from "./outline-block"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
@@ -7,6 +8,9 @@ import { X, Plus, RefreshCw } from "lucide-react"
 import { EditableText } from "@/components/ui/editable-text"
 import type { Section } from "@/lib/types"
 import { cn } from "@/lib/utils"
+import { DndContext, closestCenter, type DragEndEvent, type SensorDescriptor, type SensorOptions } from "@dnd-kit/core"
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
+import { restrictToVerticalAxis, restrictToParentElement } from "@dnd-kit/modifiers"
 
 interface OutlineSectionProps {
   section: Section
@@ -19,8 +23,13 @@ interface OutlineSectionProps {
   onRemoveSection: () => void
   onAddBlock: () => void
   onRemoveBlock: (blockIndex: number) => void
+  onBlockDragEnd: (event: DragEndEvent) => void
+  sensors: SensorDescriptor<SensorOptions>[]
   isDraggable: boolean
 }
+
+// Memoize OutlineBlock for performance
+const MemoizedOutlineBlock = memo(OutlineBlock)
 
 export function OutlineSection({
   section,
@@ -33,6 +42,8 @@ export function OutlineSection({
   onRemoveSection,
   onAddBlock,
   onRemoveBlock,
+  onBlockDragEnd,
+  sensors,
   isDraggable,
 }: OutlineSectionProps) {
 
@@ -105,19 +116,28 @@ export function OutlineSection({
       </CardHeader>
 
       <CardContent className="space-y-4 px-6 pb-6 pt-0">
-        <div className="grid gap-4">
-          {section.blocks.map((block, blockIndex) => (
-            <OutlineBlock
-              key={block.id}
-              block={block}
-              onChange={(newContent) => onContentChange(sectionIndex, blockIndex, newContent)}
-              onLabelChange={(newLabel) => onLabelChange(sectionIndex, blockIndex, newLabel)}
-              onResetLabel={() => onResetLabel(sectionIndex, blockIndex)}
-              onRemoveBlock={() => onRemoveBlock(blockIndex)}
-              showRemoveButton={section.blocks.length > 1}
-            />
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={onBlockDragEnd}
+          modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+        >
+          <SortableContext items={section.blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
+            <div className="grid gap-4">
+              {section.blocks.map((block, blockIndex) => (
+                <MemoizedOutlineBlock
+                  key={block.id}
+                  block={block}
+                  onChange={(newContent) => onContentChange(sectionIndex, blockIndex, newContent)}
+                  onLabelChange={(newLabel) => onLabelChange(sectionIndex, blockIndex, newLabel)}
+                  onResetLabel={() => onResetLabel(sectionIndex, blockIndex)}
+                  onRemoveBlock={() => onRemoveBlock(blockIndex)}
+                  showRemoveButton={section.blocks.length > 1}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       </CardContent>
     </Card>
   )

@@ -38,9 +38,9 @@ export function OutlineBlock({
   })
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
+    opacity: isDragging ? 0.6 : 1,
   }
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export function OutlineBlock({
       style={style}
       className={cn(
         "group relative rounded-2xl border-2 border-border/60 bg-card p-4 transition-all duration-300",
-        isDragging ? "z-50 shadow-xl scale-[1.02] border-primary/20" : "shadow-soft hover:shadow-md hover:border-border"
+        isDragging ? "z-50 shadow-md scale-[1.01] border-primary/20" : "shadow-soft hover:shadow-md hover:border-border"
       )}
     >
       <div className="flex items-start gap-4">

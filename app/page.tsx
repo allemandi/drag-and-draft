@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef } from "react"
+import { useState, useMemo, useEffect, useRef, memo } from "react"
 import {
   DndContext,
   closestCenter,
@@ -31,6 +31,10 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog"
+
+// Memoize components to improve performance
+const MemoizedOutlineSection = memo(OutlineSection)
+const MemoizedSortableSection = memo(SortableSection)
 
 export default function EssayOutlinePlanner() {
   const {
@@ -64,14 +68,10 @@ export default function EssayOutlinePlanner() {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   )
 
-  const allItemIds = useMemo(() => {
-    const ids = []
-    // Sections are sorted as Intro, Bodies, Conclusion
-    // We only make Body sections sortable
-    const bodyIds = sections.filter((s) => s.type === "body").map((s) => s.id)
-    const blockIds = sections.flatMap((s) => s.blocks.map((b) => b.id))
-    return [...bodyIds, ...blockIds]
-  }, [sections])
+  const bodySectionIds = useMemo(() =>
+    sections.filter((s) => s.type === "body").map((s) => s.id),
+    [sections]
+  )
 
   useEffect(() => {
     setMounted(true)
@@ -128,17 +128,6 @@ export default function EssayOutlinePlanner() {
       }
     }
     reader.readAsText(file)
-  }
-
-  const onDragEnd = (event: DragEndEvent) => {
-    const { active } = event
-    const activeData = active.data.current
-
-    if (activeData?.type === "section") {
-      handleSectionDragEnd(event)
-    } else if (activeData?.type === "block") {
-      handleBlockDragEnd(event)
-    }
   }
 
   return (
@@ -204,36 +193,34 @@ export default function EssayOutlinePlanner() {
         </header>
 
         <main className="space-y-8">
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={onDragEnd}
-          >
-            <SortableContext items={allItemIds} strategy={verticalListSortingStrategy}>
-              {/* Introduction */}
-              {sections[0]?.type === "intro" && (
-                <OutlineSection
-                  section={sections[0]}
-                  sectionIndex={0}
-                  onContentChange={handleContentChange}
-                  onLabelChange={handleLabelChange}
-                  onResetLabel={handleResetLabel}
-                  onTitleChange={handleTitleChange}
-                  onResetTitle={handleResetTitle}
-                  onRemoveSection={() => removeSection(0)}
-                  onAddBlock={() => addBlockToSection(0)}
-                  onRemoveBlock={(idx) => removeBlock(0, idx)}
-                  isDraggable={false}
-                />
-              )}
+          {/* Introduction */}
+          {sections[0]?.type === "intro" && (
+            <MemoizedOutlineSection
+              section={sections[0]}
+              sectionIndex={0}
+              onContentChange={handleContentChange}
+              onLabelChange={handleLabelChange}
+              onResetLabel={handleResetLabel}
+              onTitleChange={handleTitleChange}
+              onResetTitle={handleResetTitle}
+              onRemoveSection={() => removeSection(0)}
+              onAddBlock={() => addBlockToSection(0)}
+              onRemoveBlock={(idx) => removeBlock(0, idx)}
+              onBlockDragEnd={handleBlockDragEnd}
+              sensors={sensors}
+              isDraggable={false}
+            />
+          )}
 
-              {/* Body Sections */}
+          {/* Body Sections */}
+          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleSectionDragEnd}>
+            <SortableContext items={bodySectionIds} strategy={verticalListSortingStrategy}>
               <div className="space-y-6">
                 {sections.map((section, idx) => {
                   if (section.type !== "body") return null
                   return (
-                    <SortableSection key={section.id} id={section.id}>
-                      <OutlineSection
+                    <MemoizedSortableSection key={section.id} id={section.id}>
+                      <MemoizedOutlineSection
                         section={section}
                         sectionIndex={idx}
                         onContentChange={handleContentChange}
@@ -244,42 +231,46 @@ export default function EssayOutlinePlanner() {
                         onRemoveSection={() => removeSection(idx)}
                         onAddBlock={() => addBlockToSection(idx)}
                         onRemoveBlock={(bIdx) => removeBlock(idx, bIdx)}
+                        onBlockDragEnd={handleBlockDragEnd}
+                        sensors={sensors}
                         isDraggable={true}
                       />
-                    </SortableSection>
+                    </MemoizedSortableSection>
                   )
                 })}
               </div>
-
-              <div className="flex justify-center pt-2">
-                <Button
-                  onClick={addBodySection}
-                  variant="outline"
-                  className="h-12 w-full max-w-md rounded-xl border-dashed border-primary/20 bg-primary/[0.02] text-sm font-bold text-primary/70 hover:bg-primary/[0.05] hover:border-primary/40 transition-all"
-                >
-                  <Plus className="mr-2 h-4 w-4" />
-                  Add Body Section
-                </Button>
-              </div>
-
-              {/* Conclusion */}
-              {sections[sections.length - 1]?.type === "conclusion" && (
-                <OutlineSection
-                  section={sections[sections.length - 1]}
-                  sectionIndex={sections.length - 1}
-                  onContentChange={handleContentChange}
-                  onLabelChange={handleLabelChange}
-                  onResetLabel={handleResetLabel}
-                  onTitleChange={handleTitleChange}
-                  onResetTitle={handleResetTitle}
-                  onRemoveSection={() => removeSection(sections.length - 1)}
-                  onAddBlock={() => addBlockToSection(sections.length - 1)}
-                  onRemoveBlock={(idx) => removeBlock(sections.length - 1, idx)}
-                  isDraggable={false}
-                />
-              )}
             </SortableContext>
           </DndContext>
+
+          <div className="flex justify-center pt-2">
+            <Button
+              onClick={addBodySection}
+              variant="outline"
+              className="h-12 w-full max-w-md rounded-xl border-dashed border-primary/20 bg-primary/[0.02] text-sm font-bold text-primary/70 hover:bg-primary/[0.05] hover:border-primary/40 transition-all"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Add Body Section
+            </Button>
+          </div>
+
+          {/* Conclusion */}
+          {sections[sections.length - 1]?.type === "conclusion" && (
+            <MemoizedOutlineSection
+              section={sections[sections.length - 1]}
+              sectionIndex={sections.length - 1}
+              onContentChange={handleContentChange}
+              onLabelChange={handleLabelChange}
+              onResetLabel={handleResetLabel}
+              onTitleChange={handleTitleChange}
+              onResetTitle={handleResetTitle}
+              onRemoveSection={() => removeSection(sections.length - 1)}
+              onAddBlock={() => addBlockToSection(sections.length - 1)}
+              onRemoveBlock={(idx) => removeBlock(sections.length - 1, idx)}
+              onBlockDragEnd={handleBlockDragEnd}
+              sensors={sensors}
+              isDraggable={false}
+            />
+          )}
         </main>
 
         <Footer />
