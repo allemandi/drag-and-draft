@@ -69,7 +69,7 @@ export function EditableText({
         onKeyDown={handleKeyDown}
         aria-label={ariaLabel || (value ? `Editing ${value}` : "Edit text")}
         className={cn(
-          "h-auto py-0 px-1 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-transparent bg-transparent focus-visible:ring-offset-0 shadow-none",
+          "h-auto py-0 px-1 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-transparent bg-transparent focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 shadow-none",
           inputClassName
         )}
       />
@@ -84,7 +84,7 @@ export function EditableText({
       role="button"
       aria-label={ariaLabel || (value ? `Edit ${value}` : "Edit empty text")}
       className={cn(
-        "cursor-pointer hover:bg-accent/20 rounded px-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring border border-transparent",
+        "cursor-pointer hover:bg-accent/20 rounded px-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-transparent",
         className
       )}
     >

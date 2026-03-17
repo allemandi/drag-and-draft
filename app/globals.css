@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -42,83 +42,46 @@
 
 @layer base {
   :root {
-    /* Warm Easter Pastel Light Theme */
-    --background: 30 30% 98%; /* Warm off-white */
-    --foreground: 240 20% 10%; /* High contrast dark text */
-
-    --card: 30 30% 99%;
-    --card-foreground: 240 20% 10%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 20% 10%;
-
-    --primary: 225 60% 45%; /* Standard Indigo Blue - High contrast */
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 160 30% 90%; /* Muted Mint */
-    --secondary-foreground: 160 50% 15%;
-
-    --muted: 30 10% 90%;
-    --muted-foreground: 240 10% 35%;
-
-    --accent: 40 50% 90%; /* Warm Sand/Peach */
-    --accent-foreground: 40 60% 20%;
-
-    --destructive: 0 70% 45%; /* Standard High Contrast Red */
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 240 15% 75%; /* Much darker border for contrast */
-    --input: 240 15% 75%;
-    --ring: 225 60% 45%;
-
-    --radius: 1.25rem;
-
-    /* Section Specific Pastels - Higher Contrast Borders */
-    --intro-bg: 210 50% 96%;
-    --intro-border: 210 50% 75%;
-    --body-bg: 120 30% 96%;
-    --body-border: 120 35% 75%;
-    --conclusion-bg: 20 50% 96%;
-    --conclusion-border: 20 45% 75%;
+    --background: #f0f9ff;
+    --foreground: #0f172a;
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+    --popover: #ffffff;
+    --popover-foreground: #0f172a;
+    --primary: #0ea5e9;
+    --primary-foreground: #ffffff;
+    --secondary: #f0f9ff;
+    --secondary-foreground: #0c4a6e;
+    --muted: #f1f5f9;
+    --muted-foreground: #475569;
+    --accent: #f1f5f9;
+    --accent-foreground: #0f172a;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #bae6fd;
+    --input: #bae6fd;
+    --ring: #0ea5e9;
+    --radius: 0.75rem;
   }
 
   .dark {
-    /* Warm Easter Pastel Dark Theme */
-    --background: 240 20% 10%; /* Deeper Midnight */
-    --foreground: 240 20% 92%;
-
-    --card: 240 20% 13%;
-    --card-foreground: 240 20% 92%;
-
-    --popover: 240 20% 13%;
-    --popover-foreground: 240 20% 92%;
-
-    --primary: 230 40% 75%; /* Lighter Indigo for dark mode */
-    --primary-foreground: 230 40% 10%;
-
-    --secondary: 160 20% 25%;
-    --secondary-foreground: 160 40% 90%;
-
-    --muted: 240 15% 22%;
-    --muted-foreground: 240 10% 80%; /* Much lighter placeholder/muted text */
-
-    --accent: 40 30% 25%;
-    --accent-foreground: 40 50% 90%;
-
-    --destructive: 0 50% 55%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 240 15% 30%; /* Lighter border for contrast */
-    --input: 240 15% 30%;
-    --ring: 230 40% 75%;
-
-    /* Section Specific Pastels - Warmer Lighter Muted Dark */
-    --intro-bg: 210 30% 22%;
-    --intro-border: 210 25% 35%;
-    --body-bg: 120 20% 20%;
-    --body-border: 120 20% 32%;
-    --conclusion-bg: 20 30% 22%;
-    --conclusion-border: 20 25% 35%;
+    --background: #1e293b;
+    --foreground: #f1f5f9;
+    --card: #2d3748;
+    --card-foreground: #f1f5f9;
+    --popover: #2d3748;
+    --popover-foreground: #f1f5f9;
+    --primary: #38bdf8;
+    --primary-foreground: #0c4a6e;
+    --secondary: #1e293b;
+    --secondary-foreground: #f1f5f9;
+    --muted: #334155;
+    --muted-foreground: #cbd5e1;
+    --accent: #334155;
+    --accent-foreground: #f1f5f9;
+    --border: #4a5568;
+    --input: #4a5568;
+    --ring: #38bdf8;
   }
 }
 
@@ -127,22 +90,9 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground selection:bg-primary/20 transition-colors duration-300 antialiased;
+    @apply bg-background text-foreground transition-colors duration-500 antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
-@layer utilities {
-  .pastel-intro {
-    background-color: hsl(var(--intro-bg));
-    border-color: hsl(var(--intro-border));
-  }
-  .pastel-body {
-    background-color: hsl(var(--body-bg));
-    border-color: hsl(var(--body-border));
-  }
-  .pastel-conclusion {
-    background-color: hsl(var(--conclusion-bg));
-    border-color: hsl(var(--conclusion-border));
-  }
-}
+@custom-variant dark (&:where(.dark, .dark *));

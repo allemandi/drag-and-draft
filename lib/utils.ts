@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { jsPDF } from "jspdf";
 import { Packer, Document, Paragraph, TextRun, HeadingLevel, AlignmentType } from "docx";
+import type { Section } from "@/lib/types";
 
 
 
@@ -14,7 +15,7 @@ export function generateId(): string {
 }
 
 
-export function formatOutline(sections: Section[], format: "md" | "txt" | "pdf" | "docx"): string {
+export function formatOutline(sections: Section[], format: "md" | "txt" | "pdf" | "docx"): string | Promise<string> {
   switch (format) {
     case "md":
       return formatMarkdown(sections);
