@@ -89,7 +89,7 @@ export function OutlineSection({
             title="Reset Title"
           >
             <RefreshCw className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Reset</span>
+            <span className="hidden sm:inline">Reset Title</span>
           </Button>
 
           <Button

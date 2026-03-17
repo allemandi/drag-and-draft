@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useRef, useEffect } from "react"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { GripVertical, X, RefreshCw, Pencil } from "lucide-react"
+import { GripVertical, X, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { EditableText } from "@/components/ui/editable-text"
 import type { OutlineBlock as OutlineBlockType } from "@/lib/types"
@@ -59,18 +59,18 @@ export function OutlineBlock({
   }
 
   const getBlockStyles = (type: string, hasContent: boolean) => {
-    const base = "w-full min-h-[50px] p-4 rounded-xl transition-all duration-300 border-2 border-dashed"
-    if (!hasContent) return cn(base, "bg-muted/10 border-primary/20 hover:bg-muted/20 hover:border-primary/40")
+    const base = "w-full min-h-[50px] p-4 rounded-xl transition-all duration-300 border"
+    if (!hasContent) return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20")
 
     switch (type) {
       case "intro":
-        return cn(base, "bg-background/50 border-primary/20 hover:bg-background/70 hover:border-primary/40")
+        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
       case "body":
-        return cn(base, "bg-background/50 border-primary/20 hover:bg-background/70 hover:border-primary/40")
+        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
       case "conclusion":
-        return cn(base, "bg-background/50 border-primary/20 hover:bg-background/70 hover:border-primary/40")
+        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
       default:
-        return cn(base, "bg-muted/10 border-primary/20 hover:bg-muted/20 hover:border-primary/40")
+        return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20")
     }
   }
 
@@ -145,7 +145,7 @@ export function OutlineBlock({
                 aria-label={`Editing content for ${block.label}`}
                 className={cn(
                   getBlockStyles(block.type, true),
-                  "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/40 border-solid"
+                  "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/30"
                 )}
                 placeholder={block.placeholder}
               />
@@ -173,7 +173,6 @@ export function OutlineBlock({
                     </p>
                   )}
                 </div>
-                <Pencil className="h-3 w-3 text-primary/40 opacity-0 group-hover/content:opacity-100 transition-opacity mt-1 flex-shrink-0" />
               </div>
             )}
           </div>
