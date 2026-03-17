@@ -42,83 +42,83 @@
 
 @layer base {
   :root {
-    /* Warm Easter Pastel Light Theme */
-    --background: 30 30% 98%; /* Warm off-white */
-    --foreground: 240 20% 10%; /* High contrast dark text */
+    /* PassagePrep Light Theme */
+    --background: 204 45% 98%; /* Very light blue-tinted white */
+    --foreground: 222 47% 11%; /* Dark navy text */
 
-    --card: 30 30% 99%;
-    --card-foreground: 240 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 20% 10%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 225 60% 45%; /* Standard Indigo Blue - High contrast */
+    --primary: 200 100% 40%; /* Bright Cyan Blue */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 160 30% 90%; /* Muted Mint */
-    --secondary-foreground: 160 50% 15%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 30 10% 90%;
-    --muted-foreground: 240 10% 35%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 40 50% 90%; /* Warm Sand/Peach */
-    --accent-foreground: 40 60% 20%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
 
-    --destructive: 0 70% 45%; /* Standard High Contrast Red */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 240 15% 75%; /* Much darker border for contrast */
-    --input: 240 15% 75%;
-    --ring: 225 60% 45%;
+    --border: 214 32% 91%; /* Light blue-gray border */
+    --input: 214 32% 91%;
+    --ring: 200 100% 40%;
 
-    --radius: 1.25rem;
+    --radius: 0.75rem;
 
-    /* Section Specific Pastels - Higher Contrast Borders */
-    --intro-bg: 210 50% 96%;
-    --intro-border: 210 50% 75%;
-    --body-bg: 120 30% 96%;
-    --body-border: 120 35% 75%;
-    --conclusion-bg: 20 50% 96%;
-    --conclusion-border: 20 45% 75%;
+    /* Section Specific Blues */
+    --intro-bg: 204 45% 98%;
+    --intro-border: 214 32% 80%;
+    --body-bg: 204 45% 98%;
+    --body-border: 214 32% 80%;
+    --conclusion-bg: 204 45% 98%;
+    --conclusion-border: 214 32% 80%;
   }
 
   .dark {
-    /* Warm Easter Pastel Dark Theme */
-    --background: 240 20% 10%; /* Deeper Midnight */
-    --foreground: 240 20% 92%;
+    /* PassagePrep Dark Theme */
+    --background: 220 26% 14%; /* Dark Navy */
+    --foreground: 210 40% 98%;
 
-    --card: 240 20% 13%;
-    --card-foreground: 240 20% 92%;
+    --card: 218 23% 23%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 240 20% 13%;
-    --popover-foreground: 240 20% 92%;
+    --popover: 218 23% 23%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 230 40% 75%; /* Lighter Indigo for dark mode */
-    --primary-foreground: 230 40% 10%;
+    --primary: 200 100% 40%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 160 20% 25%;
-    --secondary-foreground: 160 40% 90%;
+    --secondary: 215 25% 27%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 240 15% 22%;
-    --muted-foreground: 240 10% 80%; /* Much lighter placeholder/muted text */
+    --muted: 215 25% 27%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 40 30% 25%;
-    --accent-foreground: 40 50% 90%;
+    --accent: 215 25% 27%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 50% 55%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 240 15% 30%; /* Lighter border for contrast */
-    --input: 240 15% 30%;
-    --ring: 230 40% 75%;
+    --border: 215 14% 34%; /* Slate-blue border */
+    --input: 215 14% 34%;
+    --ring: 200 100% 40%;
 
-    /* Section Specific Pastels - Warmer Lighter Muted Dark */
-    --intro-bg: 210 30% 22%;
-    --intro-border: 210 25% 35%;
-    --body-bg: 120 20% 20%;
-    --body-border: 120 20% 32%;
-    --conclusion-bg: 20 30% 22%;
-    --conclusion-border: 20 25% 35%;
+    /* Section Specific Dark Blues */
+    --intro-bg: 218 23% 23%;
+    --intro-border: 215 14% 40%;
+    --body-bg: 218 23% 23%;
+    --body-border: 215 14% 40%;
+    --conclusion-bg: 218 23% 23%;
+    --conclusion-border: 215 14% 40%;
   }
 }
 
