@@ -22,6 +22,7 @@ import { formatOutline, downloadFile } from "@/lib/utils"
 import { ExportModal } from "@/components/export-modal"
 import { BackupModal } from "@/components/backup-modal"
 import { useOutline } from "@/hooks/use-outline"
+import { useToast } from "@/components/ui/use-toast"
 import {
   Dialog,
   DialogContent,
@@ -51,6 +52,7 @@ export default function EssayOutlinePlanner() {
     saveToLocalStorage,
   } = useOutline()
 
+  const { toast } = useToast()
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [showResetModal, setShowResetModal] = useState(false)
@@ -113,6 +115,12 @@ export default function EssayOutlinePlanner() {
         }
       } catch (err) {
         console.error("Failed to parse backup file", err)
+        toast({
+          title: "Import Failed",
+          description: "The backup file is invalid or corrupted.",
+          variant: "destructive",
+          duration: 4000,
+        })
       }
     }
     reader.readAsText(file)

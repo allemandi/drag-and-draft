@@ -2,14 +2,15 @@ import { test, expect } from '@playwright/test';
 
 test('loading and saving work via localStorage', async ({ page }) => {
   await page.goto('/');
+  await page.waitForSelector('text=Drag & Draft');
 
   // Find a block and change its content
   // We click on a placeholder or existing content to activate the textarea
   // Intro section blocks have specific placeholders
-  const firstBlock = page.getByText(/Begin with bold question/i).first();
+  const firstBlock = page.getByLabel(/Edit content for Hook/i).first();
   await firstBlock.click();
 
-  const textarea = page.locator('textarea').first();
+  const textarea = page.getByLabel(/Editing content for Hook/i).first();
   await textarea.fill('Updated content for testing');
   await textarea.blur();
 
@@ -28,6 +29,7 @@ test('loading and saving work via localStorage', async ({ page }) => {
 
 test('exporting works', async ({ page }) => {
   await page.goto('/');
+  await page.waitForSelector('text=Drag & Draft');
 
   // Open export modal
   await page.getByRole('button', { name: /export/i }).first().click();
@@ -45,6 +47,7 @@ test('exporting works', async ({ page }) => {
 
 test('reordering components exists and functional', async ({ page }) => {
   await page.goto('/');
+  await page.waitForSelector('text=Drag & Draft');
 
   // Check if drag handles exist (using div with role=button and aria-label)
   const dragHandles = page.locator('div[role="button"][aria-label*="Drag"]');

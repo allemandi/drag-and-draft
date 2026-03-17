@@ -22,8 +22,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: process.env.CI ? 'npx -y serve out' : 'yarn dev',
+    command: 'yarn dev',
     url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
+    timeout: 120000,
   },
 });

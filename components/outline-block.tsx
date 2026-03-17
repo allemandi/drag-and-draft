@@ -98,6 +98,7 @@ export function OutlineBlock({
               value={block.label}
               onChange={onLabelChange}
               as="label"
+              ariaLabel={`Block label: ${block.label}`}
               className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80"
               inputClassName="text-[10px] font-black uppercase tracking-[0.2em] h-5 w-full"
             />
@@ -133,6 +134,7 @@ export function OutlineBlock({
                 value={block.content}
                 onChange={handleContentChange}
                 onBlur={() => setIsEditing(false)}
+                aria-label={`Editing content for ${block.label}`}
                 className={cn(
                   getBlockStyles(block.type, true),
                   "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft"
@@ -150,7 +152,7 @@ export function OutlineBlock({
                   }
                 }}
                 role="button"
-                aria-label="Edit content"
+                aria-label={`Edit content for ${block.label}`}
               >
                 {block.content ? (
                   <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
