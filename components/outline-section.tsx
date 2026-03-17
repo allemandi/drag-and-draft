@@ -33,6 +33,7 @@ export function OutlineSection({
   onRemoveSection,
   onAddBlock,
   onRemoveBlock,
+  isDraggable,
 }: OutlineSectionProps) {
 
   const getSectionStyles = (type: string) => {
