@@ -53,12 +53,16 @@ export function OutlineSection({
       "overflow-hidden border-2 shadow-soft transition-all duration-300",
       getSectionStyles(section.type)
     )}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 px-6 py-4 sm:pl-14">
+      <CardHeader className={cn(
+        "flex flex-row items-center justify-between space-y-0 px-6 py-4",
+        isDraggable && "sm:pl-14"
+      )}>
         <div className="flex items-center gap-3">
           <EditableText
             value={section.title}
             onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
             as="h2"
+            ariaLabel={`Section title: ${section.title}`}
             className="text-xl font-black tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5 px-2 py-1 rounded-md transition-colors"
             inputClassName="text-xl font-black h-9 w-full"
           />
