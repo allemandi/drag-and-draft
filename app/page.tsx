@@ -9,13 +9,13 @@ import {
   TouchSensor,
   PointerSensor,
   KeyboardSensor,
+  DragEndEvent,
 } from "@dnd-kit/core"
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable"
-import { restrictToVerticalAxis, restrictToParentElement } from "@dnd-kit/modifiers"
 import { OutlineSection } from "@/components/outline-section"
 import { SortableSection } from "@/components/sortable-section"
 import { Button } from "@/components/ui/button"
-import { Layout, Save, Plus, Moon, Sun, RefreshCw, Database, Download } from "lucide-react"
+import { Layout, Save, Plus, Moon, Sun, RefreshCw, Download } from "lucide-react"
 import { useTheme } from "next-themes"
 import Footer from "@/components/footer"
 import { formatOutline, downloadFile } from "@/lib/utils"
@@ -64,10 +64,14 @@ export default function EssayOutlinePlanner() {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   )
 
-  const bodySectionIds = useMemo(() =>
-    sections.filter((s) => s.type === "body").map((s) => s.id),
-    [sections]
-  )
+  const allItemIds = useMemo(() => {
+    const ids = []
+    // Sections are sorted as Intro, Bodies, Conclusion
+    // We only make Body sections sortable
+    const bodyIds = sections.filter((s) => s.type === "body").map((s) => s.id)
+    const blockIds = sections.flatMap((s) => s.blocks.map((b) => b.id))
+    return [...bodyIds, ...blockIds]
+  }, [sections])
 
   useEffect(() => {
     setMounted(true)
@@ -124,6 +128,17 @@ export default function EssayOutlinePlanner() {
       }
     }
     reader.readAsText(file)
+  }
+
+  const onDragEnd = (event: DragEndEvent) => {
+    const { active } = event
+    const activeData = active.data.current
+
+    if (activeData?.type === "section") {
+      handleSectionDragEnd(event)
+    } else if (activeData?.type === "block") {
+      handleBlockDragEnd(event)
+    }
   }
 
   return (
@@ -189,15 +204,14 @@ export default function EssayOutlinePlanner() {
         </header>
 
         <main className="space-y-8">
-          {/* Introduction */}
-          {sections[0]?.type === "intro" && (
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleBlockDragEnd}
-              modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-            >
-              <SortableContext items={sections[0].blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={onDragEnd}
+          >
+            <SortableContext items={allItemIds} strategy={verticalListSortingStrategy}>
+              {/* Introduction */}
+              {sections[0]?.type === "intro" && (
                 <OutlineSection
                   section={sections[0]}
                   sectionIndex={0}
@@ -211,67 +225,45 @@ export default function EssayOutlinePlanner() {
                   onRemoveBlock={(idx) => removeBlock(0, idx)}
                   isDraggable={false}
                 />
-              </SortableContext>
-            </DndContext>
-          )}
+              )}
 
-          {/* Body Sections */}
-          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleSectionDragEnd}>
-            <SortableContext items={bodySectionIds} strategy={verticalListSortingStrategy}>
+              {/* Body Sections */}
               <div className="space-y-6">
                 {sections.map((section, idx) => {
                   if (section.type !== "body") return null
                   return (
                     <SortableSection key={section.id} id={section.id}>
-                      <DndContext
-                        sensors={sensors}
-                        collisionDetection={closestCenter}
-                        onDragEnd={handleBlockDragEnd}
-                        modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-                      >
-                        <SortableContext items={section.blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
-                          <OutlineSection
-                            section={section}
-                            sectionIndex={idx}
-                            onContentChange={handleContentChange}
-                            onLabelChange={handleLabelChange}
-                            onResetLabel={handleResetLabel}
-                            onTitleChange={handleTitleChange}
-                            onResetTitle={handleResetTitle}
-                            onRemoveSection={() => removeSection(idx)}
-                            onAddBlock={() => addBlockToSection(idx)}
-                            onRemoveBlock={(bIdx) => removeBlock(idx, bIdx)}
-                            isDraggable={true}
-                          />
-                        </SortableContext>
-                      </DndContext>
+                      <OutlineSection
+                        section={section}
+                        sectionIndex={idx}
+                        onContentChange={handleContentChange}
+                        onLabelChange={handleLabelChange}
+                        onResetLabel={handleResetLabel}
+                        onTitleChange={handleTitleChange}
+                        onResetTitle={handleResetTitle}
+                        onRemoveSection={() => removeSection(idx)}
+                        onAddBlock={() => addBlockToSection(idx)}
+                        onRemoveBlock={(bIdx) => removeBlock(idx, bIdx)}
+                        isDraggable={true}
+                      />
                     </SortableSection>
                   )
                 })}
               </div>
-            </SortableContext>
-          </DndContext>
 
-          <div className="flex justify-center pt-2">
-            <Button
-              onClick={addBodySection}
-              variant="outline"
-              className="h-12 w-full max-w-md rounded-xl border-dashed border-primary/20 bg-primary/[0.02] text-sm font-bold text-primary/70 hover:bg-primary/[0.05] hover:border-primary/40 transition-all"
-            >
-              <Plus className="mr-2 h-4 w-4" />
-              Add Body Section
-            </Button>
-          </div>
+              <div className="flex justify-center pt-2">
+                <Button
+                  onClick={addBodySection}
+                  variant="outline"
+                  className="h-12 w-full max-w-md rounded-xl border-dashed border-primary/20 bg-primary/[0.02] text-sm font-bold text-primary/70 hover:bg-primary/[0.05] hover:border-primary/40 transition-all"
+                >
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Body Section
+                </Button>
+              </div>
 
-          {/* Conclusion */}
-          {sections[sections.length - 1]?.type === "conclusion" && (
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleBlockDragEnd}
-              modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-            >
-              <SortableContext items={sections[sections.length - 1].blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
+              {/* Conclusion */}
+              {sections[sections.length - 1]?.type === "conclusion" && (
                 <OutlineSection
                   section={sections[sections.length - 1]}
                   sectionIndex={sections.length - 1}
@@ -285,9 +277,9 @@ export default function EssayOutlinePlanner() {
                   onRemoveBlock={(idx) => removeBlock(sections.length - 1, idx)}
                   isDraggable={false}
                 />
-              </SortableContext>
-            </DndContext>
-          )}
+              )}
+            </SortableContext>
+          </DndContext>
         </main>
 
         <Footer />

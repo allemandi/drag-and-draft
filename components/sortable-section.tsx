@@ -13,6 +13,9 @@ interface SortableSectionProps {
 export function SortableSection({ id, children }: SortableSectionProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useSortable({
     id,
+    data: {
+      type: "section",
+    },
   })
 
   const style = {
@@ -38,6 +41,7 @@ export function SortableSection({ id, children }: SortableSectionProps) {
         style={{ touchAction: "none" }}
       >
         <GripVertical className="h-4 w-4" />
+        <span className="sr-only">Use arrow keys to reorder when focused</span>
       </div>
       {children}
     </div>

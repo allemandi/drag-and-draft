@@ -30,7 +30,12 @@ export function OutlineBlock({
   const [isEditing, setIsEditing] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: block.id })
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: block.id,
+    data: {
+      type: "block",
+    },
+  })
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -91,6 +96,7 @@ export function OutlineBlock({
           data-drag-handle
         >
           <GripVertical className="h-4 w-4" />
+          <span className="sr-only">Use arrow keys to reorder when focused</span>
         </div>
 
         <div className="flex-grow space-y-3">

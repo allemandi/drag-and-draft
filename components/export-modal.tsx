@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, FileCode2, FileArchive, Download } from "lucide-react";
+import { FileText, FileCode2, AlignLeft, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -45,7 +45,7 @@ export function ExportModal({ onExport }: ExportModalProps) {
             variant="outline"
             className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-blue-500/[0.03] hover:border-blue-500/20"
           >
-            <FileCode2 className="h-5 w-5 mb-1.5 text-blue-500/80" />
+            <FileText className="h-5 w-5 mb-1.5 text-blue-500/80" />
             <span className="text-[11px] font-bold tracking-widest">WORD</span>
           </Button>
           <Button
@@ -53,7 +53,7 @@ export function ExportModal({ onExport }: ExportModalProps) {
             variant="outline"
             className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-slate-500/[0.03] hover:border-slate-500/20"
           >
-            <FileArchive className="h-5 w-5 mb-1.5 text-slate-500/80" />
+            <AlignLeft className="h-5 w-5 mb-1.5 text-slate-500/80" />
             <span className="text-[11px] font-bold tracking-widest">TEXT</span>
           </Button>
           <Button
