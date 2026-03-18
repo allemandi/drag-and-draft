@@ -373,58 +373,34 @@ export function useOutline() {
       const activeBlockId = active.id as string;
       const overBlockId = over.id as string;
 
-      let activeSectionIndex = -1;
+      let sectionIndex = -1;
       let activeBlockIndex = -1;
-      let overSectionIndex = -1;
       let overBlockIndex = -1;
 
+      // Find which section and what indices the blocks are in
+      // Blocks are now restricted to their parent sections, so we only care about intra-section reordering
       prev.forEach((section, sIdx) => {
         section.blocks.forEach((block, bIdx) => {
           if (block.id === activeBlockId) {
-            activeSectionIndex = sIdx;
+            sectionIndex = sIdx;
             activeBlockIndex = bIdx;
           }
           if (block.id === overBlockId) {
-            overSectionIndex = sIdx;
             overBlockIndex = bIdx;
           }
         });
       });
 
-      if (activeSectionIndex === -1 || overSectionIndex === -1) return prev;
+      if (sectionIndex === -1 || activeBlockIndex === -1 || overBlockIndex === -1) return prev;
 
-      if (activeSectionIndex === overSectionIndex) {
-        return prev.map((section, i) =>
-          i === activeSectionIndex ? {
-            ...section,
-            blocks: arrayMove(section.blocks, activeBlockIndex, overBlockIndex)
-          } : section
-        )
-      } else {
-        const activeSection = prev[activeSectionIndex]
-        const overSection = prev[overSectionIndex]
-        const blockToMove = { ...activeSection.blocks[activeBlockIndex], type: overSection.type }
-
-        return prev.map((section, i) => {
-          if (i === activeSectionIndex) {
-            return {
-              ...section,
-              blocks: section.blocks.filter((_, j) => j !== activeBlockIndex)
-            }
-          }
-          if (i === overSectionIndex) {
-            const newBlocks = [...section.blocks]
-            newBlocks.splice(overBlockIndex, 0, blockToMove)
-            return {
-              ...section,
-              blocks: newBlocks
-            }
-          }
-          return section
-        })
-      }
+      return prev.map((section, i) =>
+        i === sectionIndex ? {
+          ...section,
+          blocks: arrayMove(section.blocks, activeBlockIndex, overBlockIndex)
+        } : section
+      )
     })
-  }, [toast])
+  }, [])
 
   const handleSectionDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event

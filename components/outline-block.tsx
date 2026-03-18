@@ -110,7 +110,7 @@ export function OutlineBlock({
               inputClassName="text-[10px] font-black uppercase tracking-[0.2em] h-5 w-full"
             />
 
-            <div className="flex items-center gap-1.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+            <div className="flex items-center gap-1.5 transition-opacity">
               <Button
                 variant="ghost"
                 size="sm"
@@ -126,7 +126,7 @@ export function OutlineBlock({
                   variant="ghost"
                   size="icon"
                   onClick={onRemoveBlock}
-                  className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5"
+                  className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Remove Block"
                 >
                   <X className="h-3.5 w-3.5" />
