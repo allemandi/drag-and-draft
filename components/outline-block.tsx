@@ -30,12 +30,17 @@ export function OutlineBlock({
   const [isEditing, setIsEditing] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: block.id })
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: block.id,
+    data: {
+      type: "block",
+    },
+  })
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
+    opacity: isDragging ? 0.6 : 1,
   }
 
   useEffect(() => {
@@ -54,18 +59,18 @@ export function OutlineBlock({
   }
 
   const getBlockStyles = (type: string, hasContent: boolean) => {
-    const base = "w-full min-h-[50px] p-4 rounded-xl transition-all duration-300 border-2"
-    if (!hasContent) return cn(base, "bg-muted/10 border-transparent hover:bg-muted/20 hover:border-muted/30")
+    const base = "w-full min-h-[50px] p-4 rounded-xl transition-all duration-300 border"
+    if (!hasContent) return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20")
 
     switch (type) {
       case "intro":
-        return cn(base, "bg-background/50 border-border/80 hover:bg-background/70")
+        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
       case "body":
-        return cn(base, "bg-background/50 border-border/80 hover:bg-background/70")
+        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
       case "conclusion":
-        return cn(base, "bg-background/50 border-border/80 hover:bg-background/70")
+        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
       default:
-        return cn(base, "bg-muted/10 border-border hover:bg-muted/20")
+        return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20")
     }
   }
 
@@ -75,7 +80,7 @@ export function OutlineBlock({
       style={style}
       className={cn(
         "group relative rounded-2xl border-2 border-border/60 bg-card p-4 transition-all duration-300",
-        isDragging ? "z-50 shadow-xl scale-[1.02] border-primary/20" : "shadow-soft hover:shadow-md hover:border-border"
+        isDragging ? "z-50 shadow-md scale-[1.01] border-primary/20" : "shadow-soft hover:shadow-md hover:border-border"
       )}
     >
       <div className="flex items-start gap-4">
@@ -91,6 +96,7 @@ export function OutlineBlock({
           data-drag-handle
         >
           <GripVertical className="h-4 w-4" />
+          <span className="sr-only">Use arrow keys to reorder when focused</span>
         </div>
 
         <div className="flex-grow space-y-3">
@@ -104,22 +110,23 @@ export function OutlineBlock({
               inputClassName="text-[10px] font-black uppercase tracking-[0.2em] h-5 w-full"
             />
 
-            <div className="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100 focus-within:opacity-100">
+            <div className="flex items-center gap-1.5 transition-opacity">
               <Button
                 variant="ghost"
-                size="icon"
+                size="sm"
                 onClick={onResetLabel}
-                className="h-6 w-6 text-muted-foreground/40 hover:text-primary hover:bg-primary/5"
+                className="h-6 gap-1 px-1.5 text-[10px] font-bold uppercase text-muted-foreground/50 hover:text-primary hover:bg-primary/5"
                 title="Reset Label"
               >
                 <RefreshCw className="h-3 w-3" />
+                <span>Reset</span>
               </Button>
               {showRemoveButton && (
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={onRemoveBlock}
-                  className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5"
+                  className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Remove Block"
                 >
                   <X className="h-3.5 w-3.5" />
@@ -128,7 +135,7 @@ export function OutlineBlock({
             </div>
           </div>
 
-          <div className="w-full" onClick={() => setIsEditing(true)}>
+          <div className="w-full relative group/content" onClick={() => setIsEditing(true)}>
             {isEditing ? (
               <textarea
                 ref={textareaRef}
@@ -138,13 +145,13 @@ export function OutlineBlock({
                 aria-label={`Editing content for ${block.label}`}
                 className={cn(
                   getBlockStyles(block.type, true),
-                  "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft"
+                  "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/30"
                 )}
                 placeholder={block.placeholder}
               />
             ) : (
               <div
-                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 outline-none")}
+                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 outline-none flex items-start gap-2")}
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -155,15 +162,17 @@ export function OutlineBlock({
                 role="button"
                 aria-label={`Edit content for ${block.label}`}
               >
-                {block.content ? (
-                  <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
-                    {block.content}
-                  </p>
-                ) : (
-                  <p className="text-sm text-muted-foreground/50 italic whitespace-pre-line">
-                    {block.placeholder}
-                  </p>
-                )}
+                <div className="flex-grow min-h-[20px]">
+                  {block.content ? (
+                    <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
+                      {block.content}
+                    </p>
+                  ) : (
+                    <p className="text-sm text-muted-foreground/50 italic whitespace-pre-line">
+                      {block.placeholder}
+                    </p>
+                  )}
+                </div>
               </div>
             )}
           </div>

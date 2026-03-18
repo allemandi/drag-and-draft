@@ -4,6 +4,7 @@ import * as React from "react"
 import { useState, useEffect, useRef } from "react"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import { Pencil } from "lucide-react"
 
 interface EditableTextProps {
   value: string
@@ -12,6 +13,7 @@ interface EditableTextProps {
   inputClassName?: string
   as?: "h1" | "h2" | "h3" | "h4" | "p" | "span" | "label"
   ariaLabel?: string
+  showEditIcon?: boolean
 }
 
 export function EditableText({
@@ -21,6 +23,7 @@ export function EditableText({
   inputClassName,
   as: Component = "span",
   ariaLabel,
+  showEditIcon = true,
 }: EditableTextProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [tempValue, setTempValue] = useState(value)
@@ -69,7 +72,7 @@ export function EditableText({
         onKeyDown={handleKeyDown}
         aria-label={ariaLabel || (value ? `Editing ${value}` : "Edit text")}
         className={cn(
-          "h-auto py-0 px-1 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-transparent bg-transparent focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 shadow-none",
+          "h-auto py-0 px-2 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-primary/40 bg-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm",
           inputClassName
         )}
       />
@@ -77,18 +80,23 @@ export function EditableText({
   }
 
   return (
-    <Component
-      onClick={() => setIsEditing(true)}
-      onKeyDown={handleTextKeyDown}
-      tabIndex={0}
-      role="button"
-      aria-label={ariaLabel || (value ? `Edit ${value}` : "Edit empty text")}
-      className={cn(
-        "cursor-pointer hover:bg-accent/20 rounded px-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-transparent",
-        className
+    <div className="group flex items-center gap-2 max-w-full">
+      <Component
+        onClick={() => setIsEditing(true)}
+        onKeyDown={handleTextKeyDown}
+        tabIndex={0}
+        role="button"
+        aria-label={ariaLabel || (value ? `Edit ${value}` : "Edit empty text")}
+        className={cn(
+          "cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-primary/10 hover:border-primary/30 min-w-[40px] truncate",
+          className
+        )}
+      >
+        {value || <span className="text-muted-foreground italic text-xs">Empty</span>}
+      </Component>
+      {showEditIcon && (
+        <Pencil className="h-3 w-3 text-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
       )}
-    >
-      {value || <span className="text-muted-foreground italic">Empty</span>}
-    </Component>
+    </div>
   )
 }

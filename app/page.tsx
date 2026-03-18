@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef } from "react"
+import { useState, useMemo, useEffect, useRef, memo } from "react"
 import {
   DndContext,
   closestCenter,
@@ -9,13 +9,13 @@ import {
   TouchSensor,
   PointerSensor,
   KeyboardSensor,
+  DragEndEvent,
 } from "@dnd-kit/core"
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable"
-import { restrictToVerticalAxis, restrictToParentElement } from "@dnd-kit/modifiers"
 import { OutlineSection } from "@/components/outline-section"
 import { SortableSection } from "@/components/sortable-section"
 import { Button } from "@/components/ui/button"
-import { Layout, Save, Plus, Moon, Sun, RefreshCw, Database, Download } from "lucide-react"
+import { Layout, Save, Plus, Moon, Sun, RefreshCw, Download } from "lucide-react"
 import { useTheme } from "next-themes"
 import Footer from "@/components/footer"
 import { formatOutline, downloadFile } from "@/lib/utils"
@@ -31,6 +31,10 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog"
+
+// Memoize components to improve performance
+const MemoizedOutlineSection = memo(OutlineSection)
+const MemoizedSortableSection = memo(SortableSection)
 
 export default function EssayOutlinePlanner() {
   const {
@@ -191,28 +195,21 @@ export default function EssayOutlinePlanner() {
         <main className="space-y-8">
           {/* Introduction */}
           {sections[0]?.type === "intro" && (
-            <DndContext
+            <MemoizedOutlineSection
+              section={sections[0]}
+              sectionIndex={0}
+              onContentChange={handleContentChange}
+              onLabelChange={handleLabelChange}
+              onResetLabel={handleResetLabel}
+              onTitleChange={handleTitleChange}
+              onResetTitle={handleResetTitle}
+              onRemoveSection={() => removeSection(0)}
+              onAddBlock={() => addBlockToSection(0)}
+              onRemoveBlock={(idx) => removeBlock(0, idx)}
+              onBlockDragEnd={handleBlockDragEnd}
               sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleBlockDragEnd}
-              modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-            >
-              <SortableContext items={sections[0].blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
-                <OutlineSection
-                  section={sections[0]}
-                  sectionIndex={0}
-                  onContentChange={handleContentChange}
-                  onLabelChange={handleLabelChange}
-                  onResetLabel={handleResetLabel}
-                  onTitleChange={handleTitleChange}
-                  onResetTitle={handleResetTitle}
-                  onRemoveSection={() => removeSection(0)}
-                  onAddBlock={() => addBlockToSection(0)}
-                  onRemoveBlock={(idx) => removeBlock(0, idx)}
-                  isDraggable={false}
-                />
-              </SortableContext>
-            </DndContext>
+              isDraggable={false}
+            />
           )}
 
           {/* Body Sections */}
@@ -222,30 +219,23 @@ export default function EssayOutlinePlanner() {
                 {sections.map((section, idx) => {
                   if (section.type !== "body") return null
                   return (
-                    <SortableSection key={section.id} id={section.id}>
-                      <DndContext
+                    <MemoizedSortableSection key={section.id} id={section.id}>
+                      <MemoizedOutlineSection
+                        section={section}
+                        sectionIndex={idx}
+                        onContentChange={handleContentChange}
+                        onLabelChange={handleLabelChange}
+                        onResetLabel={handleResetLabel}
+                        onTitleChange={handleTitleChange}
+                        onResetTitle={handleResetTitle}
+                        onRemoveSection={() => removeSection(idx)}
+                        onAddBlock={() => addBlockToSection(idx)}
+                        onRemoveBlock={(bIdx) => removeBlock(idx, bIdx)}
+                        onBlockDragEnd={handleBlockDragEnd}
                         sensors={sensors}
-                        collisionDetection={closestCenter}
-                        onDragEnd={handleBlockDragEnd}
-                        modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-                      >
-                        <SortableContext items={section.blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
-                          <OutlineSection
-                            section={section}
-                            sectionIndex={idx}
-                            onContentChange={handleContentChange}
-                            onLabelChange={handleLabelChange}
-                            onResetLabel={handleResetLabel}
-                            onTitleChange={handleTitleChange}
-                            onResetTitle={handleResetTitle}
-                            onRemoveSection={() => removeSection(idx)}
-                            onAddBlock={() => addBlockToSection(idx)}
-                            onRemoveBlock={(bIdx) => removeBlock(idx, bIdx)}
-                            isDraggable={true}
-                          />
-                        </SortableContext>
-                      </DndContext>
-                    </SortableSection>
+                        isDraggable={true}
+                      />
+                    </MemoizedSortableSection>
                   )
                 })}
               </div>
@@ -265,28 +255,21 @@ export default function EssayOutlinePlanner() {
 
           {/* Conclusion */}
           {sections[sections.length - 1]?.type === "conclusion" && (
-            <DndContext
+            <MemoizedOutlineSection
+              section={sections[sections.length - 1]}
+              sectionIndex={sections.length - 1}
+              onContentChange={handleContentChange}
+              onLabelChange={handleLabelChange}
+              onResetLabel={handleResetLabel}
+              onTitleChange={handleTitleChange}
+              onResetTitle={handleResetTitle}
+              onRemoveSection={() => removeSection(sections.length - 1)}
+              onAddBlock={() => addBlockToSection(sections.length - 1)}
+              onRemoveBlock={(idx) => removeBlock(sections.length - 1, idx)}
+              onBlockDragEnd={handleBlockDragEnd}
               sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleBlockDragEnd}
-              modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-            >
-              <SortableContext items={sections[sections.length - 1].blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
-                <OutlineSection
-                  section={sections[sections.length - 1]}
-                  sectionIndex={sections.length - 1}
-                  onContentChange={handleContentChange}
-                  onLabelChange={handleLabelChange}
-                  onResetLabel={handleResetLabel}
-                  onTitleChange={handleTitleChange}
-                  onResetTitle={handleResetTitle}
-                  onRemoveSection={() => removeSection(sections.length - 1)}
-                  onAddBlock={() => addBlockToSection(sections.length - 1)}
-                  onRemoveBlock={(idx) => removeBlock(sections.length - 1, idx)}
-                  isDraggable={false}
-                />
-              </SortableContext>
-            </DndContext>
+              isDraggable={false}
+            />
           )}
         </main>
 

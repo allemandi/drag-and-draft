@@ -154,8 +154,8 @@ export function useOutline() {
   }, [toast]);
 
   const handleContentChange = useCallback((sectionIndex: number, blockIndex: number, content: string) => {
-    setSections(prev => {
-      const newSections = prev.map((section, i) =>
+    setSections(prev =>
+      prev.map((section, i) =>
         i === sectionIndex ? {
           ...section,
           blocks: section.blocks.map((block, j) =>
@@ -163,23 +163,32 @@ export function useOutline() {
           )
         } : section
       )
-      return newSections
-    })
+    )
   }, [])
 
   const handleLabelChange = useCallback((sectionIndex: number, blockIndex: number, newLabel: string) => {
-    setSections(prev => {
-      const newSections = [...prev]
-      newSections[sectionIndex].blocks[blockIndex].label = newLabel
-      return newSections
-    })
+    setSections(prev =>
+      prev.map((section, i) =>
+        i === sectionIndex ? {
+          ...section,
+          blocks: section.blocks.map((block, j) =>
+            j === blockIndex ? { ...block, label: newLabel } : block
+          )
+        } : section
+      )
+    )
   }, [])
 
   const handleResetLabel = useCallback((sectionIndex: number, blockIndex: number) => {
     setSections(prev => {
-      const newSections = [...prev]
-      const defaultLabel = newSections[sectionIndex].blocks[blockIndex].defaultLabel
-      newSections[sectionIndex].blocks[blockIndex].label = defaultLabel
+      const newSections = prev.map((section, i) =>
+        i === sectionIndex ? {
+          ...section,
+          blocks: section.blocks.map((block, j) =>
+            j === blockIndex ? { ...block, label: block.defaultLabel } : block
+          )
+        } : section
+      )
       toast({
         title: "Label Reset",
         description: "The label has been reset to its default value.",
@@ -190,18 +199,18 @@ export function useOutline() {
   }, [toast])
 
   const handleTitleChange = useCallback((sectionIndex: number, newTitle: string) => {
-    setSections(prev => {
-      const newSections = [...prev]
-      newSections[sectionIndex].title = newTitle
-      return newSections
-    })
+    setSections(prev =>
+      prev.map((section, i) =>
+        i === sectionIndex ? { ...section, title: newTitle } : section
+      )
+    )
   }, [])
 
   const handleResetTitle = useCallback((sectionIndex: number) => {
     setSections(prev => {
-      const newSections = [...prev]
-      const defaultTitle = newSections[sectionIndex].defaultTitle
-      newSections[sectionIndex].title = defaultTitle
+      const newSections = prev.map((section, i) =>
+        i === sectionIndex ? { ...section, title: section.defaultTitle } : section
+      )
       toast({
         title: "Title Reset",
         description: "The section title has been reset to its default value.",
@@ -291,11 +300,10 @@ export function useOutline() {
         type: section.type,
       }
 
-      const newSections = [...prev]
-      newSections[sectionIndex] = {
-        ...section,
-        blocks: [...section.blocks, newBlock]
-      }
+      const newSections = prev.map((s, i) =>
+        i === sectionIndex ? { ...s, blocks: [...s.blocks, newBlock] } : s
+      )
+
       toast({
         title: "Block Added",
         description: `A new block has been added to ${section.title}.`,
@@ -317,8 +325,13 @@ export function useOutline() {
         return prev
       }
 
-      const newSections = [...prev]
-      newSections[sectionIndex].blocks.splice(blockIndex, 1)
+      const newSections = prev.map((section, i) =>
+        i === sectionIndex ? {
+          ...section,
+          blocks: section.blocks.filter((_, j) => j !== blockIndex)
+        } : section
+      )
+
       toast({
         title: "Block Removed",
         description: "The block has been removed.",
@@ -341,8 +354,8 @@ export function useOutline() {
         return prev
       }
 
-      const newSections = [...prev]
-      newSections.splice(sectionIndex, 1)
+      const newSections = prev.filter((_, i) => i !== sectionIndex)
+
       toast({
         title: "Section Removed",
         description: "The section has been removed.",
@@ -357,45 +370,37 @@ export function useOutline() {
     if (!over || active.id === over.id) return;
 
     setSections(prev => {
-      const blockMap = new Map<string, { sectionIndex: number, blockIndex: number }>();
-      prev.forEach((section, sectionIndex) => {
-        section.blocks.forEach((block, blockIndex) => {
-          blockMap.set(block.id, { sectionIndex, blockIndex });
+      const activeBlockId = active.id as string;
+      const overBlockId = over.id as string;
+
+      let sectionIndex = -1;
+      let activeBlockIndex = -1;
+      let overBlockIndex = -1;
+
+      // Find which section and what indices the blocks are in
+      // Blocks are now restricted to their parent sections, so we only care about intra-section reordering
+      prev.forEach((section, sIdx) => {
+        section.blocks.forEach((block, bIdx) => {
+          if (block.id === activeBlockId) {
+            sectionIndex = sIdx;
+            activeBlockIndex = bIdx;
+          }
+          if (block.id === overBlockId) {
+            overBlockIndex = bIdx;
+          }
         });
       });
 
-      const activeBlockInfo = blockMap.get(active.id as string);
-      const overBlockInfo = blockMap.get(over.id as string);
+      if (sectionIndex === -1 || activeBlockIndex === -1 || overBlockIndex === -1) return prev;
 
-      if (!activeBlockInfo || !overBlockInfo) return prev;
-
-      const newSections = [...prev]
-      if (activeBlockInfo.sectionIndex === overBlockInfo.sectionIndex) {
-        const sectionIndex = activeBlockInfo.sectionIndex
-        newSections[sectionIndex] = {
-          ...newSections[sectionIndex],
-          blocks: arrayMove(newSections[sectionIndex].blocks, activeBlockInfo.blockIndex, overBlockInfo.blockIndex),
-        }
-      } else {
-        const activeSection = { ...newSections[activeBlockInfo.sectionIndex] }
-        const overSection = { ...newSections[overBlockInfo.sectionIndex] }
-
-        const [blockToMove] = activeSection.blocks.splice(activeBlockInfo.blockIndex, 1)
-        blockToMove.type = overSection.type
-        overSection.blocks.splice(overBlockInfo.blockIndex, 0, blockToMove)
-
-        newSections[activeBlockInfo.sectionIndex] = activeSection
-        newSections[overBlockInfo.sectionIndex] = overSection
-
-        toast({
-          title: "Block Moved",
-          description: `Block moved to ${overSection.title}`,
-          duration: 2000,
-        })
-      }
-      return newSections
+      return prev.map((section, i) =>
+        i === sectionIndex ? {
+          ...section,
+          blocks: arrayMove(section.blocks, activeBlockIndex, overBlockIndex)
+        } : section
+      )
     })
-  }, [toast])
+  }, [])
 
   const handleSectionDragEnd = useCallback((event: DragEndEvent) => {
     const { active, over } = event

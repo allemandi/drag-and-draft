@@ -13,12 +13,15 @@ interface SortableSectionProps {
 export function SortableSection({ id, children }: SortableSectionProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useSortable({
     id,
+    data: {
+      type: "section",
+    },
   })
 
   const style = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Translate.toString(transform),
     transition: 'opacity 100ms ease',
-    opacity: isDragging ? 0.5 : 1,
+    opacity: isDragging ? 0.6 : 1,
     position: "relative" as const,
     zIndex: isDragging ? 50 : 0,
     whiteSpace: 'pre-line',
@@ -38,6 +41,7 @@ export function SortableSection({ id, children }: SortableSectionProps) {
         style={{ touchAction: "none" }}
       >
         <GripVertical className="h-4 w-4" />
+        <span className="sr-only">Use arrow keys to reorder when focused</span>
       </div>
       {children}
     </div>
