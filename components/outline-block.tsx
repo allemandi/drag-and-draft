@@ -60,17 +60,17 @@ export function OutlineBlock({
 
   const getBlockStyles = (type: string, hasContent: boolean) => {
     const base = "w-full min-h-[50px] p-3 sm:p-4 rounded-xl transition-all duration-300 border"
-    if (!hasContent) return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20")
+    if (!hasContent) return cn(base, "bg-muted/20 border-primary/10 hover:bg-muted/30 hover:border-primary/20")
 
     switch (type) {
       case "intro":
-        return cn(base, "bg-blue-50/50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800/30 hover:bg-blue-100/50 dark:hover:bg-blue-900/30")
+        return cn(base, "bg-blue-100/50 dark:bg-blue-900/40 border-blue-200 dark:border-blue-800/60 hover:bg-blue-200/50 dark:hover:bg-blue-900/60")
       case "body":
-        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
+        return cn(base, "bg-muted/30 dark:bg-muted/10 border-primary/10 hover:bg-muted/50 dark:hover:bg-muted/20 hover:border-primary/20")
       case "conclusion":
-        return cn(base, "bg-emerald-50/50 dark:bg-emerald-900/20 border-emerald-100 dark:border-emerald-800/30 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/30")
+        return cn(base, "bg-emerald-100/50 dark:bg-emerald-900/40 border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-200/50 dark:hover:bg-emerald-900/60")
       default:
-        return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20")
+        return cn(base, "bg-muted/20 border-primary/10 hover:bg-muted/30")
     }
   }
 

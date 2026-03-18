@@ -50,11 +50,11 @@ export function OutlineSection({
   const getSectionStyles = (type: string) => {
     switch (type) {
       case "intro":
-        return "bg-blue-50/30 dark:bg-blue-950/20 border-blue-200/50 dark:border-blue-800/40"
+        return "bg-blue-50/50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800/60"
       case "body":
-        return "bg-card border-border/60"
+        return "bg-card border-border/80"
       case "conclusion":
-        return "bg-emerald-50/30 dark:bg-emerald-950/20 border-emerald-200/50 dark:border-emerald-800/40"
+        return "bg-emerald-50/50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800/60"
       default:
         return "bg-card"
     }
@@ -62,12 +62,12 @@ export function OutlineSection({
 
   return (
     <Card className={cn(
-      "overflow-hidden border-2 shadow-soft transition-all duration-300",
+      "relative border-2 shadow-soft transition-all duration-300",
       getSectionStyles(section.type)
     )}>
       <CardHeader className={cn(
         "flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-0 px-4 py-3 sm:px-6 sm:py-4",
-        isDraggable && "pl-10 sm:pl-14"
+        isDraggable && "pl-11 sm:pl-14"
       )}>
         <div className="flex items-center gap-3">
           <EditableText
@@ -116,7 +116,10 @@ export function OutlineSection({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4 px-4 pb-4 sm:px-6 sm:pb-6 pt-0">
+      <CardContent className={cn(
+        "space-y-4 px-4 pb-4 sm:px-6 sm:pb-6 pt-0",
+        isDraggable && "pl-11 sm:pl-14"
+      )}>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
