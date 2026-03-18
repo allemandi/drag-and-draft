@@ -50,11 +50,11 @@ export function OutlineSection({
   const getSectionStyles = (type: string) => {
     switch (type) {
       case "intro":
-        return "bg-background"
+        return "bg-blue-50/30 dark:bg-blue-950/20 border-blue-200/50 dark:border-blue-800/40"
       case "body":
-        return "bg-background"
+        return "bg-card border-border/60"
       case "conclusion":
-        return "bg-background"
+        return "bg-emerald-50/30 dark:bg-emerald-950/20 border-emerald-200/50 dark:border-emerald-800/40"
       default:
         return "bg-card"
     }
@@ -66,8 +66,8 @@ export function OutlineSection({
       getSectionStyles(section.type)
     )}>
       <CardHeader className={cn(
-        "flex flex-row items-center justify-between space-y-0 px-6 py-4",
-        isDraggable && "sm:pl-14"
+        "flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-0 px-4 py-3 sm:px-6 sm:py-4",
+        isDraggable && "pl-10 sm:pl-14"
       )}>
         <div className="flex items-center gap-3">
           <EditableText
@@ -116,7 +116,7 @@ export function OutlineSection({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4 px-6 pb-6 pt-0">
+      <CardContent className="space-y-4 px-4 pb-4 sm:px-6 sm:pb-6 pt-0">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}

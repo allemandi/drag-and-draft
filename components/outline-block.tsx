@@ -59,16 +59,16 @@ export function OutlineBlock({
   }
 
   const getBlockStyles = (type: string, hasContent: boolean) => {
-    const base = "w-full min-h-[50px] p-4 rounded-xl transition-all duration-300 border"
+    const base = "w-full min-h-[50px] p-3 sm:p-4 rounded-xl transition-all duration-300 border"
     if (!hasContent) return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20")
 
     switch (type) {
       case "intro":
-        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
+        return cn(base, "bg-blue-50/50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800/30 hover:bg-blue-100/50 dark:hover:bg-blue-900/30")
       case "body":
         return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
       case "conclusion":
-        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
+        return cn(base, "bg-emerald-50/50 dark:bg-emerald-900/20 border-emerald-100 dark:border-emerald-800/30 hover:bg-emerald-100/50 dark:hover:bg-emerald-900/30")
       default:
         return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20")
     }
@@ -145,7 +145,7 @@ export function OutlineBlock({
                 aria-label={`Editing content for ${block.label}`}
                 className={cn(
                   getBlockStyles(block.type, true),
-                  "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/30"
+                  "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-base sm:text-sm min-h-[60px] shadow-inner-soft border-primary/30"
                 )}
                 placeholder={block.placeholder}
               />
@@ -164,11 +164,11 @@ export function OutlineBlock({
               >
                 <div className="flex-grow min-h-[20px]">
                   {block.content ? (
-                    <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
+                    <p className="whitespace-pre-line text-base sm:text-sm leading-relaxed text-foreground/90">
                       {block.content}
                     </p>
                   ) : (
-                    <p className="text-sm text-muted-foreground/50 italic whitespace-pre-line">
+                    <p className="text-base sm:text-sm text-muted-foreground/50 italic whitespace-pre-line">
                       {block.placeholder}
                     </p>
                   )}
