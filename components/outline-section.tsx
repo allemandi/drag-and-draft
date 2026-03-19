@@ -116,7 +116,7 @@ export function OutlineSection({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4 px-4 pb-4 sm:px-6 sm:pb-6 pt-0">
+      <CardContent className="space-y-4 px-4 pb-4 sm:px-6 sm:pb-6 pt-0 min-w-0 overflow-hidden">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -124,7 +124,7 @@ export function OutlineSection({
           modifiers={[restrictToVerticalAxis, restrictToParentElement]}
         >
           <SortableContext items={section.blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
-            <div className="grid gap-4">
+            <div className="flex flex-col gap-4 w-full min-w-0">
               {section.blocks.map((block, blockIndex) => (
                 <MemoizedOutlineBlock
                   key={block.id}

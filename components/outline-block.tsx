@@ -79,11 +79,11 @@ export function OutlineBlock({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group relative rounded-2xl border-1.5 sm:border-2 border-border/60 bg-card p-3 sm:p-4 transition-all duration-300",
+        "group relative rounded-2xl border-1.5 sm:border-2 border-border/60 bg-card p-3 sm:p-4 transition-all duration-300 w-full min-w-0 overflow-hidden",
         isDragging ? "z-50 shadow-md scale-[1.01] border-primary/20" : "shadow-soft hover:shadow-md hover:border-border"
       )}
     >
-      <div className="flex items-start gap-2 sm:gap-4">
+      <div className="flex items-start gap-2 sm:gap-4 min-w-0">
         <div
           {...attributes}
           {...listeners}
