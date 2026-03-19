@@ -59,7 +59,7 @@ export function OutlineBlock({
   }
 
   const getBlockStyles = (type: string, hasContent: boolean) => {
-    const base = "w-full min-h-[50px] p-4 rounded-xl transition-all duration-300 border"
+    const base = "w-full min-h-[40px] sm:min-h-[50px] p-3 sm:p-4 rounded-xl transition-all duration-300 border"
     if (!hasContent) return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20")
 
     switch (type) {
@@ -79,11 +79,11 @@ export function OutlineBlock({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group relative rounded-2xl border-2 border-border/60 bg-card p-4 transition-all duration-300",
+        "group relative rounded-2xl border-1.5 sm:border-2 border-border/60 bg-card p-3 sm:p-4 transition-all duration-300",
         isDragging ? "z-50 shadow-md scale-[1.01] border-primary/20" : "shadow-soft hover:shadow-md hover:border-border"
       )}
     >
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-2 sm:gap-4">
         <div
           {...attributes}
           {...listeners}
@@ -99,18 +99,18 @@ export function OutlineBlock({
           <span className="sr-only">Use arrow keys to reorder when focused</span>
         </div>
 
-        <div className="flex-grow space-y-3">
-          <div className="flex items-center justify-between">
+        <div className="flex-grow space-y-2 sm:space-y-3 overflow-hidden">
+          <div className="flex items-center justify-between gap-2">
             <EditableText
               value={block.label}
               onChange={onLabelChange}
               as="label"
               ariaLabel={`Block label: ${block.label}`}
-              className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80"
-              inputClassName="text-[10px] font-black uppercase tracking-[0.2em] h-5 w-full"
+              className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80 truncate"
+              inputClassName="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] h-5 w-full"
             />
 
-            <div className="flex items-center gap-1.5 transition-opacity">
+            <div className="flex items-center gap-1 sm:gap-1.5 transition-opacity">
               <Button
                 variant="ghost"
                 size="sm"
@@ -126,7 +126,7 @@ export function OutlineBlock({
                   variant="ghost"
                   size="icon"
                   onClick={onRemoveBlock}
-                  className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Remove Block"
                 >
                   <X className="h-3.5 w-3.5" />
