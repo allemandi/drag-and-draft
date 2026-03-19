@@ -132,24 +132,24 @@ export default function EssayOutlinePlanner() {
 
   return (
     <div className="min-h-screen bg-background selection:bg-primary/10">
-      <div className="container mx-auto max-w-6xl px-4 py-10 pb-24">
-        <header className="mb-12">
-          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row sm:items-end">
-            <div className="space-y-2 text-center sm:text-left">
-              <div className="flex items-center justify-center gap-2.5 sm:justify-start">
+      <div className="container mx-auto max-w-6xl px-4 py-6 sm:py-10 pb-24">
+        <header className="mb-8 sm:mb-12">
+          <div className="flex flex-col items-center justify-between gap-4 sm:gap-6 sm:flex-row sm:items-end">
+            <div className="space-y-1 sm:space-y-2 text-center sm:text-left">
+              <div className="flex items-center justify-center gap-2 sm:gap-2.5 sm:justify-start">
                 <div className="rounded-xl bg-primary p-2 text-primary-foreground shadow-sm">
                   <Layout className="h-6 w-6" />
                 </div>
-                <h1 className="text-3xl font-black tracking-tight sm:text-4xl">
+                <h1 className="text-2xl font-black tracking-tight sm:text-4xl">
                   Drag & Draft
                 </h1>
               </div>
-              <p className="text-sm font-medium text-muted-foreground/80">
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground/80">
                 Craft your narrative with precision and ease.
               </p>
             </div>
 
-            <div className="flex items-center gap-1.5 rounded-xl bg-card p-1 shadow-soft border border-border/40">
+            <div className="flex items-center gap-1 sm:gap-1.5 rounded-xl bg-card p-1 shadow-soft border border-border/40">
               <Button
                 variant="ghost"
                 size="icon"
@@ -167,7 +167,7 @@ export default function EssayOutlinePlanner() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+          <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
             <BackupModal
               onDownload={handleBackupDownload}
               onUpload={() => fileInputRef.current?.click()}

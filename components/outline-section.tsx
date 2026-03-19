@@ -62,30 +62,30 @@ export function OutlineSection({
 
   return (
     <Card className={cn(
-      "overflow-hidden border-2 shadow-soft transition-all duration-300",
+      "overflow-hidden border-1.5 sm:border-2 shadow-soft transition-all duration-300",
       getSectionStyles(section.type)
     )}>
       <CardHeader className={cn(
-        "flex flex-row items-center justify-between space-y-0 px-6 py-4",
-        isDraggable && "sm:pl-14"
+        "flex flex-row items-center justify-between space-y-0 px-4 py-3 sm:px-6 sm:py-4 gap-2",
+        isDraggable && "pl-11 sm:pl-14"
       )}>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 overflow-hidden min-w-0 flex-1 sm:flex-none">
           <EditableText
             value={section.title}
             onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
             as="h2"
             ariaLabel={`Section title: ${section.title}`}
-            className="text-xl font-black tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5 px-2 py-1 rounded-md transition-colors"
-            inputClassName="text-xl font-black h-9 w-full"
+            className="text-lg sm:text-xl font-black tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md transition-colors truncate"
+            inputClassName="text-lg sm:text-xl font-black h-8 sm:h-9 w-full"
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0 ml-auto">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => onResetTitle(sectionIndex)}
-            className="h-8 gap-1.5 px-2 text-[10px] font-bold uppercase text-muted-foreground/50 hover:text-primary hover:bg-primary/5"
+            className="h-8 w-8 sm:w-auto gap-1.5 px-0 sm:px-2 text-[10px] font-bold uppercase text-muted-foreground/50 hover:text-primary hover:bg-primary/5"
             title="Reset Title"
           >
             <RefreshCw className="h-3.5 w-3.5" />
@@ -96,7 +96,7 @@ export function OutlineSection({
             variant="secondary"
             size="sm"
             onClick={onAddBlock}
-            className="h-8 gap-1.5 px-3 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg"
+            className="h-8 w-8 sm:w-auto gap-1.5 px-0 sm:px-3 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg"
           >
             <Plus className="h-3 w-3" />
             <span className="hidden sm:inline">Add Block</span>
@@ -116,7 +116,7 @@ export function OutlineSection({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4 px-6 pb-6 pt-0">
+      <CardContent className="space-y-4 px-4 pb-4 sm:px-6 sm:pb-6 pt-0 min-w-0 overflow-hidden">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -124,7 +124,7 @@ export function OutlineSection({
           modifiers={[restrictToVerticalAxis, restrictToParentElement]}
         >
           <SortableContext items={section.blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
-            <div className="grid gap-4">
+            <div className="flex flex-col gap-4 w-full min-w-0">
               {section.blocks.map((block, blockIndex) => (
                 <MemoizedOutlineBlock
                   key={block.id}
