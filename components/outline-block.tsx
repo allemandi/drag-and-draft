@@ -110,16 +110,16 @@ export function OutlineBlock({
               inputClassName="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] h-5 w-full"
             />
 
-            <div className="flex items-center gap-1 sm:gap-1.5 transition-opacity">
+            <div className="flex items-center gap-1 sm:gap-1.5 transition-opacity flex-shrink-0">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={onResetLabel}
-                className="h-6 gap-1 px-1.5 text-[10px] font-bold uppercase text-muted-foreground/50 hover:text-primary hover:bg-primary/5"
+                className="h-6 w-6 sm:w-auto gap-1 px-0 sm:px-1.5 text-[10px] font-bold uppercase text-muted-foreground/50 hover:text-primary hover:bg-primary/5"
                 title="Reset Label"
               >
                 <RefreshCw className="h-3 w-3" />
-                <span>Reset</span>
+                <span className="hidden sm:inline">Reset</span>
               </Button>
               {showRemoveButton && (
                 <Button
