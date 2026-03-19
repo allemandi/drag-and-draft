@@ -99,16 +99,18 @@ export function OutlineBlock({
           <span className="sr-only">Use arrow keys to reorder when focused</span>
         </div>
 
-        <div className="flex-grow space-y-2 sm:space-y-3 overflow-hidden">
+        <div className="flex-grow space-y-2 sm:space-y-3 overflow-hidden min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <EditableText
-              value={block.label}
-              onChange={onLabelChange}
-              as="label"
-              ariaLabel={`Block label: ${block.label}`}
-              className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80 truncate"
-              inputClassName="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] h-5 w-full"
-            />
+            <div className="flex-1 min-w-0">
+              <EditableText
+                value={block.label}
+                onChange={onLabelChange}
+                as="label"
+                ariaLabel={`Block label: ${block.label}`}
+                className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80 truncate block"
+                inputClassName="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] h-5 w-full"
+              />
+            </div>
 
             <div className="flex items-center gap-1 sm:gap-1.5 transition-opacity flex-shrink-0">
               <Button

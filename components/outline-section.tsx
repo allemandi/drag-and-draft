@@ -66,10 +66,10 @@ export function OutlineSection({
       getSectionStyles(section.type)
     )}>
       <CardHeader className={cn(
-        "flex flex-row items-center justify-between space-y-0 px-4 py-3 sm:px-6 sm:py-4",
+        "flex flex-row items-center justify-between space-y-0 px-4 py-3 sm:px-6 sm:py-4 gap-2",
         isDraggable && "pl-11 sm:pl-14"
       )}>
-        <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
+        <div className="flex items-center gap-2 sm:gap-3 overflow-hidden min-w-0 flex-1 sm:flex-none">
           <EditableText
             value={section.title}
             onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
