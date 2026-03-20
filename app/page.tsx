@@ -133,21 +133,25 @@ export default function EssayOutlinePlanner() {
   return (
     <div className="min-h-screen bg-background selection:bg-primary/10">
       <div className="fixed top-0 left-0 w-full bg-background/80 backdrop-blur-md border-b border-border/50 z-50 shadow-sm">
-        <header className="container mx-auto max-w-6xl px-4 py-2 sm:py-3.5">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-6">
+        <header className="container mx-auto max-w-6xl px-4 py-2 sm:py-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center justify-between w-full sm:w-auto">
-              <div className="flex items-center gap-2 sm:gap-2.5">
-                <div className="rounded-lg bg-primary p-1.5 text-primary-foreground shadow-sm">
-                  <Layout className="h-4 w-4 sm:h-5 sm:w-5" />
+              {/* Logo and Title */}
+              <div className="flex items-center gap-2.5">
+                <div className="rounded-lg bg-primary p-1.5 text-primary-foreground shadow-sm flex items-center justify-center">
+                  <Layout className="h-5 w-5" />
                 </div>
-                <h1 className="text-xl font-black tracking-tight sm:text-2xl shrink-0">
-                  Drag & Draft
-                </h1>
-                <span className="hidden sm:inline-block text-[11px] font-medium text-muted-foreground/60 border-l border-border/40 pl-3.5 italic">
-                  Structural Outlining Tool
-                </span>
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-3">
+                  <h1 className="text-xl font-black tracking-tight sm:text-2xl leading-none">
+                    Drag & Draft
+                  </h1>
+                  <span className="hidden sm:inline-block text-[11px] font-medium text-muted-foreground/60 italic leading-none">
+                    Structural Outlining Tool
+                  </span>
+                </div>
               </div>
 
+              {/* Mobile Primary Actions */}
               <div className="flex items-center gap-1.5 sm:hidden">
                 <Button
                   variant="ghost"
@@ -165,7 +169,9 @@ export default function EssayOutlinePlanner() {
               </div>
             </div>
 
-            <div className="flex items-center justify-center sm:justify-end gap-2 w-full sm:w-auto pt-0.5 sm:pt-0">
+            {/* Action Buttons Group */}
+            <div className="flex flex-col items-end sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+              {/* Utility Actions (Backup, Export, Reset) */}
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <BackupModal
                   onDownload={handleBackupDownload}
@@ -183,7 +189,8 @@ export default function EssayOutlinePlanner() {
                 </Button>
               </div>
 
-              <div className="hidden sm:flex items-center gap-2 ml-2 border-l border-border/40 pl-4">
+              {/* Desktop Primary Actions */}
+              <div className="hidden sm:flex items-center gap-2">
                 <Button
                   variant="ghost"
                   size="icon"
