@@ -18,12 +18,12 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="fixed bottom-0 left-0 w-full py-2 px-4 sm:px-8 bg-background/80 backdrop-blur-md border-t border-border flex flex-row justify-between items-center z-40">
-        <p className="text-xs sm:text-sm text-muted-foreground">
+      <footer className="fixed bottom-0 left-0 w-full py-2 px-4 sm:px-8 bg-background/80 backdrop-blur-md border-t border-border flex flex-row justify-center items-center gap-6 sm:gap-10 z-40">
+        <p className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
           © {new Date().getFullYear()} allemandi
         </p>
 
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-3">
           <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8" asChild>
             <Link
               href="https://github.com/allemandi/drag-and-draft"

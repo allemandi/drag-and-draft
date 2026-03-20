@@ -72,7 +72,7 @@ export function EditableText({
         onKeyDown={handleKeyDown}
         aria-label={ariaLabel || (value ? `Editing ${value}` : "Edit text")}
         className={cn(
-          "h-auto py-0 px-2 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-primary/40 bg-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 shadow-sm",
+          "h-auto py-0 px-2 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-primary/40 bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm",
           inputClassName
         )}
       />
