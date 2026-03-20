@@ -165,15 +165,13 @@ export default function EssayOutlinePlanner() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto pt-0.5 sm:pt-0">
-              <div className="flex items-center gap-1.5 sm:gap-2 flex-1 sm:flex-initial">
-                <div className="flex items-center gap-1.5 flex-1 sm:flex-initial">
-                  <BackupModal
-                    onDownload={handleBackupDownload}
-                    onUpload={() => fileInputRef.current?.click()}
-                  />
-                  <ExportModal onExport={handleExport} />
-                </div>
+            <div className="flex items-center justify-center sm:justify-end gap-2 w-full sm:w-auto pt-0.5 sm:pt-0">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <BackupModal
+                  onDownload={handleBackupDownload}
+                  onUpload={() => fileInputRef.current?.click()}
+                />
+                <ExportModal onExport={handleExport} />
                 <Button
                   variant="outline"
                   size="sm"
