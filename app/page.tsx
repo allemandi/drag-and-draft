@@ -141,12 +141,12 @@ export default function EssayOutlinePlanner() {
                 <div className="rounded-lg bg-primary p-1.5 text-primary-foreground shadow-sm flex items-center justify-center">
                   <Layout className="h-5 w-5" />
                 </div>
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-baseline sm:gap-3">
                   <h1 className="text-xl font-black tracking-tight sm:text-2xl leading-none">
                     Drag & Draft
                   </h1>
-                  <span className="hidden sm:inline-block text-[11px] font-medium text-muted-foreground/60 italic leading-none">
-                    Structural Outlining Tool
+                  <span className="inline-block text-[10px] sm:text-[11px] font-medium text-muted-foreground/60 italic leading-none mt-1 sm:mt-0">
+                    Craft your narrative with precision and ease.
                   </span>
                 </div>
               </div>
@@ -218,7 +218,7 @@ export default function EssayOutlinePlanner() {
         </header>
       </div>
 
-      <div className="container mx-auto max-w-6xl px-4 pt-36 sm:pt-28 pb-16">
+      <div className="container mx-auto max-w-6xl px-4 pt-40 sm:pt-28 pb-16">
         <main className="space-y-8">
           {/* Introduction */}
           {sections[0]?.type === "intro" && (
