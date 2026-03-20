@@ -47,23 +47,9 @@ export function OutlineSection({
   isDraggable,
 }: OutlineSectionProps) {
 
-  const getSectionStyles = (type: string) => {
-    switch (type) {
-      case "intro":
-        return "bg-background"
-      case "body":
-        return "bg-background"
-      case "conclusion":
-        return "bg-background"
-      default:
-        return "bg-card"
-    }
-  }
-
   return (
     <Card className={cn(
-      "overflow-hidden border-1.5 sm:border-2 shadow-soft transition-all duration-300",
-      getSectionStyles(section.type)
+      "overflow-hidden border-1.5 sm:border-2 shadow-soft transition-all duration-300 bg-background"
     )}>
       <CardHeader className={cn(
         "flex flex-row items-center justify-between space-y-0 px-4 py-3 sm:px-6 sm:py-4 gap-2",

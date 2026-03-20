@@ -91,7 +91,7 @@ export function OutlineBlock({
           style={{ touchAction: 'none' }}
           tabIndex={0}
           role="button"
-          aria-label="Drag to reorder block"
+          aria-label={`Drag to reorder ${block.label} block`}
           aria-roledescription="sortable"
           data-drag-handle
         >

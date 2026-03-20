@@ -132,7 +132,7 @@ export default function EssayOutlinePlanner() {
 
   return (
     <div className="min-h-screen bg-background selection:bg-primary/10">
-      <div className="container mx-auto max-w-6xl px-4 py-6 sm:py-10 pb-24">
+      <div className="container mx-auto max-w-6xl px-4 py-6 sm:py-10">
         <header className="mb-8 sm:mb-12">
           <div className="flex flex-col items-center justify-between gap-4 sm:gap-6 sm:flex-row sm:items-end">
             <div className="space-y-1 sm:space-y-2 text-center sm:text-left">
