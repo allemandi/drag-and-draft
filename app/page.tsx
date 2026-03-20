@@ -141,11 +141,11 @@ export default function EssayOutlinePlanner() {
                 <div className="rounded-lg bg-primary p-1.5 text-primary-foreground shadow-sm flex items-center justify-center">
                   <Layout className="h-5 w-5" />
                 </div>
-                <div className="flex flex-col sm:flex-row items-start sm:items-baseline sm:gap-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center sm:gap-3">
                   <h1 className="text-xl font-black tracking-tight sm:text-2xl leading-none">
                     Drag & Draft
                   </h1>
-                  <span className="inline-block text-[10px] sm:text-[11px] font-medium text-muted-foreground/60 italic leading-none mt-1 sm:mt-0">
+                  <span className="inline-block text-[10px] sm:text-[11px] font-semibold text-muted-foreground/80 leading-none mt-1 sm:mt-0">
                     Craft your narrative with precision and ease.
                   </span>
                 </div>
@@ -154,10 +154,10 @@ export default function EssayOutlinePlanner() {
               {/* Mobile Primary Actions */}
               <div className="flex items-center gap-1.5 sm:hidden">
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="h-9 w-9 rounded-xl"
+                  className="h-9 w-9 rounded-xl border-border/50"
                   aria-label="Toggle theme"
                 >
                   {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
@@ -170,7 +170,7 @@ export default function EssayOutlinePlanner() {
             </div>
 
             {/* Action Buttons Group */}
-            <div className="flex flex-col items-end sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+            <div className="flex flex-col items-center sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
               {/* Utility Actions (Backup, Export, Reset) */}
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <BackupModal
@@ -192,10 +192,10 @@ export default function EssayOutlinePlanner() {
               {/* Desktop Primary Actions */}
               <div className="hidden sm:flex items-center gap-2">
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="h-8 w-8 rounded-lg"
+                  className="h-8 w-8 rounded-lg border-border/50"
                   aria-label="Toggle theme"
                 >
                   {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
