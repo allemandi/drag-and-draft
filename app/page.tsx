@@ -132,56 +132,71 @@ export default function EssayOutlinePlanner() {
 
   return (
     <div className="min-h-screen bg-background selection:bg-primary/10">
-      <div className="container mx-auto max-w-6xl px-4 py-6 sm:py-10">
-        <header className="mb-8 sm:mb-12">
-          <div className="flex flex-col items-center justify-between gap-4 sm:gap-6 sm:flex-row sm:items-end">
-            <div className="space-y-1 sm:space-y-2 text-center sm:text-left">
-              <div className="flex items-center justify-center gap-2 sm:gap-2.5 sm:justify-start">
-                <div className="rounded-xl bg-primary p-2 text-primary-foreground shadow-sm">
-                  <Layout className="h-6 w-6" />
+      <div className="fixed top-0 left-0 w-full bg-background/80 backdrop-blur-sm border-b border-border/50 z-50 shadow-sm">
+        <header className="container mx-auto max-w-6xl px-4 py-2 sm:py-3">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-6">
+            <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start">
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <div className="rounded-lg bg-primary p-1.5 text-primary-foreground shadow-sm">
+                  <Layout className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
-                <h1 className="text-2xl font-black tracking-tight sm:text-4xl">
+                <h1 className="text-lg font-black tracking-tight sm:text-2xl">
                   Drag & Draft
                 </h1>
               </div>
-              <p className="text-xs sm:text-sm font-medium text-muted-foreground/80">
-                Craft your narrative with precision and ease.
-              </p>
+
+              <div className="flex items-center gap-1 sm:hidden">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="h-8 w-8 rounded-lg"
+                  aria-label="Toggle theme"
+                >
+                  {theme === "light" ? <Moon className="h-3.5 w-3.5" /> : <Sun className="h-3.5 w-3.5" />}
+                </Button>
+                <Button onClick={handleSave} className="h-8 px-3 rounded-lg shadow-sm font-bold text-[10px]">
+                  <Save className="mr-1.5 h-3 w-3" />
+                  Save
+                </Button>
+              </div>
             </div>
 
-            <div className="flex items-center gap-1 sm:gap-1.5 rounded-xl bg-card p-1 shadow-soft border border-border/40">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="h-9 w-9 rounded-lg"
-                aria-label="Toggle theme"
-              >
-                {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
-              </Button>
-              <div className="h-5 w-px bg-border/40 mx-0.5" />
-              <Button onClick={handleSave} className="h-9 px-4 rounded-lg shadow-sm font-bold text-xs">
-                <Save className="mr-2 h-3.5 w-3.5" />
-                Save
-              </Button>
-            </div>
-          </div>
+            <div className="flex items-center gap-1.5 sm:gap-2 w-full sm:w-auto justify-center sm:justify-end">
+              <div className="flex items-center gap-1.5">
+                <BackupModal
+                  onDownload={handleBackupDownload}
+                  onUpload={() => fileInputRef.current?.click()}
+                />
+                <ExportModal onExport={handleExport} />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowResetModal(true)}
+                  className="h-8 px-2 sm:px-3 rounded-lg border-destructive/40 text-destructive hover:bg-destructive hover:text-destructive-foreground text-[10px] font-bold"
+                >
+                  <RefreshCw className="mr-1 h-3 w-3" />
+                  Reset
+                </Button>
+              </div>
 
-          <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-            <BackupModal
-              onDownload={handleBackupDownload}
-              onUpload={() => fileInputRef.current?.click()}
-            />
-            <ExportModal onExport={handleExport} />
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowResetModal(true)}
-              className="rounded-lg border-destructive/40 text-destructive hover:bg-destructive hover:text-destructive-foreground text-xs font-bold"
-            >
-              <RefreshCw className="mr-1.5 h-3.5 w-3.5" />
-              Reset All
-            </Button>
+              <div className="hidden sm:flex items-center gap-1.5 ml-2 border-l border-border/40 pl-3">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="h-8 w-8 rounded-lg"
+                  aria-label="Toggle theme"
+                >
+                  {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                </Button>
+                <Button onClick={handleSave} className="h-8 px-4 rounded-lg shadow-sm font-bold text-xs">
+                  <Save className="mr-2 h-3.5 w-3.5" />
+                  Save
+                </Button>
+              </div>
+            </div>
+
             <input
               type="file"
               ref={fileInputRef}
@@ -191,7 +206,9 @@ export default function EssayOutlinePlanner() {
             />
           </div>
         </header>
+      </div>
 
+      <div className="container mx-auto max-w-6xl px-4 pt-32 sm:pt-24 pb-16">
         <main className="space-y-8">
           {/* Introduction */}
           {sections[0]?.type === "intro" && (

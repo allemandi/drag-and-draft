@@ -18,14 +18,13 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full py-6 mt-12 border-t border-border flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
-        <p className="text-sm text-muted-foreground order-2 sm:order-1">
+      <footer className="fixed bottom-0 left-0 w-full py-2 px-4 sm:px-8 bg-background/80 backdrop-blur-md border-t border-border flex flex-row justify-between items-center z-40">
+        <p className="text-xs sm:text-sm text-muted-foreground">
           © {new Date().getFullYear()} allemandi
         </p>
 
-        <div className="flex items-center gap-4 order-1 sm:order-2">
-
-          <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <Button variant="ghost" size="icon" className="h-7 w-7 sm:h-8 sm:w-8" asChild>
             <Link
               href="https://github.com/allemandi/drag-and-draft"
               target="_blank"
@@ -39,7 +38,7 @@ export default function Footer() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8"
+            className="h-7 w-7 sm:h-8 sm:w-8"
             onClick={() => setIsHelpModalOpen(true)}
             aria-label="Help"
           >
