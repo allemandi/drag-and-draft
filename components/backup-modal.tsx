@@ -33,8 +33,8 @@ export function BackupModal({ onDownload, onUpload }: BackupModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="rounded-lg font-bold text-xs">
-          <Database className="h-3.5 w-3.5 sm:mr-1.5" />
+        <Button variant="outline" size="sm" className="h-8 px-2 sm:px-3 rounded-lg font-bold text-[10px] sm:text-xs">
+          <Database className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1 sm:mr-1.5" />
           <span>Backup</span>
         </Button>
       </DialogTrigger>

@@ -36,7 +36,7 @@ export function SortableSection({ id, children }: SortableSectionProps) {
         data-drag-handle
         tabIndex={0}
         aria-label="Drag to reorder section"
-        aria-roledescription="sortable"
+        aria-roledescription="sortable section"
         role="button"
         style={{ touchAction: "none" }}
       >
