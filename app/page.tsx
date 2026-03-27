@@ -15,7 +15,7 @@ import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrate
 import { OutlineSection } from "@/components/outline-section"
 import { SortableSection } from "@/components/sortable-section"
 import { Button } from "@/components/ui/button"
-import { Layout, Save, Plus, Moon, Sun, RefreshCw, Download } from "lucide-react"
+import { Layout, Save, Plus, Moon, Sun, RefreshCw } from "lucide-react"
 import { useTheme } from "next-themes"
 import Footer from "@/components/footer"
 import { formatOutline, downloadFile } from "@/lib/utils"
