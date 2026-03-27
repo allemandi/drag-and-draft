@@ -87,7 +87,7 @@ export function OutlineBlock({
         <div
           {...attributes}
           {...listeners}
-          className="mt-0.5 flex-shrink-0 cursor-grab rounded p-1 text-muted-foreground/30 transition-colors hover:bg-accent/50 hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="mt-0.5 flex-shrink-0 cursor-grab rounded p-1 text-muted-foreground/60 transition-colors hover:bg-accent/50 hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           style={{ touchAction: 'none' }}
           tabIndex={0}
           role="button"
@@ -117,7 +117,7 @@ export function OutlineBlock({
                 variant="ghost"
                 size="sm"
                 onClick={onResetLabel}
-                className="h-6 w-6 sm:w-auto gap-1 px-0 sm:px-1.5 text-[10px] font-bold uppercase text-muted-foreground/50 hover:text-primary hover:bg-primary/5"
+                className="h-6 w-6 sm:w-auto gap-1 px-0 sm:px-1.5 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5"
                 title="Reset Label"
               >
                 <RefreshCw className="h-3 w-3" />
@@ -153,7 +153,7 @@ export function OutlineBlock({
               />
             ) : (
               <div
-                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 outline-none flex items-start gap-2")}
+                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 outline-none flex items-start gap-2 hover:bg-primary/[0.03]")}
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -170,7 +170,7 @@ export function OutlineBlock({
                       {block.content}
                     </p>
                   ) : (
-                    <p className="text-sm text-muted-foreground/50 italic whitespace-pre-line">
+                    <p className="text-sm text-muted-foreground/70 italic whitespace-pre-line">
                       {block.placeholder}
                     </p>
                   )}

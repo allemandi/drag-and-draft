@@ -71,7 +71,7 @@ export function OutlineSection({
             variant="ghost"
             size="sm"
             onClick={() => onResetTitle(sectionIndex)}
-            className="h-8 w-8 sm:w-auto gap-1.5 px-0 sm:px-2 text-[10px] font-bold uppercase text-muted-foreground/50 hover:text-primary hover:bg-primary/5"
+            className="h-8 w-8 sm:w-auto gap-1.5 px-0 sm:px-2 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5"
             title="Reset Title"
           >
             <RefreshCw className="h-3.5 w-3.5" />
