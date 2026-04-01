@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, HelpCircle } from "lucide-react";
+import { Globe, CircleHelp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import {
@@ -31,7 +31,7 @@ export default function Footer() {
               rel="noopener"
               aria-label="GitHub"
             >
-              <Github className="h-4 w-4" />
+              <Globe className="h-4 w-4" />
             </Link>
           </Button>
 
@@ -42,7 +42,7 @@ export default function Footer() {
             onClick={() => setIsHelpModalOpen(true)}
             aria-label="Help"
           >
-            <HelpCircle className="h-4 w-4" />
+            <CircleHelp className="h-4 w-4" />
           </Button>
         </div>
       </footer>
