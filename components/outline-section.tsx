@@ -60,7 +60,7 @@ export function OutlineSection({
             value={section.title}
             onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
             as="h2"
-            ariaLabel={`Section title: ${section.title}`}
+            ariaLabel={`title for the "${section.title}" section`}
             className="text-lg sm:text-xl font-black tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md transition-colors truncate"
             inputClassName="text-lg sm:text-xl font-black h-8 sm:h-9 w-full"
           />
@@ -73,6 +73,7 @@ export function OutlineSection({
             onClick={() => onResetTitle(sectionIndex)}
             className="h-8 w-8 sm:w-auto gap-1.5 px-0 sm:px-2 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5"
             title="Reset Title"
+            aria-label={`Reset title for the "${section.title}" section`}
           >
             <RefreshCw className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Reset Title</span>
@@ -83,6 +84,7 @@ export function OutlineSection({
             size="sm"
             onClick={onAddBlock}
             className="h-8 w-8 sm:w-auto gap-1.5 px-0 sm:px-3 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg"
+            aria-label={`Add a new block to the "${section.title}" section`}
           >
             <Plus className="h-3 w-3" />
             <span className="hidden sm:inline">Add Block</span>
@@ -95,6 +97,7 @@ export function OutlineSection({
               onClick={onRemoveSection}
               className="h-7 w-7 text-muted-foreground/30 hover:bg-destructive/10 hover:text-destructive"
               title="Remove Section"
+              aria-label={`Remove the "${section.title}" section`}
             >
               <X className="h-3.5 w-3.5" />
             </Button>

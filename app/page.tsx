@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef, memo } from "react"
+import { useState, useMemo, useEffect, useCallback, useRef, memo } from "react"
 import {
   DndContext,
   closestCenter,
@@ -73,19 +73,31 @@ export default function EssayOutlinePlanner() {
     [sections]
   )
 
+  const handleSave = useCallback(() => {
+    saveToLocalStorage(sections)
+  }, [saveToLocalStorage, sections])
+
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+        e.preventDefault()
+        handleSave()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [handleSave])
 
   if (!mounted) return null
 
   const handleExport = (format: "pdf" | "docx" | "txt" | "md") => {
     const formatted = formatOutline(sections, format)
     downloadFile(formatted, format)
-  }
-
-  const handleSave = () => {
-    saveToLocalStorage(sections)
   }
 
   const handleBackupDownload = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, AlignLeft, Download, FileJson } from "lucide-react";
+import { FileText, AlignLeft, Download, FileCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -61,7 +61,7 @@ export function ExportModal({ onExport }: ExportModalProps) {
             variant="outline"
             className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-emerald-500/[0.03] hover:border-emerald-500/20"
           >
-            <FileJson className="h-5 w-5 mb-1.5 text-emerald-500/80" />
+            <FileCode className="h-5 w-5 mb-1.5 text-emerald-500/80" />
             <span className="text-[11px] font-bold tracking-widest">MARKDOWN</span>
           </Button>
         </div>

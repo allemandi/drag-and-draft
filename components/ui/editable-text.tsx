@@ -36,6 +36,9 @@ export function EditableText({
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus()
+      // Move cursor to the end
+      const length = inputRef.current.value.length
+      inputRef.current.setSelectionRange(length, length)
     }
   }, [isEditing])
 
@@ -63,7 +66,7 @@ export function EditableText({
         onChange={(e) => setTempValue(e.target.value)}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
-        aria-label={ariaLabel || (value ? `Editing ${value}` : "Edit text")}
+        aria-label={ariaLabel ? `Editing ${ariaLabel}` : (value ? `Editing ${value}` : "Edit text")}
         className={cn(
           "h-auto py-0 px-2 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-primary/40 bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm",
           inputClassName
@@ -77,7 +80,7 @@ export function EditableText({
       <button
         type="button"
         onClick={() => setIsEditing(true)}
-        aria-label={ariaLabel || (value ? `Edit ${value}` : "Edit empty text")}
+        aria-label={ariaLabel ? `Edit ${ariaLabel}` : (value ? `Edit ${value}` : "Edit empty text")}
         className={cn(
           "text-left cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-primary/10 hover:border-primary/30 min-w-[40px] truncate",
           className

@@ -91,12 +91,12 @@ export function OutlineBlock({
           style={{ touchAction: 'none' }}
           tabIndex={0}
           role="button"
-          aria-label={`Drag to reorder ${block.label} block`}
+          aria-label={`Drag to reorder the "${block.label}" block`}
           aria-roledescription="sortable"
           data-drag-handle
         >
           <GripVertical className="h-4 w-4" />
-          <span className="sr-only">Use arrow keys to reorder when focused</span>
+          <span className="sr-only">Press Space or Enter to begin dragging. Use the arrow keys to move the item, and Space or Enter again to drop it.</span>
         </div>
 
         <div className="flex-grow space-y-2 sm:space-y-3 overflow-hidden min-w-0">
@@ -106,7 +106,7 @@ export function OutlineBlock({
                 value={block.label}
                 onChange={onLabelChange}
                 as="label"
-                ariaLabel={`Block label: ${block.label}`}
+                ariaLabel={`label for the "${block.label}" block`}
                 className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80 truncate block"
                 inputClassName="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] h-5 w-full"
               />
@@ -119,6 +119,7 @@ export function OutlineBlock({
                 onClick={onResetLabel}
                 className="h-6 w-6 sm:w-auto gap-1 px-0 sm:px-1.5 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5"
                 title="Reset Label"
+                aria-label={`Reset label for the "${block.label}" block`}
               >
                 <RefreshCw className="h-3 w-3" />
                 <span className="hidden sm:inline">Reset</span>
@@ -130,6 +131,7 @@ export function OutlineBlock({
                   onClick={onRemoveBlock}
                   className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Remove Block"
+                  aria-label={`Remove the "${block.label}" block`}
                 >
                   <X className="h-3.5 w-3.5" />
                 </Button>
