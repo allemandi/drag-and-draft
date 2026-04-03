@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useId } from "react"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { GripVertical, X, RefreshCw } from "lucide-react"
@@ -27,6 +27,7 @@ export function OutlineBlock({
   onRemoveBlock,
   showRemoveButton,
 }: OutlineBlockProps) {
+  const dragDescId = useId()
   const [isEditing, setIsEditing] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -92,11 +93,12 @@ export function OutlineBlock({
           tabIndex={0}
           role="button"
           aria-label={`Drag to reorder ${block.label} block`}
+          aria-describedby={dragDescId}
           aria-roledescription="sortable"
           data-drag-handle
         >
           <GripVertical className="h-4 w-4" />
-          <span className="sr-only">Use arrow keys to reorder when focused</span>
+          <span id={dragDescId} className="sr-only">Use arrow keys to reorder when focused</span>
         </div>
 
         <div className="flex-grow space-y-2 sm:space-y-3 overflow-hidden min-w-0">
@@ -128,7 +130,7 @@ export function OutlineBlock({
                   variant="ghost"
                   size="icon"
                   onClick={onRemoveBlock}
-                  className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="h-6 w-6 text-muted-foreground/60 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Remove Block"
                 >
                   <X className="h-3.5 w-3.5" />
@@ -153,7 +155,7 @@ export function OutlineBlock({
               />
             ) : (
               <div
-                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 outline-none flex items-start gap-2 hover:bg-primary/[0.03]")}
+                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 focus-visible:ring-offset-2 outline-none flex items-start gap-2 hover:bg-primary/[0.03]")}
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {

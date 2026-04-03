@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import { useId } from "react"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import { GripVertical } from "lucide-react"
@@ -11,6 +12,7 @@ interface SortableSectionProps {
 }
 
 export function SortableSection({ id, children }: SortableSectionProps) {
+  const dragDescId = useId()
   const { attributes, listeners, setNodeRef, transform, isDragging } = useSortable({
     id,
     data: {
@@ -36,12 +38,13 @@ export function SortableSection({ id, children }: SortableSectionProps) {
         data-drag-handle
         tabIndex={0}
         aria-label="Drag to reorder section"
+        aria-describedby={dragDescId}
         aria-roledescription="sortable section"
         role="button"
         style={{ touchAction: "none" }}
       >
         <GripVertical className="h-4 w-4" />
-        <span className="sr-only">Use arrow keys to reorder when focused</span>
+        <span id={dragDescId} className="sr-only">Use arrow keys to reorder when focused</span>
       </div>
       {children}
     </div>
