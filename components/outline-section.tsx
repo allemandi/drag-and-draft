@@ -93,7 +93,7 @@ export function OutlineSection({
               variant="ghost"
               size="icon"
               onClick={onRemoveSection}
-              className="h-7 w-7 text-muted-foreground/30 hover:bg-destructive/10 hover:text-destructive"
+              className="h-7 w-7 text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive"
               title="Remove Section"
             >
               <X className="h-3.5 w-3.5" />
