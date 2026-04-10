@@ -52,10 +52,10 @@ export function OutlineSection({
       "overflow-hidden border-1.5 sm:border-2 shadow-soft transition-all duration-300 bg-background"
     )}>
       <CardHeader className={cn(
-        "flex flex-row items-center justify-between space-y-0 px-4 py-3 sm:px-6 sm:py-4 gap-2",
+        "flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0 px-4 py-3 sm:px-6 sm:py-4 gap-2",
         isDraggable && "pl-11 sm:pl-14"
       )}>
-        <div className="flex items-center gap-2 sm:gap-3 overflow-hidden min-w-0 flex-1 sm:flex-none">
+        <div className="flex items-center gap-2 sm:gap-3 overflow-hidden min-w-0 flex-1">
           <EditableText
             value={section.title}
             onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
@@ -66,26 +66,26 @@ export function OutlineSection({
           />
         </div>
 
-        <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0 ml-auto">
+        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap sm:ml-auto">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => onResetTitle(sectionIndex)}
-            className="h-8 w-8 sm:w-auto gap-1.5 px-0 sm:px-2 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5"
+            className="h-9 sm:h-8 px-2 sm:px-2 gap-1.5 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5"
             title="Reset Title"
           >
             <RefreshCw className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">Reset Title</span>
+            <span className="sm:inline">Reset Title</span>
           </Button>
 
           <Button
             variant="secondary"
             size="sm"
             onClick={onAddBlock}
-            className="h-8 w-8 sm:w-auto gap-1.5 px-0 sm:px-3 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg"
+            className="h-9 sm:h-8 px-3 sm:px-3 gap-1.5 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg"
           >
             <Plus className="h-3 w-3" />
-            <span className="hidden sm:inline">Add Block</span>
+            <span className="sm:inline">Add Block</span>
           </Button>
 
           {section.type === "body" && (
@@ -93,7 +93,7 @@ export function OutlineSection({
               variant="ghost"
               size="icon"
               onClick={onRemoveSection}
-              className="h-7 w-7 text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive"
+              className="h-9 w-9 sm:h-7 sm:w-7 text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive"
               title="Remove Section"
             >
               <X className="h-3.5 w-3.5" />
