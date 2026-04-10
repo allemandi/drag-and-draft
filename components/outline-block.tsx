@@ -59,20 +59,12 @@ export function OutlineBlock({
     onChange(newContent)
   }
 
-  const getBlockStyles = (type: string, hasContent: boolean) => {
+  const getBlockStyles = (hasContent: boolean) => {
     const base = "w-full min-h-[40px] sm:min-h-[50px] p-3 sm:p-4 rounded-xl transition-all duration-300 border"
-    if (!hasContent) return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20")
-
-    switch (type) {
-      case "intro":
-        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
-      case "body":
-        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
-      case "conclusion":
-        return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
-      default:
-        return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20")
+    if (!hasContent) {
+      return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20")
     }
+    return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
   }
 
   return (
@@ -109,8 +101,8 @@ export function OutlineBlock({
                 onChange={onLabelChange}
                 as="label"
                 ariaLabel={`Block label: ${block.label}`}
-                className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80 truncate block"
-                inputClassName="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] h-5 w-full"
+                className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80 truncate block"
+                inputClassName="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] h-5 w-full"
               />
             </div>
 
@@ -148,14 +140,14 @@ export function OutlineBlock({
                 onBlur={() => setIsEditing(false)}
                 aria-label={`Editing content for ${block.label}`}
                 className={cn(
-                  getBlockStyles(block.type, true),
+                  getBlockStyles(true),
                   "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/30"
                 )}
                 placeholder={block.placeholder}
               />
             ) : (
               <div
-                className={cn(getBlockStyles(block.type, !!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 focus-visible:ring-offset-2 outline-none flex items-start gap-2 hover:bg-primary/[0.03]")}
+                className={cn(getBlockStyles(!!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 focus-visible:ring-offset-2 outline-none flex items-start gap-2 hover:bg-primary/[0.03]")}
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {

@@ -79,7 +79,7 @@ export function EditableText({
         onClick={() => setIsEditing(true)}
         aria-label={ariaLabel || (value ? `Edit ${value}` : "Edit empty text")}
         className={cn(
-          "text-left cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 border border-primary/10 hover:border-primary/30 min-w-[40px] truncate",
+          "text-left cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-primary/10 hover:border-primary/30 min-w-[40px] truncate",
           className
         )}
       >
@@ -88,7 +88,7 @@ export function EditableText({
         </Component>
       </button>
       {showEditIcon && (
-        <Pencil className="h-3 w-3 text-primary/40 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity flex-shrink-0" />
+        <Pencil className="h-3 w-3 text-primary/40 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity flex-shrink-0" />
       )}
     </div>
   )
