@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useRef, useEffect, useId } from "react"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { GripVertical, X, RefreshCw } from "lucide-react"
+import { GripVertical, X, RefreshCw, Pencil } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { EditableText } from "@/components/ui/editable-text"
 import type { OutlineBlock as OutlineBlockType } from "@/lib/types"
@@ -12,15 +12,17 @@ import { cn } from "@/lib/utils"
 
 interface OutlineBlockProps {
   block: OutlineBlockType
-  onChange: (newContent: string) => void
-  onLabelChange: (newLabel: string) => void
-  onResetLabel: () => void
-  onRemoveBlock: () => void
+  blockIndex: number
+  onChange: (blockIndex: number, newContent: string) => void
+  onLabelChange: (blockIndex: number, newLabel: string) => void
+  onResetLabel: (blockIndex: number) => void
+  onRemoveBlock: (blockIndex: number) => void
   showRemoveButton: boolean
 }
 
 export function OutlineBlock({
   block,
+  blockIndex,
   onChange,
   onLabelChange,
   onResetLabel,
@@ -56,7 +58,7 @@ export function OutlineBlock({
     const newContent = e.target.value
     e.target.style.height = "auto"
     e.target.style.height = `${e.target.scrollHeight}px`
-    onChange(newContent)
+    onChange(blockIndex, newContent)
   }
 
   const getBlockStyles = (hasContent: boolean) => {
@@ -98,7 +100,7 @@ export function OutlineBlock({
             <div className="flex-1 min-w-0">
               <EditableText
                 value={block.label}
-                onChange={onLabelChange}
+                onChange={(newLabel) => onLabelChange(blockIndex, newLabel)}
                 as="label"
                 ariaLabel={`Block label: ${block.label}`}
                 className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.1em] sm:tracking-[0.2em] text-muted-foreground transition-colors hover:text-foreground/80 truncate block"
@@ -110,7 +112,7 @@ export function OutlineBlock({
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={onResetLabel}
+                onClick={() => onResetLabel(blockIndex)}
                 className="h-6 w-6 sm:w-auto gap-1 px-0 sm:px-1.5 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5"
                 title="Reset Label"
               >
@@ -121,7 +123,7 @@ export function OutlineBlock({
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={onRemoveBlock}
+                  onClick={() => onRemoveBlock(blockIndex)}
                   className="h-6 w-6 text-muted-foreground/60 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover:opacity-100 transition-opacity"
                   title="Remove Block"
                 >
@@ -141,13 +143,16 @@ export function OutlineBlock({
                 aria-label={`Editing content for ${block.label}`}
                 className={cn(
                   getBlockStyles(true),
-                  "focus:outline-none focus:ring-2 focus:ring-ring/20 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/30"
+                  "focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/40 bg-background"
                 )}
                 placeholder={block.placeholder}
               />
             ) : (
               <div
-                className={cn(getBlockStyles(!!block.content), "cursor-text focus-visible:ring-2 focus-visible:ring-ring/20 focus-visible:ring-offset-2 outline-none flex items-start gap-2 hover:bg-primary/[0.03]")}
+                className={cn(
+                  getBlockStyles(!!block.content),
+                  "cursor-text focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 outline-none flex items-start gap-2 hover:bg-primary/[0.03] relative"
+                )}
                 tabIndex={0}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -156,7 +161,7 @@ export function OutlineBlock({
                   }
                 }}
                 role="button"
-                aria-label={`Edit content for ${block.label}`}
+                aria-label={`Edit content for ${block.label}. ${block.content ? 'Current content: ' + block.content.substring(0, 50) + '...' : 'Currently empty.'}`}
               >
                 <div className="flex-grow min-h-[20px]">
                   {block.content ? (
@@ -168,6 +173,9 @@ export function OutlineBlock({
                       {block.placeholder}
                     </p>
                   )}
+                </div>
+                <div className="absolute right-3 bottom-3 opacity-0 group-hover/content:opacity-100 transition-opacity">
+                  <Pencil className="h-3 w-3 text-primary/40" />
                 </div>
               </div>
             )}

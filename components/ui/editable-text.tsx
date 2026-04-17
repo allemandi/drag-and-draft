@@ -57,18 +57,21 @@ export function EditableText({
 
   if (isEditing) {
     return (
-      <Input
-        ref={inputRef}
-        value={tempValue}
-        onChange={(e) => setTempValue(e.target.value)}
-        onBlur={handleBlur}
-        onKeyDown={handleKeyDown}
-        aria-label={ariaLabel || (value ? `Editing ${value}` : "Edit text")}
-        className={cn(
-          "h-auto py-0 px-2 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-primary/40 bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm",
-          inputClassName
-        )}
-      />
+      <div className="flex items-center gap-2 max-w-full">
+        <Input
+          ref={inputRef}
+          value={tempValue}
+          onChange={(e) => setTempValue(e.target.value)}
+          onBlur={handleBlur}
+          onKeyDown={handleKeyDown}
+          aria-label={ariaLabel || (value ? `Editing ${value}` : "Edit text")}
+          className={cn(
+            "h-auto py-1 px-2 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-primary/40 bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm",
+            inputClassName
+          )}
+        />
+        {showEditIcon && <Pencil className="h-3 w-3 text-primary flex-shrink-0 animate-pulse" />}
+      </div>
     )
   }
 
@@ -79,7 +82,7 @@ export function EditableText({
         onClick={() => setIsEditing(true)}
         aria-label={ariaLabel || (value ? `Edit ${value}` : "Edit empty text")}
         className={cn(
-          "text-left cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-primary/10 hover:border-primary/30 min-w-[40px] truncate",
+          "text-left cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-primary/10 hover:border-primary/30 min-w-[40px] truncate outline-none",
           className
         )}
       >
