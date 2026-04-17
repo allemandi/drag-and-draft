@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import { memo } from "react"
 import { OutlineBlock } from "./outline-block"
 import { Button } from "@/components/ui/button"
@@ -46,6 +47,21 @@ export function OutlineSection({
   sensors,
   isDraggable,
 }: OutlineSectionProps) {
+  const onContentChangeWrapped = React.useCallback((blockIndex: number, newContent: string) => {
+    onContentChange(sectionIndex, blockIndex, newContent)
+  }, [onContentChange, sectionIndex])
+
+  const onLabelChangeWrapped = React.useCallback((blockIndex: number, newLabel: string) => {
+    onLabelChange(sectionIndex, blockIndex, newLabel)
+  }, [onLabelChange, sectionIndex])
+
+  const onResetLabelWrapped = React.useCallback((blockIndex: number) => {
+    onResetLabel(sectionIndex, blockIndex)
+  }, [onResetLabel, sectionIndex])
+
+  const onTitleChangeWrapped = React.useCallback((newTitle: string) => {
+    onTitleChange(sectionIndex, newTitle)
+  }, [onTitleChange, sectionIndex])
 
   return (
     <Card className={cn(
@@ -58,7 +74,7 @@ export function OutlineSection({
         <div className="flex items-center gap-2 sm:gap-3 overflow-hidden min-w-0 flex-1">
           <EditableText
             value={section.title}
-            onChange={(newTitle) => onTitleChange(sectionIndex, newTitle)}
+            onChange={onTitleChangeWrapped}
             as="h2"
             ariaLabel={`Section title: ${section.title}`}
             className="text-lg sm:text-xl font-black tracking-tight text-foreground hover:bg-black/5 dark:hover:bg-white/5 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md transition-colors truncate"
@@ -115,10 +131,11 @@ export function OutlineSection({
                 <MemoizedOutlineBlock
                   key={block.id}
                   block={block}
-                  onChange={(newContent) => onContentChange(sectionIndex, blockIndex, newContent)}
-                  onLabelChange={(newLabel) => onLabelChange(sectionIndex, blockIndex, newLabel)}
-                  onResetLabel={() => onResetLabel(sectionIndex, blockIndex)}
-                  onRemoveBlock={() => onRemoveBlock(blockIndex)}
+                  blockIndex={blockIndex}
+                  onChange={onContentChangeWrapped}
+                  onLabelChange={onLabelChangeWrapped}
+                  onResetLabel={onResetLabelWrapped}
+                  onRemoveBlock={onRemoveBlock}
                   showRemoveButton={section.blocks.length > 1}
                 />
               ))}
