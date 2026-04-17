@@ -63,6 +63,10 @@ export function OutlineSection({
     onTitleChange(sectionIndex, newTitle)
   }, [onTitleChange, sectionIndex])
 
+  const onRemoveBlockWrapped = React.useCallback((blockIndex: number) => {
+    onRemoveBlock(blockIndex)
+  }, [onRemoveBlock])
+
   return (
     <Card className={cn(
       "overflow-hidden border-1.5 sm:border-2 shadow-soft transition-all duration-300 bg-background"
@@ -135,7 +139,7 @@ export function OutlineSection({
                   onChange={onContentChangeWrapped}
                   onLabelChange={onLabelChangeWrapped}
                   onResetLabel={onResetLabelWrapped}
-                  onRemoveBlock={onRemoveBlock}
+                  onRemoveBlock={onRemoveBlockWrapped}
                   showRemoveButton={section.blocks.length > 1}
                 />
               ))}

@@ -140,7 +140,7 @@ export function OutlineBlock({
                 value={block.content}
                 onChange={handleContentChange}
                 onBlur={() => setIsEditing(false)}
-                aria-label={`Editing ${block.label} content`}
+                aria-label={`Editing content for ${block.label}`}
                 className={cn(
                   getBlockStyles(true),
                   "focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/40 bg-background"
@@ -161,7 +161,7 @@ export function OutlineBlock({
                   }
                 }}
                 role="button"
-                aria-label={`Edit ${block.label} content. ${block.content ? 'Current content: ' + block.content.substring(0, 50) + '...' : 'Currently empty.'}`}
+                aria-label={`Edit content for ${block.label}. ${block.content ? 'Current content: ' + block.content.substring(0, 50) + '...' : 'Currently empty.'}`}
               >
                 <div className="flex-grow min-h-[20px]">
                   {block.content ? (

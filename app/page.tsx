@@ -178,6 +178,7 @@ export default function EssayOutlinePlanner() {
                   variant="outline"
                   size="sm"
                   onClick={() => setShowResetModal(true)}
+                  aria-label="Reset Outline"
                   className="h-8 px-2 sm:px-3 rounded-lg border-destructive/30 text-destructive hover:bg-destructive hover:text-destructive-foreground text-[10px] sm:text-xs font-bold transition-colors"
                 >
                   <RefreshCw className="mr-1.5 h-3 w-3" />
@@ -199,7 +200,7 @@ export default function EssayOutlinePlanner() {
                     {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
                   </Button>
                 </div>
-                <Button onClick={handleSave} className="h-8 px-3 sm:px-4 rounded-lg shadow-sm font-bold text-xs">
+                <Button onClick={handleSave} aria-label="Save Outline" className="h-8 px-3 sm:px-4 rounded-lg shadow-sm font-bold text-xs">
                   <Save className="sm:mr-2 h-3.5 w-3.5" />
                   <span className="hidden min-[400px]:inline">Save</span>
                 </Button>
