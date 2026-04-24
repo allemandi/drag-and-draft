@@ -23,6 +23,7 @@ import { ExportModal } from "@/components/export-modal"
 import { BackupModal } from "@/components/backup-modal"
 import { useOutline } from "@/hooks/use-outline"
 import { useToast } from "@/components/ui/use-toast"
+import { cn } from "@/lib/utils"
 import {
   Dialog,
   DialogContent,
@@ -51,6 +52,7 @@ export default function EssayOutlinePlanner() {
     removeSection,
     handleBlockDragEnd,
     handleSectionDragEnd,
+    isSaving,
     resetAll,
     updateLocalStorage,
     saveToLocalStorage,
@@ -133,19 +135,19 @@ export default function EssayOutlinePlanner() {
   return (
     <div className="min-h-screen bg-background selection:bg-primary/10">
       <div className="fixed top-0 left-0 w-full bg-background/80 backdrop-blur-md border-b border-border/50 z-50 shadow-sm">
-        <header className="container mx-auto max-w-6xl px-4 py-2 sm:py-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3">
+        <header className="container mx-auto max-w-6xl px-4 py-1.5 sm:py-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3">
             <div className="flex items-center justify-between w-full sm:w-auto">
               {/* Logo and Title */}
-              <div className="flex items-center gap-2.5">
-                <div className="rounded-lg bg-primary p-1.5 text-primary-foreground shadow-sm flex items-center justify-center">
-                  <Layout className="h-5 w-5" />
+              <div className="flex items-center gap-2">
+                <div className="rounded-lg bg-primary p-1 text-primary-foreground shadow-sm flex items-center justify-center sm:p-1.5">
+                  <Layout className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center sm:gap-3">
-                  <h1 className="text-lg font-black tracking-tight sm:text-2xl leading-none">
+                  <h1 className="text-base font-black tracking-tight sm:text-2xl leading-none">
                     Drag & Draft
                   </h1>
-                  <span className="hidden min-[400px]:inline-block text-[10px] sm:text-[11px] font-semibold text-muted-foreground/80 leading-none mt-1 sm:mt-0">
+                  <span className="hidden md:inline-block text-[10px] sm:text-[11px] font-semibold text-muted-foreground/80 leading-none mt-1 sm:mt-0">
                     Craft your narrative with precision and ease.
                   </span>
                 </div>
@@ -153,20 +155,36 @@ export default function EssayOutlinePlanner() {
 
               {/* Mobile Theme Toggle (only visible on small screens) */}
               <div className="flex items-center gap-1.5 sm:hidden">
+                <span className={cn(
+                  "text-[10px] font-bold text-muted-foreground transition-opacity duration-300 mr-1",
+                  isSaving ? "opacity-100 animate-pulse" : "opacity-0"
+                )}>
+                  Saving...
+                </span>
                 <Button
                   variant="outline"
                   size="icon"
                   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                  className="h-8 w-8 rounded-lg border-border/50"
+                  className="h-7 w-7 rounded-lg border-border/50"
                   aria-label="Toggle theme"
                 >
-                  {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+                  {theme === "light" ? <Moon className="h-3.5 w-3.5" /> : <Sun className="h-3.5 w-3.5" />}
                 </Button>
               </div>
             </div>
 
             {/* Action Buttons Group */}
             <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-4 w-full sm:w-auto">
+              {/* Saving Indicator (Desktop) */}
+              <div className="hidden sm:flex items-center mr-2">
+                <span className={cn(
+                  "text-[10px] font-bold uppercase tracking-wider transition-opacity duration-300",
+                  isSaving ? "opacity-100 animate-pulse text-primary" : "opacity-40 text-muted-foreground"
+                )}>
+                  {isSaving ? "Saving..." : "Auto-saved"}
+                </span>
+              </div>
+
               {/* Utility Actions (Backup, Export, Reset) */}
               <div className="flex items-center gap-1 sm:gap-2">
                 <BackupModal
@@ -179,16 +197,15 @@ export default function EssayOutlinePlanner() {
                   size="sm"
                   onClick={() => setShowResetModal(true)}
                   aria-label="Reset Outline"
-                  className="h-8 px-2 sm:px-3 rounded-lg border-destructive/30 text-destructive hover:bg-destructive hover:text-destructive-foreground text-[10px] sm:text-xs font-bold transition-colors"
+                  className="h-7 px-2 sm:h-8 sm:px-3 rounded-lg border-destructive/30 text-destructive hover:bg-destructive hover:text-destructive-foreground text-[10px] sm:text-xs font-bold transition-colors"
                 >
-                  <RefreshCw className="mr-1.5 h-3 w-3" />
-                  <span className="hidden min-[400px]:inline">Reset</span>
-                  <span className="min-[400px]:hidden">Clear</span>
+                  <RefreshCw className="mr-1 h-3 w-3 sm:mr-1.5" />
+                  <span className="hidden min-[350px]:inline">Reset</span>
                 </Button>
               </div>
 
               {/* Primary Actions (Save) */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <div className="hidden sm:block">
                   <Button
                     variant="outline"
@@ -200,9 +217,9 @@ export default function EssayOutlinePlanner() {
                     {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
                   </Button>
                 </div>
-                <Button onClick={handleSave} aria-label="Save Outline" className="h-8 px-3 sm:px-4 rounded-lg shadow-sm font-bold text-xs">
-                  <Save className="sm:mr-2 h-3.5 w-3.5" />
-                  <span className="hidden min-[400px]:inline">Save</span>
+                <Button onClick={handleSave} aria-label="Save Outline" className="h-7 px-2.5 sm:h-8 sm:px-4 rounded-lg shadow-sm font-bold text-[10px] sm:text-xs">
+                  <Save className="mr-1 h-3.5 w-3.5 sm:mr-2" />
+                  <span className="inline">Save</span>
                 </Button>
               </div>
             </div>
@@ -218,7 +235,7 @@ export default function EssayOutlinePlanner() {
         </header>
       </div>
 
-      <div className="container mx-auto max-w-6xl px-4 pt-32 sm:pt-28 pb-16">
+      <div className="container mx-auto max-w-6xl px-4 pt-24 sm:pt-28 pb-16">
         <main className="space-y-8">
           {/* Introduction */}
           {sections[0]?.type === "intro" && (
