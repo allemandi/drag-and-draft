@@ -77,9 +77,16 @@ export function EditableText({
 
   return (
     <div className="group flex items-center gap-2 max-w-full">
-      <button
-        type="button"
+      <div
+        role="button"
+        tabIndex={0}
         onClick={() => setIsEditing(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault()
+            setIsEditing(true)
+          }
+        }}
         aria-label={ariaLabel || (value ? `Edit ${value}` : "Edit empty text")}
         className={cn(
           "text-left cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-primary/10 hover:border-primary/30 min-w-[40px] truncate outline-none",
@@ -89,7 +96,7 @@ export function EditableText({
         <Component className="inline">
           {value || <span className="text-muted-foreground italic text-xs">Empty</span>}
         </Component>
-      </button>
+      </div>
       {showEditIcon && (
         <Pencil className="h-3 w-3 text-primary/40 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity flex-shrink-0" />
       )}

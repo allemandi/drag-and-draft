@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 import type { Section, OutlineBlock } from "@/lib/types"
 import { generateId } from "@/lib/utils"
 import { arrayMove } from "@dnd-kit/sortable"
@@ -138,11 +138,29 @@ export function useOutline() {
     return getDefaultSections()
   })
 
+  const [isSaving, setIsSaving] = useState(false)
+  const isFirstRender = useRef(true)
   const { toast } = useToast()
 
   const updateLocalStorage = useCallback((newSections: Section[]) => {
     localStorage.setItem("essayOutline", JSON.stringify(newSections))
   }, [])
+
+  // Auto-save functionality
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+
+    setIsSaving(true)
+    const timeoutId = setTimeout(() => {
+      updateLocalStorage(sections)
+      setIsSaving(false)
+    }, 1000)
+
+    return () => clearTimeout(timeoutId)
+  }, [sections, updateLocalStorage])
 
   const saveToLocalStorage = useCallback((data: Section[]) => {
     localStorage.setItem("essayOutline", JSON.stringify(data));
@@ -453,6 +471,7 @@ export function useOutline() {
     removeSection,
     handleBlockDragEnd,
     handleSectionDragEnd,
+    isSaving,
     resetAll,
     updateLocalStorage,
     saveToLocalStorage,
