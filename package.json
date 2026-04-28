@@ -42,7 +42,7 @@
     "eslint": "^10.2.1",
     "eslint-config-next": "16.2.4",
     "playwright": "^1.59.0",
-    "postcss": "^8.5.10",
+    "postcss": "^8.5.11",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.3"
   }
