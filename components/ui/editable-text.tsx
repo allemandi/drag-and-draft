@@ -14,6 +14,7 @@ interface EditableTextProps {
   as?: "h1" | "h2" | "h3" | "h4" | "p" | "span" | "label"
   ariaLabel?: string
   showEditIcon?: boolean
+  id?: string
 }
 
 export function EditableText({
@@ -24,6 +25,7 @@ export function EditableText({
   as: Component = "span",
   ariaLabel,
   showEditIcon = true,
+  id,
 }: EditableTextProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [tempValue, setTempValue] = useState(value)
@@ -59,18 +61,24 @@ export function EditableText({
     return (
       <div className="flex items-center gap-2 max-w-full">
         <Input
+          id={id}
           ref={inputRef}
           value={tempValue}
           onChange={(e) => setTempValue(e.target.value)}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          aria-label={ariaLabel || (value ? `Editing ${value}` : "Edit text")}
+          aria-label={ariaLabel ? `Editing ${ariaLabel}` : (value ? `Editing ${value}` : "Edit text")}
           className={cn(
             "h-auto py-1 px-2 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-primary/40 bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm",
             inputClassName
           )}
         />
-        {showEditIcon && <Pencil className="h-3 w-3 text-primary flex-shrink-0 animate-pulse" />}
+        {showEditIcon && (
+          <Pencil
+            className="h-3 w-3 text-primary flex-shrink-0 animate-pulse"
+            aria-hidden="true"
+          />
+        )}
       </div>
     )
   }
@@ -78,6 +86,7 @@ export function EditableText({
   return (
     <div className="group flex items-center gap-2 max-w-full">
       <div
+        id={id}
         role="button"
         tabIndex={0}
         onClick={() => setIsEditing(true)}
@@ -87,7 +96,7 @@ export function EditableText({
             setIsEditing(true)
           }
         }}
-        aria-label={ariaLabel || (value ? `Edit ${value}` : "Edit empty text")}
+        aria-label={ariaLabel ? `Edit ${ariaLabel}` : (value ? `Edit ${value}` : "Edit empty text")}
         className={cn(
           "text-left cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-primary/10 hover:border-primary/30 min-w-[40px] truncate outline-none",
           className
@@ -98,7 +107,11 @@ export function EditableText({
         </Component>
       </div>
       {showEditIcon && (
-        <Pencil className="h-3 w-3 text-primary/40 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity flex-shrink-0" />
+        <Pencil
+          className="h-3 w-3 text-primary/40 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity flex-shrink-0"
+          aria-hidden="true"
+          title="Click to edit"
+        />
       )}
     </div>
   )
