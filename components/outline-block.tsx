@@ -18,6 +18,7 @@ interface OutlineBlockProps {
   onResetLabel: (blockIndex: number) => void
   onRemoveBlock: (blockIndex: number) => void
   showRemoveButton: boolean
+  id?: string
 }
 
 export function OutlineBlock({
@@ -28,6 +29,7 @@ export function OutlineBlock({
   onResetLabel,
   onRemoveBlock,
   showRemoveButton,
+  id,
 }: OutlineBlockProps) {
   const dragDescId = useId()
   const [isEditing, setIsEditing] = useState(false)
@@ -99,6 +101,7 @@ export function OutlineBlock({
           <div className="flex items-center justify-between gap-2">
             <div className="flex-1 min-w-0">
               <EditableText
+                id={id}
                 value={block.label}
                 onChange={(newLabel) => onLabelChange(blockIndex, newLabel)}
                 as="label"

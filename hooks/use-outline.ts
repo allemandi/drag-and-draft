@@ -139,6 +139,7 @@ export function useOutline() {
   })
 
   const [isSaving, setIsSaving] = useState(false)
+  const [lastAddedId, setLastAddedId] = useState<string | null>(null)
   const isFirstRender = useRef(true)
   const { toast } = useToast()
 
@@ -302,6 +303,10 @@ export function useOutline() {
         description: `Body Section ${newBodyIndex} has been added.`,
         duration: 3000,
       })
+
+      // Schedule the focus update after the state change
+      setTimeout(() => setLastAddedId(newBodySection.id), 0)
+
       return newSections
     })
   }, [toast])
@@ -309,8 +314,9 @@ export function useOutline() {
   const addBlockToSection = useCallback((sectionIndex: number, label = "New Block") => {
     setSections(prev => {
       const section = prev[sectionIndex]
+      const blockId = generateId()
       const newBlock: OutlineBlock = {
-        id: generateId(),
+        id: blockId,
         label: label,
         defaultLabel: label,
         placeholder: "Add your content here...",
@@ -327,6 +333,10 @@ export function useOutline() {
         description: `A new block has been added to ${section.title}.`,
         duration: 2000,
       })
+
+      // Schedule the focus update after the state change
+      setTimeout(() => setLastAddedId(blockId), 0)
+
       return newSections
     })
   }, [toast])
@@ -472,6 +482,8 @@ export function useOutline() {
     handleBlockDragEnd,
     handleSectionDragEnd,
     isSaving,
+    lastAddedId,
+    setLastAddedId,
     resetAll,
     updateLocalStorage,
     saveToLocalStorage,

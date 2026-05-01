@@ -27,6 +27,8 @@ interface OutlineSectionProps {
   onBlockDragEnd: (event: DragEndEvent) => void
   sensors: SensorDescriptor<SensorOptions>[]
   isDraggable: boolean
+  lastAddedId?: string | null
+  setLastAddedId?: (id: string | null) => void
 }
 
 // Memoize OutlineBlock for performance
@@ -46,6 +48,8 @@ export function OutlineSection({
   onBlockDragEnd,
   sensors,
   isDraggable,
+  lastAddedId,
+  setLastAddedId,
 }: OutlineSectionProps) {
   const onContentChangeWrapped = React.useCallback((blockIndex: number, newContent: string) => {
     onContentChange(sectionIndex, blockIndex, newContent)
@@ -77,6 +81,7 @@ export function OutlineSection({
       )}>
         <div className="flex items-center gap-2 sm:gap-3 overflow-hidden min-w-0 flex-1">
           <EditableText
+              id={section.id}
             value={section.title}
             onChange={onTitleChangeWrapped}
             as="h2"
@@ -134,6 +139,7 @@ export function OutlineSection({
               {section.blocks.map((block, blockIndex) => (
                 <MemoizedOutlineBlock
                   key={block.id}
+                  id={block.id}
                   block={block}
                   blockIndex={blockIndex}
                   onChange={onContentChangeWrapped}

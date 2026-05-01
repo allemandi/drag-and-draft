@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef, memo } from "react"
+import { useState, useMemo, useEffect, useRef, memo, useCallback } from "react"
 import {
   DndContext,
   closestCenter,
@@ -53,6 +53,8 @@ export default function EssayOutlinePlanner() {
     handleBlockDragEnd,
     handleSectionDragEnd,
     isSaving,
+    lastAddedId,
+    setLastAddedId,
     resetAll,
     updateLocalStorage,
     saveToLocalStorage,
@@ -75,19 +77,42 @@ export default function EssayOutlinePlanner() {
     [sections]
   )
 
+  const handleSave = useCallback(() => {
+    saveToLocalStorage(sections)
+  }, [sections, saveToLocalStorage])
+
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+        e.preventDefault()
+        handleSave()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [sections, handleSave])
+
+  useEffect(() => {
+    if (lastAddedId) {
+      const element = document.getElementById(lastAddedId)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" })
+        element.click()
+        setLastAddedId(null)
+      }
+    }
+  }, [lastAddedId, setLastAddedId])
 
   if (!mounted) return null
 
   const handleExport = (format: "pdf" | "docx" | "txt" | "md") => {
     const formatted = formatOutline(sections, format)
     downloadFile(formatted, format)
-  }
-
-  const handleSave = () => {
-    saveToLocalStorage(sections)
   }
 
   const handleBackupDownload = () => {
@@ -178,10 +203,17 @@ export default function EssayOutlinePlanner() {
               {/* Saving Indicator (Desktop) */}
               <div className="hidden sm:flex items-center mr-2">
                 <span className={cn(
-                  "text-[10px] font-bold uppercase tracking-wider transition-opacity duration-300",
-                  isSaving ? "opacity-100 animate-pulse text-primary" : "opacity-40 text-muted-foreground"
+                  "text-[10px] font-bold uppercase tracking-wider transition-all duration-300",
+                  isSaving ? "text-primary animate-pulse" : "text-muted-foreground/60"
                 )}>
-                  {isSaving ? "Saving..." : "Auto-saved"}
+                  {isSaving ? (
+                    <span className="flex items-center gap-1.5">
+                      <RefreshCw className="h-3 w-3 animate-spin" />
+                      Saving...
+                    </span>
+                  ) : (
+                    "All changes saved"
+                  )}
                 </span>
               </div>
 
@@ -253,6 +285,8 @@ export default function EssayOutlinePlanner() {
               onBlockDragEnd={handleBlockDragEnd}
               sensors={sensors}
               isDraggable={false}
+              lastAddedId={lastAddedId}
+              setLastAddedId={setLastAddedId}
             />
           )}
 
@@ -278,6 +312,8 @@ export default function EssayOutlinePlanner() {
                         onBlockDragEnd={handleBlockDragEnd}
                         sensors={sensors}
                         isDraggable={true}
+                        lastAddedId={lastAddedId}
+                        setLastAddedId={setLastAddedId}
                       />
                     </MemoizedSortableSection>
                   )
@@ -313,6 +349,8 @@ export default function EssayOutlinePlanner() {
               onBlockDragEnd={handleBlockDragEnd}
               sensors={sensors}
               isDraggable={false}
+              lastAddedId={lastAddedId}
+              setLastAddedId={setLastAddedId}
             />
           )}
         </main>
