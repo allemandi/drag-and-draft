@@ -1,10 +1,11 @@
 import { MetadataRoute } from 'next'
+import { SITE_CONFIG } from '@/lib/constants'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Drag and Draft',
-    short_name: 'DragDraft',
-    description: 'Modern Drag-and-Drop Essay Planner',
+    name: SITE_CONFIG.name,
+    short_name: SITE_CONFIG.shortName,
+    description: SITE_CONFIG.description,
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
