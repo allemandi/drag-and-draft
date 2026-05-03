@@ -32,6 +32,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog"
+import { SITE_CONFIG } from "@/lib/constants"
 
 // Memoize components to improve performance
 const MemoizedOutlineSection = memo(OutlineSection)
@@ -170,10 +171,10 @@ export default function EssayOutlinePlanner() {
                 </div>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center sm:gap-3">
                   <h1 className="text-base font-black tracking-tight sm:text-2xl leading-none">
-                    Drag & Draft
+                    {SITE_CONFIG.name}
                   </h1>
                   <span className="hidden md:inline-block text-[10px] sm:text-[11px] font-semibold text-muted-foreground/80 leading-none mt-1 sm:mt-0">
-                    Craft your narrative with precision and ease.
+                    {SITE_CONFIG.tagline}
                   </span>
                 </div>
               </div>
