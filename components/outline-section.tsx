@@ -5,13 +5,14 @@ import { memo } from "react"
 import { OutlineBlock } from "./outline-block"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { X, Plus, RefreshCw } from "lucide-react"
+import { X, Plus, RefreshCw, GripVertical } from "lucide-react"
 import { EditableText } from "@/components/ui/editable-text"
 import type { Section } from "@/lib/types"
 import { cn } from "@/lib/utils"
-import { DndContext, closestCenter, type DragEndEvent, type SensorDescriptor, type SensorOptions } from "@dnd-kit/core"
+import { DndContext, closestCenter, type DragEndEvent, type DragStartEvent, type SensorDescriptor, type SensorOptions, DragOverlay, defaultDropAnimationSideEffects } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { restrictToVerticalAxis, restrictToParentElement } from "@dnd-kit/modifiers"
+import { useState } from "react"
 
 interface OutlineSectionProps {
   section: Section
@@ -21,9 +22,10 @@ interface OutlineSectionProps {
   onResetLabel: (sectionIndex: number, blockIndex: number) => void
   onTitleChange: (sectionIndex: number, newTitle: string) => void
   onResetTitle: (sectionIndex: number) => void
-  onRemoveSection: () => void
-  onAddBlock: () => void
-  onRemoveBlock: (blockIndex: number) => void
+  onRemoveSection: (sectionIndex: number) => void
+  onAddBlock: (sectionIndex: number) => void
+  onRemoveBlock: (sectionIndex: number, blockIndex: number) => void
+  onDragStart?: (event: DragStartEvent) => void
   onBlockDragEnd: (event: DragEndEvent) => void
   sensors: SensorDescriptor<SensorOptions>[]
   isDraggable: boolean
@@ -45,12 +47,15 @@ export function OutlineSection({
   onRemoveSection,
   onAddBlock,
   onRemoveBlock,
+  onDragStart,
   onBlockDragEnd,
   sensors,
   isDraggable,
   lastAddedId,
   setLastAddedId,
 }: OutlineSectionProps) {
+  const [activeBlockId, setActiveBlockId] = useState<string | null>(null)
+
   const onContentChangeWrapped = React.useCallback((blockIndex: number, newContent: string) => {
     onContentChange(sectionIndex, blockIndex, newContent)
   }, [onContentChange, sectionIndex])
@@ -68,8 +73,18 @@ export function OutlineSection({
   }, [onTitleChange, sectionIndex])
 
   const onRemoveBlockWrapped = React.useCallback((blockIndex: number) => {
-    onRemoveBlock(blockIndex)
-  }, [onRemoveBlock])
+    onRemoveBlock(sectionIndex, blockIndex)
+  }, [onRemoveBlock, sectionIndex])
+
+  const handleDragStartWrapped = React.useCallback((event: DragStartEvent) => {
+    setActiveBlockId(event.active.id as string)
+    if (onDragStart) onDragStart(event)
+  }, [onDragStart])
+
+  const handleDragEndWrapped = React.useCallback((event: DragEndEvent) => {
+    setActiveBlockId(null)
+    onBlockDragEnd(event)
+  }, [onBlockDragEnd])
 
   return (
     <Card className={cn(
@@ -106,7 +121,7 @@ export function OutlineSection({
           <Button
             variant="secondary"
             size="sm"
-            onClick={onAddBlock}
+            onClick={() => onAddBlock(sectionIndex)}
             className="h-9 sm:h-8 px-3 sm:px-3 gap-1.5 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg"
           >
             <Plus className="h-3 w-3" />
@@ -117,7 +132,7 @@ export function OutlineSection({
             <Button
               variant="ghost"
               size="icon"
-              onClick={onRemoveSection}
+              onClick={() => onRemoveSection(sectionIndex)}
               className="h-9 w-9 sm:h-7 sm:w-7 text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive"
               title="Remove Section"
             >
@@ -131,7 +146,8 @@ export function OutlineSection({
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
-          onDragEnd={onBlockDragEnd}
+          onDragStart={handleDragStartWrapped}
+          onDragEnd={handleDragEndWrapped}
           modifiers={[restrictToVerticalAxis, restrictToParentElement]}
         >
           <SortableContext items={section.blocks.map(b => b.id)} strategy={verticalListSortingStrategy}>
@@ -151,6 +167,34 @@ export function OutlineSection({
               ))}
             </div>
           </SortableContext>
+
+          <DragOverlay dropAnimation={{
+            sideEffects: defaultDropAnimationSideEffects({
+              styles: {
+                active: {
+                  opacity: '0.4',
+                },
+              },
+            }),
+          }}>
+            {activeBlockId ? (
+              <div className="w-full opacity-90 scale-[1.02] shadow-xl rounded-2xl overflow-hidden border-2 border-primary/30 bg-card p-3 sm:p-4">
+                <div className="flex items-start gap-4">
+                  <div className="mt-0.5 text-primary/40">
+                    <GripVertical className="h-4 w-4" />
+                  </div>
+                  <div className="flex-1 space-y-2">
+                    <div className="text-[10px] font-black uppercase tracking-widest text-primary/60">
+                      {section.blocks.find(b => b.id === activeBlockId)?.label}
+                    </div>
+                    <div className="text-sm text-foreground/80 line-clamp-2 italic">
+                      {section.blocks.find(b => b.id === activeBlockId)?.content || "No content yet..."}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </DragOverlay>
         </DndContext>
       </CardContent>
     </Card>

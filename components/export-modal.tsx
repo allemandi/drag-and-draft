@@ -26,7 +26,7 @@ export function ExportModal({ onExport }: ExportModalProps) {
       </DialogTrigger>
       <DialogContent className="rounded-xl sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold">Export Outline</DialogTitle>
+          <DialogTitle className="text-xl font-black">Export Outline</DialogTitle>
           <DialogDescription className="text-sm font-medium">
             Choose your preferred format to download your essay outline.
           </DialogDescription>

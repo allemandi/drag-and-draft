@@ -177,35 +177,30 @@ async function formatDocx(sections: Section[]): Promise<string> {
 
 export async function downloadFile(content: string | Promise<string>, format: string, filename?: string) {
   let url: string;
+  let shouldRevoke = false;
 
   if (format === "pdf") {
     url = content as string; // PDF returns base64 string
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename || `essay-outline-${new Date().toISOString().split("T")[0]}.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  } 
-  else if (format === "docx") {
+  } else if (format === "docx") {
     url = await (content as Promise<string>); // DOCX resolves to blob URL
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename || `essay-outline-${new Date().toISOString().split("T")[0]}.docx`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-  else {
+    shouldRevoke = true;
+  } else {
     const blob = new Blob([content as string], { type: getMimeType(format) });
     url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename || `essay-outline-${new Date().toISOString().split("T")[0]}.${format}`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    shouldRevoke = true;
+  }
+
+  const extension = format === "docx" ? "docx" : format === "pdf" ? "pdf" : format;
+  const finalFilename = filename || `essay-outline-${new Date().toISOString().split("T")[0]}.${extension}`;
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = finalFilename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  if (shouldRevoke) {
     URL.revokeObjectURL(url);
   }
 }

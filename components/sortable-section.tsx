@@ -13,7 +13,7 @@ interface SortableSectionProps {
 
 export function SortableSection({ id, children }: SortableSectionProps) {
   const dragDescId = useId()
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useSortable({
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
     data: {
       type: "section",
@@ -22,8 +22,8 @@ export function SortableSection({ id, children }: SortableSectionProps) {
 
   const style = {
     transform: CSS.Translate.toString(transform),
-    transition: 'opacity 100ms ease',
-    opacity: isDragging ? 0.6 : 1,
+    transition,
+    opacity: isDragging ? 0.4 : 1,
     position: "relative" as const,
     zIndex: isDragging ? 50 : 0,
     whiteSpace: 'pre-line',
