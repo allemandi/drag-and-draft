@@ -10,6 +10,9 @@ import {
   PointerSensor,
   KeyboardSensor,
   DragEndEvent,
+  DragStartEvent,
+  DragOverlay,
+  defaultDropAnimationSideEffects,
 } from "@dnd-kit/core"
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { OutlineSection } from "@/components/outline-section"
@@ -65,11 +68,13 @@ export default function EssayOutlinePlanner() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [showResetModal, setShowResetModal] = useState(false)
+  const [activeId, setActiveId] = useState<string | null>(null)
+  const [activeType, setActiveType] = useState<"section" | "block" | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   )
 
@@ -77,6 +82,15 @@ export default function EssayOutlinePlanner() {
     sections.filter((s) => s.type === "body").map((s) => s.id),
     [sections]
   )
+
+  const handleDragStart = useCallback((event: DragStartEvent) => {
+    setActiveId(event.active.id as string)
+    setActiveType(event.active.data.current?.type)
+
+    if (typeof window !== 'undefined' && window.navigator && window.navigator.vibrate) {
+      window.navigator.vibrate(10)
+    }
+  }, [])
 
   const handleSave = useCallback(() => {
     saveToLocalStorage(sections)
@@ -280,9 +294,10 @@ export default function EssayOutlinePlanner() {
               onResetLabel={handleResetLabel}
               onTitleChange={handleTitleChange}
               onResetTitle={handleResetTitle}
-              onRemoveSection={() => removeSection(0)}
-              onAddBlock={() => addBlockToSection(0)}
-              onRemoveBlock={(idx) => removeBlock(0, idx)}
+              onRemoveSection={removeSection}
+              onAddBlock={addBlockToSection}
+              onRemoveBlock={removeBlock}
+              onDragStart={handleDragStart}
               onBlockDragEnd={handleBlockDragEnd}
               sensors={sensors}
               isDraggable={false}
@@ -292,7 +307,16 @@ export default function EssayOutlinePlanner() {
           )}
 
           {/* Body Sections */}
-          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleSectionDragEnd}>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragStart={handleDragStart}
+            onDragEnd={(event) => {
+              setActiveId(null)
+              setActiveType(null)
+              handleSectionDragEnd(event)
+            }}
+          >
             <SortableContext items={bodySectionIds} strategy={verticalListSortingStrategy}>
               <div className="space-y-6">
                 {sections.map((section, idx) => {
@@ -307,9 +331,10 @@ export default function EssayOutlinePlanner() {
                         onResetLabel={handleResetLabel}
                         onTitleChange={handleTitleChange}
                         onResetTitle={handleResetTitle}
-                        onRemoveSection={() => removeSection(idx)}
-                        onAddBlock={() => addBlockToSection(idx)}
-                        onRemoveBlock={(bIdx) => removeBlock(idx, bIdx)}
+                        onRemoveSection={removeSection}
+                        onAddBlock={addBlockToSection}
+                        onRemoveBlock={removeBlock}
+                        onDragStart={handleDragStart}
                         onBlockDragEnd={handleBlockDragEnd}
                         sensors={sensors}
                         isDraggable={true}
@@ -321,6 +346,31 @@ export default function EssayOutlinePlanner() {
                 })}
               </div>
             </SortableContext>
+
+            <DragOverlay dropAnimation={{
+              sideEffects: defaultDropAnimationSideEffects({
+                styles: {
+                  active: {
+                    opacity: '0.4',
+                  },
+                },
+              }),
+            }}>
+              {activeId && activeType === "section" ? (
+                <div className="w-full opacity-80 scale-[1.02] shadow-xl rounded-2xl overflow-hidden border-2 border-primary/20 bg-background/95 backdrop-blur-sm">
+                  <div className="p-6">
+                    <h2 className="text-xl font-black truncate">
+                      {sections.find(s => s.id === activeId)?.title}
+                    </h2>
+                    <div className="mt-4 space-y-3">
+                      {[1, 2].map((i) => (
+                        <div key={i} className="h-10 w-full bg-muted/20 rounded-xl animate-pulse" />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </DragOverlay>
           </DndContext>
 
           <div className="flex justify-center pt-2">
@@ -344,9 +394,10 @@ export default function EssayOutlinePlanner() {
               onResetLabel={handleResetLabel}
               onTitleChange={handleTitleChange}
               onResetTitle={handleResetTitle}
-              onRemoveSection={() => removeSection(sections.length - 1)}
-              onAddBlock={() => addBlockToSection(sections.length - 1)}
-              onRemoveBlock={(idx) => removeBlock(sections.length - 1, idx)}
+              onRemoveSection={removeSection}
+              onAddBlock={addBlockToSection}
+              onRemoveBlock={removeBlock}
+              onDragStart={handleDragStart}
               onBlockDragEnd={handleBlockDragEnd}
               sensors={sensors}
               isDraggable={false}
