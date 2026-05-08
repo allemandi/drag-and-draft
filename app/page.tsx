@@ -195,11 +195,14 @@ export default function EssayOutlinePlanner() {
 
               {/* Mobile Theme Toggle (only visible on small screens) */}
               <div className="flex items-center gap-1.5 sm:hidden">
-                <span className={cn(
-                  "text-[10px] font-bold text-muted-foreground transition-opacity duration-300 mr-1",
-                  isSaving ? "opacity-100 animate-pulse" : "opacity-0"
-                )}>
-                  Saving...
+                <span
+                  className={cn(
+                    "text-[10px] font-bold text-muted-foreground transition-opacity duration-300 mr-1",
+                    isSaving ? "opacity-100 animate-pulse" : "opacity-0"
+                  )}
+                  aria-live="polite"
+                >
+                  {isSaving ? "Saving..." : ""}
                 </span>
                 <Button
                   variant="outline"
@@ -217,10 +220,13 @@ export default function EssayOutlinePlanner() {
             <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-4 w-full sm:w-auto">
               {/* Saving Indicator (Desktop) */}
               <div className="hidden sm:flex items-center mr-2">
-                <span className={cn(
-                  "text-[10px] font-bold uppercase tracking-wider transition-all duration-300",
-                  isSaving ? "text-primary animate-pulse" : "text-muted-foreground/60"
-                )}>
+                <span
+                  className={cn(
+                    "text-[10px] font-bold uppercase tracking-wider transition-all duration-300",
+                    isSaving ? "text-primary animate-pulse" : "text-muted-foreground/60"
+                  )}
+                  aria-live="polite"
+                >
                   {isSaving ? (
                     <span className="flex items-center gap-1.5">
                       <RefreshCw className="h-3 w-3 animate-spin" />

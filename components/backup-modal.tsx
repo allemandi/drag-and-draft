@@ -40,7 +40,7 @@ export function BackupModal({ onDownload, onUpload }: BackupModalProps) {
       </DialogTrigger>
       <DialogContent className="rounded-xl sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold">Backup & Restore</DialogTitle>
+          <DialogTitle className="text-xl font-black">Backup & Restore</DialogTitle>
           <DialogDescription className="text-sm font-medium">
             Download your current outline to a file or upload a previously saved backup.
           </DialogDescription>
