@@ -37,12 +37,12 @@
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.59.1",
     "@types/node": "^25",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.3.0",
     "eslint-config-next": "16.2.6",
     "playwright": "^1.59.0",
-    "postcss": "^8.5.14",
+    "postcss": "^8.5.15",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.3"
   }
