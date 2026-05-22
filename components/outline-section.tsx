@@ -86,10 +86,20 @@ export function OutlineSection({
     onBlockDragEnd(event)
   }, [onBlockDragEnd])
 
+  const getSectionStyles = () => {
+    const base = "overflow-hidden border-2 shadow-md transition-all duration-300"
+    switch (section.type) {
+      case "intro":
+        return cn(base, "border-indigo-500/50 dark:border-indigo-400/40 bg-indigo-50/40 dark:bg-indigo-950/20")
+      case "conclusion":
+        return cn(base, "border-emerald-500/50 dark:border-emerald-400/40 bg-emerald-50/40 dark:bg-emerald-950/20")
+      default:
+        return cn(base, "border-primary/40 dark:border-primary/30 bg-white dark:bg-card")
+    }
+  }
+
   return (
-    <Card className={cn(
-      "overflow-hidden border-1.5 sm:border-2 shadow-soft transition-all duration-300 bg-background"
-    )}>
+    <Card className={getSectionStyles()}>
       <CardHeader className={cn(
         "flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0 px-4 py-3 sm:px-6 sm:py-4 gap-2",
         isDraggable && "pl-11 sm:pl-14"
