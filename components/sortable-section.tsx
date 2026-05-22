@@ -30,7 +30,7 @@ export function SortableSection({ id, children }: SortableSectionProps) {
   }
 
   return (
-    <div ref={setNodeRef} style={style} className="relative">
+    <div ref={setNodeRef} style={style} className="relative" id={`section-${id}`}>
       <div
         className="absolute top-[18px] sm:top-[22px] left-2.5 sm:left-3.5 cursor-grab p-1 rounded text-muted-foreground/60 transition-colors hover:bg-accent hover:text-foreground active:cursor-grabbing focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring z-10"
         {...attributes}
