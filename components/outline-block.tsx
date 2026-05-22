@@ -66,9 +66,9 @@ export function OutlineBlock({
   const getBlockStyles = (hasContent: boolean) => {
     const base = "w-full min-h-[40px] sm:min-h-[50px] p-3 sm:p-4 rounded-xl transition-all duration-300 border"
     if (!hasContent) {
-      return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20")
+      return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20 hover:shadow-inner")
     }
-    return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20")
+    return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20 hover:shadow-inner")
   }
 
   return (
@@ -177,7 +177,21 @@ export function OutlineBlock({
                     </p>
                   )}
                 </div>
-                <div className="absolute right-3 bottom-3 opacity-0 group-hover/content:opacity-100 transition-opacity">
+                <div className="absolute right-3 top-3 flex items-center gap-1 opacity-0 group-hover/content:opacity-100 transition-opacity">
+                  {block.content && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onChange(blockIndex, "")
+                      }}
+                      className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 rounded-md"
+                      title="Clear Content"
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
+                  )}
                   <Pencil className="h-3 w-3 text-primary/40" />
                 </div>
               </div>

@@ -114,7 +114,7 @@ export default function EssayOutlinePlanner() {
 
   useEffect(() => {
     if (lastAddedId) {
-      const element = document.getElementById(lastAddedId)
+      const element = document.getElementById(lastAddedId) || document.getElementById(`section-${lastAddedId}`)
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "center" })
         element.click()
