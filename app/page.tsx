@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button"
 import { Layout, Save, Plus, Moon, Sun, RefreshCw } from "lucide-react"
 import { useTheme } from "next-themes"
 import Footer from "@/components/footer"
-import { formatOutline, downloadFile } from "@/lib/utils"
+import { formatOutline, downloadFile, copyToClipboard } from "@/lib/utils"
 import { ExportModal } from "@/components/export-modal"
 import { BackupModal } from "@/components/backup-modal"
 import { useOutline } from "@/hooks/use-outline"
@@ -128,6 +128,25 @@ export default function EssayOutlinePlanner() {
   const handleExport = (format: "pdf" | "docx" | "txt" | "md") => {
     const formatted = formatOutline(sections, format)
     downloadFile(formatted, format)
+  }
+
+  const handleCopy = async (format: "txt" | "md") => {
+    const formatted = (await formatOutline(sections, format)) as string
+    const success = await copyToClipboard(formatted)
+    if (success) {
+      toast({
+        title: "Copied to Clipboard",
+        description: `Outline copied in ${format === "md" ? "Markdown" : "Plain Text"} format.`,
+        duration: 3000,
+      })
+    } else {
+      toast({
+        title: "Copy Failed",
+        description: "Could not copy to clipboard. Please try again.",
+        variant: "destructive",
+        duration: 3000,
+      })
+    }
   }
 
   const handleBackupDownload = () => {
@@ -244,7 +263,7 @@ export default function EssayOutlinePlanner() {
                   onDownload={handleBackupDownload}
                   onUpload={() => fileInputRef.current?.click()}
                 />
-                <ExportModal onExport={handleExport} />
+                <ExportModal onExport={handleExport} onCopy={handleCopy} />
                 <Button
                   variant="outline"
                   size="sm"

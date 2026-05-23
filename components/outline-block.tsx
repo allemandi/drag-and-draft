@@ -71,6 +71,8 @@ export function OutlineBlock({
     return cn(base, "bg-background/50 border-primary/10 hover:bg-background/70 hover:border-primary/20 hover:shadow-inner")
   }
 
+  const wordCount = block.content.trim().split(/\s+/).filter(Boolean).length
+
   return (
     <div
       ref={setNodeRef}
@@ -136,7 +138,7 @@ export function OutlineBlock({
             </div>
           </div>
 
-          <div className="w-full relative group/content" onClick={() => setIsEditing(true)}>
+          <div className="w-full relative group/content">
             {isEditing ? (
               <textarea
                 ref={textareaRef}
@@ -151,52 +153,73 @@ export function OutlineBlock({
                 placeholder={block.placeholder}
               />
             ) : (
-              <div
-                className={cn(
-                  getBlockStyles(!!block.content),
-                  "cursor-text focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 outline-none flex items-start gap-2 hover:bg-primary/[0.03] relative"
-                )}
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    setIsEditing(true);
-                  }
-                }}
-                role="button"
-                aria-label={`Edit content for ${block.label}. ${block.content ? 'Current content: ' + block.content.substring(0, 50) + '...' : 'Currently empty.'}`}
-              >
-                <div className="flex-grow min-h-[20px]">
-                  {block.content ? (
-                    <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
-                      {block.content}
-                    </p>
-                  ) : (
-                    <p className="text-sm text-muted-foreground/70 italic whitespace-pre-line">
-                      {block.placeholder}
-                    </p>
+              <>
+                <div
+                  className={cn(
+                    getBlockStyles(!!block.content),
+                    "cursor-text focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 outline-none flex items-start gap-2 hover:bg-primary/[0.03] relative"
                   )}
+                  tabIndex={0}
+                  onClick={() => setIsEditing(true)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setIsEditing(true);
+                    }
+                  }}
+                  role="button"
+                  aria-label={`Edit content for ${block.label}. ${block.content ? 'Current content: ' + block.content.substring(0, 50) + '...' : 'Currently empty.'}`}
+                >
+                  <div className="flex-grow min-h-[20px]">
+                    {block.content ? (
+                      <p className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
+                        {block.content}
+                      </p>
+                    ) : (
+                      <p className="text-sm text-muted-foreground/70 italic whitespace-pre-line">
+                        {block.placeholder}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <div className="absolute right-3 top-3 flex items-center gap-1 opacity-0 group-hover/content:opacity-100 transition-opacity">
+                <div className="absolute right-3 top-3 flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover/content:opacity-100 transition-opacity">
                   {block.content && (
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        onChange(blockIndex, "")
-                      }}
+                      onClick={() => onChange(blockIndex, "")}
                       className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 rounded-md"
                       title="Clear Content"
+                      aria-label="Clear block content"
                     >
                       <X className="h-3 w-3" />
                     </Button>
                   )}
-                  <Pencil className="h-3 w-3 text-primary/40" />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsEditing(true)}
+                    className="h-6 w-6 text-primary/40 hover:text-primary hover:bg-primary/5 rounded-md"
+                    title="Edit Content"
+                    aria-label="Edit block content"
+                  >
+                    <Pencil className="h-3 w-3" />
+                  </Button>
                 </div>
-              </div>
+              </>
             )}
           </div>
+
+          {block.content && (
+            <div className="flex justify-end px-1">
+              <span
+                className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground/50"
+                aria-label={`Word count: ${wordCount}`}
+              >
+                {wordCount} {wordCount === 1 ? "word" : "words"}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
