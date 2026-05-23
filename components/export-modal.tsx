@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, AlignLeft, Download, FileCode } from "lucide-react";
+import { FileText, AlignLeft, Download, FileCode, Copy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,9 +13,10 @@ import {
 
 interface ExportModalProps {
   onExport: (format: "pdf" | "docx" | "txt" | "md") => void;
+  onCopy: (format: "txt" | "md") => void;
 }
 
-export function ExportModal({ onExport }: ExportModalProps) {
+export function ExportModal({ onExport, onCopy }: ExportModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -48,22 +49,42 @@ export function ExportModal({ onExport }: ExportModalProps) {
             <FileText className="h-5 w-5 mb-1.5 text-blue-500/80" />
             <span className="text-[11px] font-bold tracking-widest">WORD</span>
           </Button>
-          <Button
-            onClick={() => onExport("txt")}
-            variant="outline"
-            className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-slate-500/[0.03] hover:border-slate-500/20"
-          >
-            <AlignLeft className="h-5 w-5 mb-1.5 text-slate-500/80" />
-            <span className="text-[11px] font-bold tracking-widest">TEXT</span>
-          </Button>
-          <Button
-            onClick={() => onExport("md")}
-            variant="outline"
-            className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-emerald-500/[0.03] hover:border-emerald-500/20"
-          >
-            <FileCode className="h-5 w-5 mb-1.5 text-emerald-500/80" />
-            <span className="text-[11px] font-bold tracking-widest">MARKDOWN</span>
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button
+              onClick={() => onExport("txt")}
+              variant="outline"
+              className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-slate-500/[0.03] hover:border-slate-500/20 w-full"
+            >
+              <AlignLeft className="h-5 w-5 mb-1.5 text-slate-500/80" />
+              <span className="text-[11px] font-bold tracking-widest">TEXT</span>
+            </Button>
+            <Button
+              onClick={() => onCopy("txt")}
+              variant="ghost"
+              className="h-8 text-[9px] font-bold uppercase tracking-wider text-muted-foreground hover:text-primary"
+            >
+              <Copy className="h-3 w-3 mr-1.5" />
+              Copy to clipboard
+            </Button>
+          </div>
+          <div className="flex flex-col gap-2">
+            <Button
+              onClick={() => onExport("md")}
+              variant="outline"
+              className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-emerald-500/[0.03] hover:border-emerald-500/20 w-full"
+            >
+              <FileCode className="h-5 w-5 mb-1.5 text-emerald-500/80" />
+              <span className="text-[11px] font-bold tracking-widest">MARKDOWN</span>
+            </Button>
+            <Button
+              onClick={() => onCopy("md")}
+              variant="ghost"
+              className="h-8 text-[9px] font-bold uppercase tracking-wider text-muted-foreground hover:text-primary"
+            >
+              <Copy className="h-3 w-3 mr-1.5" />
+              Copy to clipboard
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
