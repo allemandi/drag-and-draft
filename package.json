@@ -23,7 +23,7 @@
     "critters": "^0.0.25",
     "docx": "^9.7.1",
     "jspdf": "^4.2.1",
-    "lucide-react": "^1.18.0",
+    "lucide-react": "^1.21.0",
     "next": "16.2.9",
     "next-themes": "latest",
     "react": "^19.2.7",
