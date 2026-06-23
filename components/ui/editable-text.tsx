@@ -84,20 +84,15 @@ export function EditableText({
   }
 
   return (
-    <div className="group flex items-center gap-2 max-w-full">
+    <Component className={cn("group flex items-center gap-2 max-w-full", className)}>
       <button
         id={id}
         type="button"
         onClick={() => setIsEditing(true)}
         aria-label={ariaLabel ? `Edit ${ariaLabel}` : (value ? `Edit ${value}` : "Edit empty text")}
-        className={cn(
-          "text-left cursor-pointer hover:bg-accent/20 rounded px-2 py-1 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-primary/10 hover:border-primary/30 min-w-[40px] truncate outline-none w-auto",
-          className
-        )}
+        className="text-left cursor-pointer hover:bg-accent/20 rounded px-1.5 py-0.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-transparent hover:border-primary/20 min-w-[20px] truncate outline-none"
       >
-        <Component className="inline">
-          {value || <span className="text-muted-foreground italic text-xs font-normal">Empty</span>}
-        </Component>
+        {value || <span className="text-muted-foreground italic text-xs font-normal">Empty</span>}
       </button>
       {showEditIcon && (
         <Pencil
@@ -106,6 +101,6 @@ export function EditableText({
           title="Click to edit"
         />
       )}
-    </div>
+    </Component>
   )
 }

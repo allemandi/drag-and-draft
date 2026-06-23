@@ -39,7 +39,7 @@ test('exporting works', async ({ page }) => {
 
   // Trigger a download (e.g., TXT)
   const downloadPromise = page.waitForEvent('download');
-  await page.getByRole('button', { name: /text/i }).click();
+  await page.getByRole('button', { name: 'TEXT', exact: true }).click();
   const download = await downloadPromise;
 
   expect(download.suggestedFilename()).toContain('.txt');
