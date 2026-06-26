@@ -348,6 +348,7 @@ export default function EssayOutlinePlanner() {
                   if (section.type !== "body") return null
                   return (
                     <MemoizedSortableSection key={section.id} id={section.id}>
+                      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both">
                       <MemoizedOutlineSection
                         section={section}
                         sectionIndex={idx}
@@ -366,6 +367,7 @@ export default function EssayOutlinePlanner() {
                         lastAddedId={lastAddedId}
                         setLastAddedId={setLastAddedId}
                       />
+                      </div>
                     </MemoizedSortableSection>
                   )
                 })}
