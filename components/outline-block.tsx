@@ -4,7 +4,7 @@ import type React from "react"
 import { useState, useRef, useEffect, useId } from "react"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { GripVertical, X, RefreshCw, Pencil } from "lucide-react"
+import { GripVertical, X, RefreshCw, Pencil, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { EditableText } from "@/components/ui/editable-text"
 import type { OutlineBlock as OutlineBlockType } from "@/lib/types"
@@ -33,6 +33,7 @@ export function OutlineBlock({
 }: OutlineBlockProps) {
   const dragDescId = useId()
   const [isEditing, setIsEditing] = useState(false)
+  const [tempContent, setTempContent] = useState(block.content)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -49,18 +50,44 @@ export function OutlineBlock({
   }
 
   useEffect(() => {
-    if (isEditing && textareaRef.current) {
-      textareaRef.current.focus()
-      textareaRef.current.style.height = "auto"
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+    if (isEditing) {
+      setTempContent(block.content)
+      setTimeout(() => {
+        if (textareaRef.current) {
+          textareaRef.current.focus()
+          textareaRef.current.style.height = "auto"
+          textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
+        }
+      }, 0)
     }
-  }, [isEditing])
+  }, [isEditing, block.content])
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newContent = e.target.value
+    setTempContent(newContent)
     e.target.style.height = "auto"
     e.target.style.height = `${e.target.scrollHeight}px`
-    onChange(blockIndex, newContent)
+  }
+
+  const handleBlur = (e?: React.FocusEvent | React.MouseEvent) => {
+    // If we're blurring because of an Escape key press, we don't want to save
+    if (isEditing) {
+      setIsEditing(false)
+      if (tempContent !== block.content) {
+        onChange(blockIndex, tempContent)
+      }
+    }
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault()
+      handleBlur()
+    } else if (e.key === "Escape") {
+      e.preventDefault()
+      setTempContent(block.content)
+      setIsEditing(false)
+    }
   }
 
   const getBlockStyles = (hasContent: boolean) => {
@@ -78,7 +105,7 @@ export function OutlineBlock({
       ref={setNodeRef}
       style={style}
       className={cn(
-        "group relative rounded-2xl border-1.5 sm:border-2 border-border/60 bg-card p-3 sm:p-4 transition-all duration-300 w-full min-w-0 overflow-hidden",
+        "group relative rounded-2xl border-1.5 sm:border-2 border-border/60 bg-card p-3 sm:p-4 transition-all duration-300 w-full min-w-0 overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-500 fill-mode-both",
         isDragging ? "z-50 shadow-md scale-[1.01] border-primary/20" : "shadow-soft hover:shadow-md hover:border-border"
       )}
     >
@@ -140,18 +167,37 @@ export function OutlineBlock({
 
           <div className="w-full relative group/content">
             {isEditing ? (
-              <textarea
-                ref={textareaRef}
-                value={block.content}
-                onChange={handleContentChange}
-                onBlur={() => setIsEditing(false)}
-                aria-label={`Editing content for ${block.label}`}
-                className={cn(
-                  getBlockStyles(true),
-                  "focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/40 bg-background"
-                )}
-                placeholder={block.placeholder}
-              />
+              <div className="relative">
+                <textarea
+                  ref={textareaRef}
+                  value={tempContent}
+                  onChange={handleContentChange}
+                  onBlur={handleBlur}
+                  onKeyDown={handleKeyDown}
+                  aria-label={`Editing content for ${block.label}`}
+                  className={cn(
+                    getBlockStyles(true),
+                    "focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none overflow-hidden text-sm shadow-inner-soft border-primary/40 bg-background pb-10"
+                  )}
+                  placeholder={block.placeholder}
+                />
+                <div className="absolute bottom-2 right-2 flex items-center gap-2">
+                   <span className="text-[10px] text-muted-foreground hidden sm:inline-block mr-2">
+                    Ctrl + Enter to save
+                  </span>
+                  <Button
+                    size="sm"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleBlur()
+                    }}
+                    className="h-8 px-3 rounded-lg bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors flex items-center gap-1.5"
+                  >
+                    <Check className="h-3.5 w-3.5" />
+                    <span className="text-xs font-bold">Done</span>
+                  </Button>
+                </div>
+              </div>
             ) : (
               <>
                 <div

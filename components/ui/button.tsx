@@ -5,17 +5,17 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-xs font-bold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:shrink-0 active:scale-[0.98] border",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-xs font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-3.5 [&_svg]:shrink-0 active:scale-[0.96] border",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground border-primary/40 shadow-soft hover:bg-primary/90 hover:shadow-md hover:-translate-y-0.5",
+        default: "bg-primary text-primary-foreground border-primary/40 shadow-soft hover:bg-primary/90 hover:shadow-md hover:-translate-y-0.5 active:shadow-inner",
         destructive:
-          "bg-destructive text-destructive-foreground border-destructive/40 shadow-soft hover:bg-destructive/90 hover:shadow-md hover:-translate-y-0.5",
+          "bg-destructive text-destructive-foreground border-destructive/40 shadow-soft hover:bg-destructive/90 hover:shadow-md hover:-translate-y-0.5 active:shadow-inner",
         outline:
-          "border-border bg-card shadow-soft hover:bg-accent hover:text-accent-foreground hover:border-border hover:shadow-md hover:-translate-y-0.5",
+          "border-border bg-card shadow-soft hover:bg-accent hover:text-accent-foreground hover:border-border hover:shadow-md hover:-translate-y-0.5 active:bg-accent/80",
         secondary:
-          "bg-secondary text-secondary-foreground border-border shadow-soft hover:bg-secondary/80 hover:shadow-md hover:-translate-y-0.5",
+          "bg-secondary text-secondary-foreground border-border shadow-soft hover:bg-secondary/80 hover:shadow-md hover:-translate-y-0.5 active:bg-secondary/60",
         ghost: "border-transparent hover:bg-accent/50 hover:text-accent-foreground hover:border-border",
         link: "border-transparent text-primary underline-offset-4 hover:underline",
       },

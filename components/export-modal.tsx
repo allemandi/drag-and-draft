@@ -1,6 +1,7 @@
 "use client";
 
-import { FileText, AlignLeft, Download, FileCode, Copy } from "lucide-react";
+import { useState } from "react";
+import { FileText, AlignLeft, Download, FileCode, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,6 +18,14 @@ interface ExportModalProps {
 }
 
 export function ExportModal({ onExport, onCopy }: ExportModalProps) {
+  const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
+
+  const handleCopy = async (format: "txt" | "md") => {
+    onCopy(format);
+    setCopiedFormat(format);
+    setTimeout(() => setCopiedFormat(null), 2000);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -59,12 +68,16 @@ export function ExportModal({ onExport, onCopy }: ExportModalProps) {
               <span className="text-[11px] font-bold tracking-widest">TEXT</span>
             </Button>
             <Button
-              onClick={() => onCopy("txt")}
-              variant="ghost"
-              className="h-8 text-[9px] font-bold uppercase tracking-wider text-muted-foreground hover:text-primary"
+              onClick={() => handleCopy("txt")}
+              variant="secondary"
+              className="h-9 text-[10px] font-bold uppercase tracking-wider rounded-lg"
             >
-              <Copy className="h-3 w-3 mr-1.5" />
-              Copy to clipboard
+              {copiedFormat === "txt" ? (
+                <Check className="h-3.5 w-3.5 mr-1.5 text-emerald-500" />
+              ) : (
+                <Copy className="h-3.5 w-3.5 mr-1.5" />
+              )}
+              {copiedFormat === "txt" ? "Copied!" : "Copy Text"}
             </Button>
           </div>
           <div className="flex flex-col gap-2">
@@ -77,12 +90,16 @@ export function ExportModal({ onExport, onCopy }: ExportModalProps) {
               <span className="text-[11px] font-bold tracking-widest">MARKDOWN</span>
             </Button>
             <Button
-              onClick={() => onCopy("md")}
-              variant="ghost"
-              className="h-8 text-[9px] font-bold uppercase tracking-wider text-muted-foreground hover:text-primary"
+              onClick={() => handleCopy("md")}
+              variant="secondary"
+              className="h-9 text-[10px] font-bold uppercase tracking-wider rounded-lg"
             >
-              <Copy className="h-3 w-3 mr-1.5" />
-              Copy to clipboard
+              {copiedFormat === "md" ? (
+                <Check className="h-3.5 w-3.5 mr-1.5 text-emerald-500" />
+              ) : (
+                <Copy className="h-3.5 w-3.5 mr-1.5" />
+              )}
+              {copiedFormat === "md" ? "Copied!" : "Copy MD"}
             </Button>
           </div>
         </div>
