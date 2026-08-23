@@ -18,7 +18,13 @@ interface ExportModalProps {
 }
 
 export function ExportModal({ onExport, onCopy }: ExportModalProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const [copiedFormat, setCopiedFormat] = useState<string | null>(null);
+
+  const handleExport = (format: "pdf" | "docx" | "txt" | "md") => {
+    onExport(format);
+    setIsOpen(false);
+  };
 
   const handleCopy = async (format: "txt" | "md") => {
     onCopy(format);
@@ -27,7 +33,7 @@ export function ExportModal({ onExport, onCopy }: ExportModalProps) {
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm" className="h-8 px-2 sm:px-3 rounded-lg font-bold text-[10px] sm:text-xs">
           <Download className="h-3 w-3 sm:h-3.5 sm:w-3.5 mr-1 sm:mr-1.5" />
@@ -43,7 +49,7 @@ export function ExportModal({ onExport, onCopy }: ExportModalProps) {
         </DialogHeader>
         <div className="grid grid-cols-2 gap-3 mt-6">
           <Button
-            onClick={() => onExport("pdf")}
+            onClick={() => handleExport("pdf")}
             variant="outline"
             className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-red-500/[0.03] hover:border-red-500/20"
           >
@@ -51,7 +57,7 @@ export function ExportModal({ onExport, onCopy }: ExportModalProps) {
             <span className="text-[11px] font-bold tracking-widest">PDF</span>
           </Button>
           <Button
-            onClick={() => onExport("docx")}
+            onClick={() => handleExport("docx")}
             variant="outline"
             className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-blue-500/[0.03] hover:border-blue-500/20"
           >
@@ -60,7 +66,7 @@ export function ExportModal({ onExport, onCopy }: ExportModalProps) {
           </Button>
           <div className="flex flex-col gap-2">
             <Button
-              onClick={() => onExport("txt")}
+              onClick={() => handleExport("txt")}
               variant="outline"
               className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-slate-500/[0.03] hover:border-slate-500/20 w-full"
             >
@@ -82,7 +88,7 @@ export function ExportModal({ onExport, onCopy }: ExportModalProps) {
           </div>
           <div className="flex flex-col gap-2">
             <Button
-              onClick={() => onExport("md")}
+              onClick={() => handleExport("md")}
               variant="outline"
               className="h-20 flex-col items-center justify-center rounded-xl p-4 transition-all hover:bg-emerald-500/[0.03] hover:border-emerald-500/20 w-full"
             >
