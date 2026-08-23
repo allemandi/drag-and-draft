@@ -84,23 +84,24 @@ export function EditableText({
   }
 
   return (
-    <Component className={cn("group flex items-center gap-2 max-w-full", className)}>
+    <Component className={cn("group inline-flex items-center max-w-full", className)}>
       <button
         id={id}
         type="button"
         onClick={() => setIsEditing(true)}
         aria-label={ariaLabel ? `Edit ${ariaLabel}` : (value ? `Edit ${value}` : "Edit empty text")}
-        className="text-left cursor-pointer hover:bg-accent/20 rounded px-1.5 py-0.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-transparent hover:border-primary/20 min-w-[20px] truncate outline-none"
+        className="inline-flex items-center gap-2 text-left cursor-pointer hover:bg-accent/20 rounded px-1.5 py-0.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-transparent hover:border-primary/20 min-w-[20px] max-w-full outline-none"
       >
-        {value || <span className="text-muted-foreground italic text-xs font-normal">Empty</span>}
+        <span className="truncate">
+          {value || <span className="text-muted-foreground italic text-xs font-normal">Empty</span>}
+        </span>
+        {showEditIcon && (
+          <Pencil
+            className="h-3 w-3 text-primary/40 opacity-100 sm:opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity flex-shrink-0"
+            aria-hidden="true"
+          />
+        )}
       </button>
-      {showEditIcon && (
-        <Pencil
-          className="h-3 w-3 text-primary/40 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity flex-shrink-0"
-          aria-hidden="true"
-          title="Click to edit"
-        />
-      )}
     </Component>
   )
 }

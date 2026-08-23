@@ -187,6 +187,7 @@ export function OutlineBlock({
                   </span>
                   <Button
                     size="sm"
+                    onMouseDown={(e) => e.preventDefault()}
                     onClick={(e) => {
                       e.preventDefault()
                       handleBlur()
@@ -228,15 +229,18 @@ export function OutlineBlock({
                     )}
                   </div>
                 </div>
-                <div className="absolute right-3 top-3 flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover/content:opacity-100 transition-opacity">
+                <div className="absolute right-3 top-3 flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover/content:opacity-100 transition-opacity z-10">
                   {block.content && (
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => onChange(blockIndex, "")}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onChange(blockIndex, "")
+                      }}
                       className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 rounded-md"
                       title="Clear Content"
-                      aria-label="Clear block content"
+                      aria-label={`Clear content for ${block.label}`}
                     >
                       <X className="h-3 w-3" />
                     </Button>
@@ -244,10 +248,13 @@ export function OutlineBlock({
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => setIsEditing(true)}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setIsEditing(true)
+                    }}
                     className="h-6 w-6 text-primary/40 hover:text-primary hover:bg-primary/5 rounded-md"
                     title="Edit Content"
-                    aria-label="Edit block content"
+                    aria-label={`Edit content for ${block.label}`}
                   >
                     <Pencil className="h-3 w-3" />
                   </Button>
