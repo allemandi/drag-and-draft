@@ -15,5 +15,5 @@ export const SITE_CONFIG = {
     "Essay Outline Tool",
     "Drag and Drop Writing",
     "Productivity for Students",
-  ] as string[],
+  ],
 } as const
