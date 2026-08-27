@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_CONFIG.name}`,
   },
   description: SITE_CONFIG.description,
-  keywords: SITE_CONFIG.keywords,
+  keywords: [...SITE_CONFIG.keywords],
   authors: [{ name: SITE_CONFIG.author, url: SITE_CONFIG.github }],
   creator: SITE_CONFIG.author,
   alternates: { canonical: "/" },
