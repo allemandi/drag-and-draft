@@ -57,17 +57,19 @@ export function EditableText({
     }
   }
 
+  const labelText = ariaLabel ? `Edit ${ariaLabel}` : value ? `Edit ${value}` : "Edit empty text"
+
   if (isEditing) {
     return (
       <div className="flex items-center gap-2 max-w-full">
         <Input
-          id={id}
+          id={id ? `${id}-input` : undefined}
           ref={inputRef}
           value={tempValue}
           onChange={(e) => setTempValue(e.target.value)}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          aria-label={ariaLabel ? `Editing ${ariaLabel}` : (value ? `Editing ${value}` : "Edit text")}
+          aria-label={ariaLabel ? `Editing ${ariaLabel}` : value ? `Editing ${value}` : "Edit text"}
           className={cn(
             "h-auto py-1 px-2 min-w-[50px] inline-block font-inherit text-inherit leading-inherit border-primary/40 bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 shadow-sm",
             inputClassName
@@ -83,24 +85,54 @@ export function EditableText({
     )
   }
 
+  const content = (
+    <>
+      <span className="truncate">
+        {value || <span className="text-muted-foreground italic text-xs font-normal">Empty</span>}
+      </span>
+      {showEditIcon && (
+        <Pencil
+          className="h-3 w-3 text-primary/40 opacity-100 sm:opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity flex-shrink-0"
+          aria-hidden="true"
+        />
+      )}
+    </>
+  )
+
+  const triggerClasses =
+    "inline-flex items-center gap-2 text-left cursor-pointer hover:bg-accent/20 rounded px-1.5 py-0.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-transparent hover:border-primary/20 min-w-[20px] max-w-full outline-none"
+
+  if (Component === "label") {
+    return (
+      <label
+        id={id}
+        onClick={() => setIsEditing(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault()
+            setIsEditing(true)
+          }
+        }}
+        tabIndex={0}
+        role="button"
+        aria-label={labelText}
+        className={cn("group max-w-full", triggerClasses, className)}
+      >
+        {content}
+      </label>
+    )
+  }
+
   return (
     <Component className={cn("group inline-flex items-center max-w-full", className)}>
       <button
         id={id}
         type="button"
         onClick={() => setIsEditing(true)}
-        aria-label={ariaLabel ? `Edit ${ariaLabel}` : (value ? `Edit ${value}` : "Edit empty text")}
-        className="inline-flex items-center gap-2 text-left cursor-pointer hover:bg-accent/20 rounded px-1.5 py-0.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 border border-transparent hover:border-primary/20 min-w-[20px] max-w-full outline-none"
+        aria-label={labelText}
+        className={triggerClasses}
       >
-        <span className="truncate">
-          {value || <span className="text-muted-foreground italic text-xs font-normal">Empty</span>}
-        </span>
-        {showEditIcon && (
-          <Pencil
-            className="h-3 w-3 text-primary/40 opacity-100 sm:opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity flex-shrink-0"
-            aria-hidden="true"
-          />
-        )}
+        {content}
       </button>
     </Component>
   )
