@@ -121,8 +121,9 @@ export function OutlineSection({
             variant="ghost"
             size="sm"
             onClick={() => onResetTitle(sectionIndex)}
-            className="h-9 sm:h-8 px-2 sm:px-2 gap-1.5 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5"
-            title="Reset Title"
+            className="h-9 sm:h-8 px-2 sm:px-2 gap-1.5 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+            title={`Reset title for ${section.title}`}
+            aria-label={`Reset title for ${section.title}`}
           >
             <RefreshCw className="h-3.5 w-3.5" />
             <span className="sm:inline">Reset Title</span>
@@ -132,7 +133,8 @@ export function OutlineSection({
             variant="secondary"
             size="sm"
             onClick={() => onAddBlock(sectionIndex)}
-            className="h-9 sm:h-8 px-3 sm:px-3 gap-1.5 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg"
+            className="h-9 sm:h-8 px-3 sm:px-3 gap-1.5 text-[10px] font-black uppercase tracking-wider shadow-sm rounded-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+            aria-label={`Add new block to ${section.title}`}
           >
             <Plus className="h-3 w-3" />
             <span className="sm:inline">Add Block</span>
@@ -143,8 +145,9 @@ export function OutlineSection({
               variant="ghost"
               size="icon"
               onClick={() => onRemoveSection(sectionIndex)}
-              className="h-9 w-9 sm:h-7 sm:w-7 text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive"
-              title="Remove Section"
+              className="h-9 w-9 sm:h-7 sm:w-7 text-muted-foreground/60 hover:bg-destructive/10 hover:text-destructive focus-visible:ring-2 focus-visible:ring-destructive focus-visible:ring-offset-1"
+              title={`Remove section ${section.title}`}
+              aria-label={`Remove section ${section.title}`}
             >
               <X className="h-3.5 w-3.5" />
             </Button>
