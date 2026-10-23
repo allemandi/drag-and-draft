@@ -69,7 +69,7 @@ export function OutlineBlock({
     e.target.style.height = `${e.target.scrollHeight}px`
   }
 
-  const handleBlur = (e?: React.FocusEvent | React.MouseEvent) => {
+  const handleBlur = () => {
     // If we're blurring because of an Escape key press, we don't want to save
     if (isEditing) {
       setIsEditing(false)
