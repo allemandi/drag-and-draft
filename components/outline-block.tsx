@@ -91,7 +91,7 @@ export function OutlineBlock({
   }
 
   const getBlockStyles = (hasContent: boolean) => {
-    const base = "w-full min-h-[40px] sm:min-h-[50px] p-3 sm:p-4 rounded-xl transition-all duration-300 border"
+    const base = "w-full min-h-[40px] sm:min-h-[50px] p-3 sm:p-4 rounded-xl transition-all duration-300 border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     if (!hasContent) {
       return cn(base, "bg-muted/10 border-primary/10 hover:bg-muted/20 hover:border-primary/20 hover:shadow-inner")
     }
@@ -145,8 +145,9 @@ export function OutlineBlock({
                 variant="ghost"
                 size="sm"
                 onClick={() => onResetLabel(blockIndex)}
-                className="h-6 w-6 sm:w-auto gap-1 px-0 sm:px-1.5 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5"
-                title="Reset Label"
+                className="h-6 w-6 sm:w-auto gap-1 px-0 sm:px-1.5 text-[10px] font-bold uppercase text-muted-foreground/70 hover:text-primary hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+                title={`Reset label for ${block.label}`}
+                aria-label={`Reset label for ${block.label}`}
               >
                 <RefreshCw className="h-3 w-3" />
                 <span className="hidden sm:inline">Reset</span>
@@ -156,8 +157,9 @@ export function OutlineBlock({
                   variant="ghost"
                   size="icon"
                   onClick={() => onRemoveBlock(blockIndex)}
-                  className="h-6 w-6 text-muted-foreground/60 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover:opacity-100 transition-opacity"
-                  title="Remove Block"
+                  className="h-6 w-6 text-muted-foreground/60 hover:text-destructive hover:bg-destructive/5 sm:opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity focus-visible:ring-2 focus-visible:ring-destructive focus-visible:ring-offset-1"
+                  title={`Remove ${block.label} block`}
+                  aria-label={`Remove ${block.label} block`}
                 >
                   <X className="h-3.5 w-3.5" />
                 </Button>
@@ -182,8 +184,8 @@ export function OutlineBlock({
                   placeholder={block.placeholder}
                 />
                 <div className="absolute bottom-2 right-2 flex items-center gap-2">
-                   <span className="text-[10px] text-muted-foreground hidden sm:inline-block mr-2">
-                    Ctrl + Enter to save
+                  <span className="text-[10px] text-muted-foreground hidden sm:inline-block mr-2">
+                    Ctrl + Enter to save, Esc to cancel
                   </span>
                   <Button
                     size="sm"
@@ -192,7 +194,8 @@ export function OutlineBlock({
                       e.preventDefault()
                       handleBlur()
                     }}
-                    className="h-8 px-3 rounded-lg bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors flex items-center gap-1.5"
+                    className="h-8 px-3 rounded-lg bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors flex items-center gap-1.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+                    aria-label={`Save content for ${block.label}`}
                   >
                     <Check className="h-3.5 w-3.5" />
                     <span className="text-xs font-bold">Done</span>
@@ -229,7 +232,7 @@ export function OutlineBlock({
                     )}
                   </div>
                 </div>
-                <div className="absolute right-3 top-3 flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover/content:opacity-100 transition-opacity z-10">
+                <div className="absolute right-3 top-3 flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover/content:opacity-100 focus-within:opacity-100 transition-opacity z-10">
                   {block.content && (
                     <Button
                       variant="ghost"
@@ -238,8 +241,8 @@ export function OutlineBlock({
                         e.stopPropagation()
                         onChange(blockIndex, "")
                       }}
-                      className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 rounded-md"
-                      title="Clear Content"
+                      className="h-6 w-6 text-muted-foreground/40 hover:text-destructive hover:bg-destructive/5 rounded-md focus-visible:ring-2 focus-visible:ring-destructive focus-visible:ring-offset-1"
+                      title={`Clear content for ${block.label}`}
                       aria-label={`Clear content for ${block.label}`}
                     >
                       <X className="h-3 w-3" />
@@ -252,8 +255,8 @@ export function OutlineBlock({
                       e.stopPropagation()
                       setIsEditing(true)
                     }}
-                    className="h-6 w-6 text-primary/40 hover:text-primary hover:bg-primary/5 rounded-md"
-                    title="Edit Content"
+                    className="h-6 w-6 text-primary/40 hover:text-primary hover:bg-primary/5 rounded-md focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1"
+                    title={`Edit content for ${block.label}`}
                     aria-label={`Edit content for ${block.label}`}
                   >
                     <Pencil className="h-3 w-3" />
