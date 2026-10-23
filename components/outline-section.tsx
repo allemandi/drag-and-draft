@@ -51,8 +51,6 @@ export function OutlineSection({
   onBlockDragEnd,
   sensors,
   isDraggable,
-  lastAddedId,
-  setLastAddedId,
 }: OutlineSectionProps) {
   const [activeBlockId, setActiveBlockId] = useState<string | null>(null)
 
