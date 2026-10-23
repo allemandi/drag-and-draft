@@ -9,7 +9,6 @@ import {
   TouchSensor,
   PointerSensor,
   KeyboardSensor,
-  DragEndEvent,
   DragStartEvent,
   DragOverlay,
   defaultDropAnimationSideEffects,
